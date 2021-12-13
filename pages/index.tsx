@@ -58,7 +58,7 @@ export default function App() {
         </HStack>
       </VStack>
       <ColorModeSwitch />
-      <Link mt="6" href="https://github.com/grumpyshib/ShibHope" isExternal>
+      <Link mt="6" href="https://github.com/grumpyshiba/ShibHope" isExternal>
         <Button variant="outline" colorScheme="coolGray">
           View Repo
         </Button>
