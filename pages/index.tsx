@@ -26,47 +26,39 @@ export default function App() {
       _light={{ bg: "blueGray.50" }}
     >
       <VStack alignItems="center" space="md">
-        <HStack alignItems="center" space="2xl">
-          <AspectRatio w={24} ratio={1.66}>
-            <Image
-              source={{ uri: "images/nextjs-logo.png" }}
-              alt="NextJS Logo"
-              resizeMode="contain"
-            />
-          </AspectRatio>
-          <Text fontSize="4xl">+</Text>
+        <AspectRatio w={48} ratio={1.66}>
           <Image
-            source={{ uri: "images/nativebase-logo.svg" }}
-            alt="NativeBase Logo"
-            size={24}
+            source={{ uri: "images/worker.png" }}
+            alt="Shiba Worker"
             resizeMode="contain"
           />
-        </HStack>
-        <Heading>Welcome to NativeBase</Heading>
+        </AspectRatio>
+        <Heading>Under Construction</Heading>
         <Text>
-          Edit <Code>src/pages/index.js</Code> and save to reload.
+          This website is under development process right now.
+          Check Later!
         </Text>
         <HStack alignItems="center" space="sm">
-          <Link href="https://nextjs.org/docs/getting-started" isExternal>
+          <Link href="https://grumpyshib.com" isExternal>
             <Text
               _light={{ color: "gray.700" }}
               _dark={{ color: "gray.400" }}
               underline
               fontSize={"xl"}
             >
-              Learn NextJS
+              GrumpyShiba
             </Text>
           </Link>
           <Text>/</Text>
-          <Link href="https://docs.nativebase.io" isExternal>
+          <Link href="https://discord.gg/rpW3eKSWS5" isExternal>
             <Text color="primary.500" underline fontSize={"xl"}>
-              Learn NativeBase
+              Discord
             </Text>
           </Link>
         </HStack>
       </VStack>
       <ColorModeSwitch />
-      <Link mt="6" href="https://docs.nativebase.io" isExternal>
+      <Link mt="6" href="https://github.com/NeptoLab/ShibHope" isExternal>
         <Button variant="outline" colorScheme="coolGray">
           View Repo
         </Button>
