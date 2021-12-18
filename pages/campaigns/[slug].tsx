@@ -35,7 +35,7 @@ const CampaignViewPage: NextPage = () => {
         <Text color="primary.700" fontWeight="bold">Moscow, Russia</Text>
         <Text ml="auto"><Text fontWeight="bold">Posted At:</Text> 19/05/1990</Text>
       </View>
-      <Heading mt={4} textAlign="left">What's happened with me title</Heading>
+      <Heading mt={4} textAlign="left">What&apos;s happened with me title</Heading>
       <HStack space="30px">
         <View flex={1}>
           <Text mt={4}>

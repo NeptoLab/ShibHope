@@ -5,10 +5,11 @@ import {
   Image,
   Button,
   VStack,
+  Link,
 } from "native-base"
 import Block from "./Block";
 
-const Create: React.FC<{ title: string }> = ({ title }) => {
+const Create: React.FC<{ title: string, category: 'charity' | 'donation' | 'project' }> = ({ title, category }) => {
   return (
     <Block w={370} my={3}>
       <AspectRatio w="100%" ratio={16 / 9}>
@@ -23,9 +24,11 @@ const Create: React.FC<{ title: string }> = ({ title }) => {
         <Heading my={4} size="lg">
           {title}
         </Heading>
-        <Button variant="glow">
-          Start Your Campaign
-        </Button>
+        <Link href={`create/${category}`}>
+          <Button variant="glow">
+            Start Your Campaign
+          </Button>
+        </Link>
       </VStack>
     </Block>
   )
