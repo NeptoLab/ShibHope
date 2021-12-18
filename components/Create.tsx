@@ -24,7 +24,7 @@ const Create: React.FC<{ title: string, category: 'charity' | 'donation' | 'crow
         <Heading my={4} size="lg">
           {title}
         </Heading>
-        <Link href={`create/${category}`}>
+        <Link flex={1} href={`create/${category}`}>
           <Button variant="glow">
             Start Your Campaign
           </Button>
