@@ -1,5 +1,6 @@
 import { NextPage } from "next";
-
+import { gql, useQuery } from "@apollo/client";
+import { useRouter } from "next/dist/client/router";
 import React from "react";
 import Layout from "components/Layout";
 import { View, Text, Heading, HStack, VStack, Button, AspectRatio, Image } from "native-base";
@@ -8,7 +9,9 @@ import Stake from "components/Stake";
 import StakeModal from "components/StakeModal";
 import useModal from "hooks/useModal";
 
+
 const CampaignViewPage: NextPage = () => {
+  const { query: { slug } } = useRouter();
   const { isOpen, handleClose, handleOpen } = useModal();
 
   return (
