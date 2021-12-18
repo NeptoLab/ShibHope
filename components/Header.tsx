@@ -1,13 +1,9 @@
 import { useWeb3React } from '@web3-react/core';
-import { Button, HStack, Link, Menu, Popover, Text } from 'native-base';
+import { Button, HStack, Link, Popover, Text } from 'native-base';
 import { InjectedConnector } from '@web3-react/injected-connector';
-import GrumpyShibaAbi from 'contracts/GrumpyShibaAbi.json';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Logo from './Logo';
-import type Web3 from 'web3';
-import useSWR from 'swr';
-
-const fetcher = (url: string) => fetch(url).then(r => r.json());
+import usePayment from 'hooks/usePayment';
 
 const injected = new InjectedConnector({
   supportedChainIds: [1, 3, 4, 5, 42, 56],
@@ -15,10 +11,7 @@ const injected = new InjectedConnector({
 
 const Header: React.FC = () => {
   const { active, account, library, activate, deactivate } = useWeb3React();
-  const [ balance, setBalance ] = useState<number | undefined>(undefined);
-  const { data: { data: { price } } = { data: { price: 0 } } } = useSWR('https://api.pancakeswap.info/api/v2/tokens/0xAe448cB5A3ec77BA4aDcc6C8f9621e5921DCd77a', fetcher);
-  
-  const web3: Web3 = library;
+  const { balance, price } = usePayment(library, account);
 
   useEffect(() => {
     injected.isAuthorized().then((isAuthorized) => {
@@ -35,15 +28,6 @@ const Header: React.FC = () => {
   const handleDisconnect = async () => {
     deactivate();
   };
-
-  useEffect(() => {
-    if (web3) {
-      const contract = new web3.eth.Contract(GrumpyShibaAbi as any, '0xAe448cB5A3ec77BA4aDcc6C8f9621e5921DCd77a');
-      contract.methods.balanceOf(account).call().then((balance: number) => {
-        setBalance(balance);
-      });
-    }
-  }, [web3]);
 
   return (
     <HStack bg="white" shadow={5} space={2} py={6} px={10} justifyContent="center">
