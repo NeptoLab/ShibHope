@@ -164,6 +164,7 @@ const App = ({ Component, pageProps, apollo }: AppProps & { apollo: ApolloClient
 export default withApollo(({ initialState }) => {
   return new ApolloClient({
     uri: 'https://grumpyshiba.hasura.app/v1/graphql',
-    cache: new InMemoryCache().restore(initialState || {})
+    cache: new InMemoryCache().restore(initialState || {}),
+    credentials: 'include'
   });
 })(App);
