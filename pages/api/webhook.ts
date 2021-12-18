@@ -1,5 +1,4 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import cookie from "cookie"
 import util from 'ethereumjs-util';
 import web3 from "web3";
 
@@ -13,6 +12,11 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   const sig = util.fromRpcSig(req.headers.authorization);
   const publicKey = util.ecrecover(util.toBuffer(web3.utils.sha3('shibhope')), sig.v, sig.r, sig.s);
   const address = util.pubToAddress(publicKey).toString('hex');
+
+  console.log('Response', {
+    "X-Hasura-User-Id": address,
+    "X-Hasura-Role": "user"
+  });
 
   return res.json({
     "X-Hasura-User-Id": address,
