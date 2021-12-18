@@ -9,10 +9,24 @@ import Stake from "components/Stake";
 import StakeModal from "components/StakeModal";
 import useModal from "hooks/useModal";
 
+const GetCampaignQuery = gql`
+  query MyQuery($id: bigint!) {
+    campaign(where: {id: { _eq: $id }}) {
+      id
+      title
+      media
+      owner
+      description
+      category
+      amount
+    }
+  }
+`;
 
 const CampaignViewPage: NextPage = () => {
   const { query: { slug } } = useRouter();
   const { isOpen, handleClose, handleOpen } = useModal();
+  const { data } = useQuery(GetCampaignQuery, { variables: { id: slug } });
 
   return (
     <Layout>

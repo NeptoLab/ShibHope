@@ -2,6 +2,8 @@ import type { AppProps } from "next/app";
 import { extendTheme, NativeBaseProvider } from "native-base";
 import AppLoading from 'expo-app-loading';
 import { useFonts } from "expo-font";
+import withApollo from "next-with-apollo";
+import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 
 const theme = extendTheme({
   fontConfig: {
@@ -132,7 +134,7 @@ const config = {
 };
 
 
-const App = ({ Component, pageProps }: AppProps) => {
+const App = ({ Component, pageProps, apollo }: AppProps & { apollo: ApolloClient<InMemoryCache> }) => {
   const [fontsLoaded] = useFonts({
     'MuseoSansCyrl-Bold': require('fonts/MuseoSansCyrl-Bold.ttf').default,
     'MuseoSansCyrl-BoldItalic': require('fonts/MuseoSansCyrl-BoldItalic.ttf').default,
@@ -151,10 +153,17 @@ const App = ({ Component, pageProps }: AppProps) => {
   }
   
   return (
-    <NativeBaseProvider config={config} theme={theme}>
-      <Component {...pageProps} />
-    </NativeBaseProvider>
+    <ApolloProvider client={apollo}>
+      <NativeBaseProvider config={config} theme={theme}>
+        <Component {...pageProps} />
+      </NativeBaseProvider>
+    </ApolloProvider>
   );
 }
 
-export default App;
+export default withApollo(({ initialState }) => {
+  return new ApolloClient({
+    uri: 'https://grumpyshiba.hasura.app/v1/graphql',
+    cache: new InMemoryCache().restore(initialState || {})
+  });
+})(App);
