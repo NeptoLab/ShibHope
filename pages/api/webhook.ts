@@ -4,8 +4,6 @@ import util from 'ethereumjs-util';
 import web3 from "web3";
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  res.status(200);
-
   const cookies = cookie.parse(req.headers.cookie || '');
   console.log(req.headers);
 
