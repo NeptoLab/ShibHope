@@ -1,6 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import util from 'ethereumjs-util';
-import web3 from "web3";
+import * as util from 'ethereumjs-util';
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   if (!req.headers.authorization) {
@@ -10,8 +9,9 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   }
 
   const sig = util.fromRpcSig(req.headers.authorization);
-  const publicKey = util.ecrecover(util.toBuffer(web3.utils.sha3('shibhope')), sig.v, sig.r, sig.s);
-  const address = util.pubToAddress(publicKey).toString('hex');
+  const publicKey = util.ecrecover(util.toBuffer(util.hashPersonalMessage(Buffer.from('SHIBHOPE: Authentication Required'))), sig.v, sig.r, sig.s);
+  const addrBuf = util.pubToAddress(publicKey);
+  const address = util.bufferToHex(addrBuf);
 
   console.log('Response', {
     "X-Hasura-User-Id": address,
