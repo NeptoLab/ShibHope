@@ -16,7 +16,7 @@ const Media: React.FC = () => {
         />
         <View>
           <Text fontWeight="bold" fontSize="12px">0x00000000000000</Text>
-          <Text my={1} fontSize="16px" fontWeight="thin">Yeah, it's really sad!</Text>
+          <Text my={1} fontSize="16px" fontWeight="thin">Yeah, it&apos;s really sad!</Text>
           <Text fontWeight="bold" color="primary.500">500 GRUMPYSHIB</Text>
         </View>
       </HStack>
