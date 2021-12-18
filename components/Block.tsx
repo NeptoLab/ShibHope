@@ -1,15 +1,15 @@
-import React from "react"
+import React from "react";
 import {
   Box,
   IBoxProps,
-} from "native-base"
+} from "native-base";
 
 const Block: React.FC<IBoxProps> = ({ children, ...props }) => {
   return (
     <Box
       rounded="lg"
       overflow="hidden"
-      borderColor="white"
+      bg="white"
       borderWidth="1"
       _web={{
         shadow: 2,
@@ -19,7 +19,7 @@ const Block: React.FC<IBoxProps> = ({ children, ...props }) => {
     >
       {children}
     </Box>
-  )
+  );
 }
 
 export default Block;

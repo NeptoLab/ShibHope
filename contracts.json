@@ -1,0 +1,10 @@
+{
+  "outputPath": "./contracts",
+  "contracts": {
+    "GrumpyShibaContract": {
+      "source": "bscscan",
+      "net": "mainnet",
+      "address": "0xAe448cB5A3ec77BA4aDcc6C8f9621e5921DCd77a"
+    }
+  }
+}

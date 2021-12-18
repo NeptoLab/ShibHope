@@ -1,6 +1,6 @@
 import { NextPage } from "next";
 
-import { Button, Link, Heading, HStack } from 'native-base';
+import { Button, Link, Heading, HStack, View } from 'native-base';
 import React from "react";
 import Cover from "components/Cover";
 import Layout from "components/Layout";
@@ -20,12 +20,14 @@ const IndexPage: NextPage = () => (
     <Title>
       Top Fundraisers
     </Title>
-    <HStack mt={7} space="30px" flexWrap="wrap">
+    <View m="-15px" mt={7} flexWrap="wrap" flexDirection="row">
       <Campaign />
       <Campaign />
       <Campaign />
-    </HStack>
-    <Button w="270px" mx="auto" variant="outline" mt={4} mb={12}>Show More</Button>
+    </View>
+      <Link href="/campaigns">
+        <Button w="270px" mx="auto" variant="outline" mt={4} mb={12}>Show More</Button>
+      </Link>
     <Title>
       Start Your Campaign
     </Title>

@@ -11,6 +11,7 @@ class MyDocument extends NextDocument {
           <meta name="description" content="SHIBHOPE: Crowfunding charity platform" />
           <meta name="keywords" content="charity, projects, social, justice, shiba" />
           <link rel="icon" href="images/favicon.png" type="image/png" />
+          <style dangerouslySetInnerHTML={{ __html: 'body { background: #F7F8F9; }' }} />
           <title>ShibHope</title>
         </Head>
         <body>

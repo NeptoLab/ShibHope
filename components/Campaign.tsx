@@ -7,12 +7,13 @@ import {
   Stack,
   Progress,
   Button,
+  Link,
 } from "native-base"
 import Block from "./Block";
 
 const Campaign: React.FC = () => {
   return (
-    <Block maxW={370} my={3}>
+    <Block maxW={370} m="15px">
       <AspectRatio w="100%" ratio={16 / 9}>
         <Image
           source={{
@@ -49,7 +50,9 @@ const Campaign: React.FC = () => {
         <Text>
           <Text fontWeight="bold">$4,990 raised</Text> of $20,000
         </Text>
-        <Button variant="glow" mt={1}>Stake</Button>
+        <Link href={`/campaigns/${1}`}>
+          <Button flex={1} variant="glow" mt={1}>Stake</Button>
+        </Link>
       </Stack>
     </Block>
   )
