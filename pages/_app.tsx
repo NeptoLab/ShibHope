@@ -4,6 +4,7 @@ import AppLoading from 'expo-app-loading';
 import { useFonts } from "expo-font";
 import withApollo from "next-with-apollo";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
+import cookie from "js-cookie";
 
 const theme = extendTheme({
   fontConfig: {
@@ -165,6 +166,7 @@ export default withApollo(({ initialState }) => {
   return new ApolloClient({
     uri: 'https://shibhope.hasura.app/v1/graphql',
     cache: new InMemoryCache().restore(initialState || {}),
-    credentials: 'include'
+    credentials: 'include',
+    headers: { authorization: cookie.get('token') || '' }
   });
 })(App);

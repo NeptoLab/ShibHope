@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import useSWR from "swr";
 import type Web3 from "web3";
+import cookie from 'js-cookie';
 
 const fetcher = (url: string) => fetch(url).then(r => r.json());
 
@@ -15,6 +16,16 @@ const usePayment = (web3: Web3, account?: string | null) => {
       setContract(new web3.eth.Contract(JSON.parse(result), '0xAe448cB5A3ec77BA4aDcc6C8f9621e5921DCd77a'));
     }
   }, [web3, result]);
+
+  useEffect(() => {
+    if (account) {
+      console.log('sign function', account);
+      web3.eth.personal.sign(web3.utils.sha3('shibhope') as string, account, '').then((token) => {
+        console.log(token);
+        cookie.set('token', token);
+      });
+    }
+  }, [account]);
 
   useEffect(() => {
     contract && contract.methods.balanceOf(account).call().then((balance: number) => {

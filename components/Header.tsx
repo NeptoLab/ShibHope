@@ -16,13 +16,17 @@ const Header: React.FC = () => {
   useEffect(() => {
     injected.isAuthorized().then((isAuthorized) => {
       if (isAuthorized) {
-        activate(injected);
+        handleConnect();
       }
     });
   }, []);
 
   const handleConnect = async () => {
-    activate(injected);
+    try {
+      await activate(injected);
+    } catch(e) {
+      console.error(e);
+    }
   };
 
   const handleDisconnect = async () => {
