@@ -14,7 +14,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   }
 
   const sig = util.fromRpcSig(cookies.token);
-  const publicKey = util.ecrecover(util.toBuffer(web3.utils.sha3('test')), sig.v, sig.r, sig.s);
+  const publicKey = util.ecrecover(util.toBuffer(web3.utils.sha3('shibhope')), sig.v, sig.r, sig.s);
   const address = util.pubToAddress(publicKey).toString('hex');
 
   return res.json({
