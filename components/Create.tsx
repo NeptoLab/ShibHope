@@ -9,7 +9,7 @@ import {
 } from "native-base"
 import Block from "./Block";
 
-const Create: React.FC<{ title: string, category: 'charity' | 'donation' | 'project' }> = ({ title, category }) => {
+const Create: React.FC<{ title: string, category: 'charity' | 'donation' | 'crowdfunding' }> = ({ title, category }) => {
   return (
     <Block w={370} my={3}>
       <AspectRatio w="100%" ratio={16 / 9}>

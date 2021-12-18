@@ -32,9 +32,9 @@ const IndexPage: NextPage = () => (
       Start Your Campaign
     </Title>
     <HStack mt={7} space="30px" flexWrap="wrap">
-      <Create title="For Charity" />
-      <Create title="For People" />
-      <Create title="For Project" />
+      <Create category="charity" title="For Charity" />
+      <Create category="donation" title="For People" />
+      <Create category="crowdfunding" title="For Project" />
     </HStack>
   </Layout>
 );
