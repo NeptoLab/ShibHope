@@ -10,14 +10,14 @@ const CampaignsIndexPage: NextPage = () => (
   <Layout>
     <Block px={4} py={2} alignItems="center" flexDirection="row">
       <FormControl alignItems="center" w={250} flexDirection="row">
-        <FormControl.Label fontWeight="bold" m={0} mr={2}>Sort By:</FormControl.Label>
+        <FormControl.Label fontWeight={900} m={0} mr={2}>Sort By:</FormControl.Label>
         <Select selectedValue="createdAt">
           <Select.Item label="Creation Date" value="createdAt" />
           <Select.Item label="Funding Raised" value="funding" />
         </Select>
       </FormControl>
       <FormControl alignItems="center" w={250} flexDirection="row">
-        <FormControl.Label fontWeight="bold" m={0} mr={2}>Status:</FormControl.Label>
+        <FormControl.Label fontWeight={900} m={0} mr={2}>Status:</FormControl.Label>
         <Select selectedValue="">
           <Select.Item label="Everything" value="" />
           <Select.Item label="Opened" value="opened" />
