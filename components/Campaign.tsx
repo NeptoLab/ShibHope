@@ -10,10 +10,11 @@ import {
   Link,
 } from "native-base"
 import Block from "./Block";
+import type { Campaign as ICampaign } from 'types/models';
 
-const Campaign: React.FC = () => {
+const Campaign: React.FC<{ item: ICampaign }> = ({ item }) => {
   return (
-    <Block maxW={370} m="15px">
+    <Block w={370} m="15px">
       <AspectRatio w="100%" ratio={16 / 9}>
         <Image
           source={{
@@ -34,11 +35,11 @@ const Campaign: React.FC = () => {
             Port Elgin, ON
           </Text>
           <Heading textAlign="left" size="sm">
-            Mark McDermid
+            {item.title}
           </Heading>
         </Stack>
         <Text fontWeight="400">
-          I have had a lot of media attention with my invention Showerloop but…
+          {item.description}
         </Text>
         <Text
               fontSize="xs"
@@ -48,9 +49,9 @@ const Campaign: React.FC = () => {
         </Text>
         <Progress value={40} />
         <Text>
-          <Text fontWeight="bold">$4,990 raised</Text> of $20,000
+          <Text fontWeight="bold">$4,990 raised</Text> of ${item.amount}
         </Text>
-        <Link href={`/campaigns/${1}`}>
+        <Link href={`/campaigns/${item.id}`}>
           <Button flex={1} variant="glow" mt={1}>Stake</Button>
         </Link>
       </Stack>

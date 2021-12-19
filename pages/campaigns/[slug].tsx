@@ -1,6 +1,7 @@
 import { NextPage } from "next";
 import { gql, useQuery } from "@apollo/client";
 import { useRouter } from "next/dist/client/router";
+import Error from 'next/error';
 import React from "react";
 import Layout from "components/Layout";
 import { View, Text, Heading, HStack, VStack, Button, AspectRatio, Image } from "native-base";
@@ -8,17 +9,18 @@ import Media from "components/Media";
 import Stake from "components/Stake";
 import StakeModal from "components/StakeModal";
 import useModal from "hooks/useModal";
+import { Query_Root } from "types/models";
 
 const GetCampaignQuery = gql`
-  query MyQuery($id: bigint!) {
-    campaign(where: {id: { _eq: $id }}) {
-      id
+  query GetCampaign($id: bigint!) {
+    campaign_by_pk(id: $id) {
       title
+      amount
+      category
+      description
+      id
       media
       owner
-      description
-      category
-      amount
     }
   }
 `;
@@ -26,7 +28,11 @@ const GetCampaignQuery = gql`
 const CampaignViewPage: NextPage = () => {
   const { query: { slug } } = useRouter();
   const { isOpen, handleClose, handleOpen } = useModal();
-  const { data } = useQuery(GetCampaignQuery, { variables: { id: slug } });
+  const { data } = useQuery<Query_Root>(GetCampaignQuery, { variables: { id: slug } });
+
+  if (!data?.campaign_by_pk) {
+    return <Error statusCode={404} />
+  }
 
   return (
     <Layout>
@@ -35,15 +41,11 @@ const CampaignViewPage: NextPage = () => {
         <Text color="primary.700" fontWeight="bold">Moscow, Russia</Text>
         <Text ml="auto"><Text fontWeight="bold">Posted At:</Text> 19/05/1990</Text>
       </View>
-      <Heading mt={4} textAlign="left">What&apos;s happened with me title</Heading>
+      <Heading mt={4} textAlign="left">{data.campaign_by_pk.title}</Heading>
       <HStack space="30px">
         <View flex={1}>
           <Text mt={4}>
-            There would be some very painful for reading text about something terrible what’s happened.
-
-            This text will make people donate the person.
-
-            Another long long long description we would like to put as mockup because I have no idea what else I can say to test this view layout for view page.
+            {data.campaign_by_pk.description}
           </Text>
           <Heading mt={8} mb={4} textAlign="left" fontSize="20px">Media</Heading>
           <VStack space="15px">
