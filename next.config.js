@@ -6,6 +6,7 @@ const withFonts = require("next-fonts");
 const withPlugins = require("next-compose-plugins");
 const withTM = require("next-transpile-modules")([
   "react-native-web",
+  "react-native-svg",
   "native-base",
 ]);
 

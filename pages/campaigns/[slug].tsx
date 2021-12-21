@@ -5,7 +5,7 @@ import Error from 'next/error';
 import React from "react";
 import Layout from "components/Layout";
 import { View, Text, Heading, HStack, VStack, Button, AspectRatio, Image } from "native-base";
-import Media from "components/Media";
+import Comment from "components/Comment";
 import Stake from "components/Stake";
 import StakeModal from "components/StakeModal";
 import useModal from "hooks/useModal";
@@ -27,6 +27,7 @@ const GetCampaignQuery = gql`
 
 const CampaignViewPage: NextPage = () => {
   const { query: { slug } } = useRouter();
+  
   const { isOpen, handleClose, handleOpen } = useModal();
   const { data } = useQuery<Query_Root>(GetCampaignQuery, { variables: { id: slug } });
 
@@ -49,8 +50,8 @@ const CampaignViewPage: NextPage = () => {
           </Text>
           <Heading mt={8} mb={4} textAlign="left" fontSize="20px">Media</Heading>
           <VStack space="15px">
-            {[1, 2, 3, 4, 5].map((media) => (
-              <Media key={media} />
+            {[1, 2, 3, 4, 5].map((comment) => (
+              <Comment key={comment} />
             ))}
           </VStack>
         </View>
@@ -58,15 +59,15 @@ const CampaignViewPage: NextPage = () => {
           <AspectRatio w="100%" ratio={16 / 9}>
             <Image
               source={{
-                uri: "https://www.holidify.com/images/cmsuploads/compressed/Bangalore_citycover_20190613234056.jpg",
+                uri: data.campaign_by_pk.media[0] //"https://www.holidify.com/images/cmsuploads/compressed/Bangalore_citycover_20190613234056.jpg",
               }}
               alt="image" />
           </AspectRatio>
           <Button mt={4} variant="glow" onPress={handleOpen}>Stake</Button>
           <Heading mt={8} mb={2} textAlign="left" fontSize="20px">Top 5 donations</Heading>
           <VStack space="2px">
-            {[1, 2, 3, 4, 5].map((media) => (
-              <Stake key={media} />
+            {[1, 2, 3, 4, 5].map((stake) => (
+              <Stake key={stake} />
             ))}
           </VStack>
         </View>

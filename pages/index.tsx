@@ -25,7 +25,11 @@ const GetIndexQuery = gql`
 `;
 
 const IndexPage: NextPage = () => {
-  const { data } = useQuery<Query_Root>(GetIndexQuery);
+  const { data, loading, error } = useQuery<Query_Root>(GetIndexQuery);
+
+  if (error) {
+    throw error;
+  }
 
   return (
     <Layout>

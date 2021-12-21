@@ -23,9 +23,13 @@ const GetCampaignsQuery = gql`
 `;
 
 const CampaignIndexPage: NextPage = () => {
-  const [sortBy, setSortBy] = useState('createdAt');
-  const [status, setStatus] = useState('');
-  const { data } = useQuery<Query_Root>(GetCampaignsQuery);
+  const [ sortBy, setSortBy ] = useState('createdAt');
+  const [ status, setStatus ] = useState('');
+  const { data, loading, error } = useQuery<Query_Root>(GetCampaignsQuery);
+
+  if (error) {
+    throw error;
+  }
 
   return (
     <Layout>

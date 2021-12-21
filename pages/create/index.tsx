@@ -7,7 +7,7 @@ import { Button, Checkbox, FormControl, Input, Radio, TextArea, Text, View } fro
 import { Controller, useForm } from "react-hook-form";
 import { Campaign_Insert_Input, Mutation_Root } from "types/models";
 import { gql, useMutation } from "@apollo/client";
-import { useRouter } from "next/dist/client/router";
+import { useRouter } from "next/router";
 import Upload from "components/Upload";
 
 const CreateCampaignMutation = gql`
@@ -19,13 +19,19 @@ const CreateCampaignMutation = gql`
 `;
 
 const CampaignCreatePage: NextPage = () => {
+  const { push, query: { slug } } = useRouter();
+
+  console.log(slug);
+
   const { handleSubmit, control, formState: { errors } } = useForm();
   const [ confirm, setConfirm ] = useState(false);
-  const { push } = useRouter();
+
   const [ createCampaign ] = useMutation<Mutation_Root>(CreateCampaignMutation);
   
   const handleCreate = async (campaign: Campaign_Insert_Input & { confirm: boolean }) => {
-    const result = await createCampaign({ variables: { campaign } });
+    const result = await createCampaign({
+      variables: { campaign }
+    });
     if (result.data?.insert_campaign_one?.id) {
       push(`/campaigns/${result.data?.insert_campaign_one?.id}`);
     }
@@ -35,7 +41,7 @@ const CampaignCreatePage: NextPage = () => {
     <Layout>
       <Block flex={1} p={4}>
         <FormControl mt={4}>
-          <FormControl.Label>Description</FormControl.Label>
+          <FormControl.Label _text={{ fontWeight: 'bold' }}>Description</FormControl.Label>
           <Controller
             control={control}
             name="title"
@@ -48,18 +54,18 @@ const CampaignCreatePage: NextPage = () => {
           />
         </FormControl>
         <FormControl mt={4}>
-          <FormControl.Label>Media</FormControl.Label>
+          <FormControl.Label _text={{ fontWeight: 'bold' }}>Media</FormControl.Label>
           <Controller
             defaultValue={[]}
             control={control}
             name="media"
             render={({ field: fieldProps }) => (
-              <Upload />
+              <Upload {...fieldProps} />
             )}
           />
         </FormControl>
         <FormControl mt={4}>
-          <FormControl.Label>Amount (USD)</FormControl.Label>
+          <FormControl.Label _text={{ fontWeight: 'bold' }}>Amount (USD)</FormControl.Label>
           <Controller
             defaultValue={0}
             control={control}
@@ -73,7 +79,7 @@ const CampaignCreatePage: NextPage = () => {
           />
         </FormControl>
         <FormControl mt={4}>
-          <FormControl.Label>Description</FormControl.Label>
+          <FormControl.Label _text={{ fontWeight: 'bold' }}>Description</FormControl.Label>
           <Controller
             control={control}
             name="description"
@@ -85,6 +91,7 @@ const CampaignCreatePage: NextPage = () => {
 
         <FormControl mt={4} alignItems="center">
           <Controller
+            defaultValue={slug}
             control={control}
             name="category"
             rules={{

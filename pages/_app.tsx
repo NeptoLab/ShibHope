@@ -1,10 +1,10 @@
 import type { AppProps } from "next/app";
 import { extendTheme, NativeBaseProvider } from "native-base";
-import AppLoading from 'expo-app-loading';
-import { useFonts } from "expo-font";
 import withApollo from "next-with-apollo";
-import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
+import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache } from "@apollo/client";
 import cookie from "js-cookie";
+import cookieParser from "cookie";
+import { useFonts } from "expo-font";
 
 const theme = extendTheme({
   fontConfig: {
@@ -134,7 +134,6 @@ const config = {
   },
 };
 
-
 const App = ({ Component, pageProps, apollo }: AppProps & { apollo: ApolloClient<InMemoryCache> }) => {
   const [fontsLoaded] = useFonts({
     'MuseoSansCyrl-Bold': require('fonts/MuseoSansCyrl-Bold.ttf').default,
@@ -149,10 +148,6 @@ const App = ({ Component, pageProps, apollo }: AppProps & { apollo: ApolloClient
     'MuseoSansCyrl-ThinItalic': require('fonts/MuseoSansCyrl-ThinItalic.ttf').default,
   });
 
-  if (!fontsLoaded) {
-    return <AppLoading />;
-  }
-  
   return (
     <ApolloProvider client={apollo}>
       <NativeBaseProvider config={config} theme={theme}>
@@ -162,11 +157,20 @@ const App = ({ Component, pageProps, apollo }: AppProps & { apollo: ApolloClient
   );
 }
 
-export default withApollo(({ initialState }) => {
+export default withApollo(({ initialState, ctx }) => {
+  const ssrMode = typeof window === 'undefined';
+
+  const token = !ssrMode 
+    ? cookie.get('token') 
+    : ctx?.req?.headers.cookie && cookieParser.parse(ctx.req.headers.cookie).token;
+
   return new ApolloClient({
-    uri: 'https://shibhope.hasura.app/v1/graphql',
+    ssrMode: true,
+    link: new HttpLink({
+      uri: 'https://shibhope.hasura.app/v1/graphql',
+      credentials: 'include',
+      headers: token ? { authorization: token } : {},
+    }),
     cache: new InMemoryCache().restore(initialState || {}),
-    credentials: 'include',
-    headers: { authorization: cookie.get('token') || '' }
   });
 })(App);
