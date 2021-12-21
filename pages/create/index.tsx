@@ -21,8 +21,6 @@ const CreateCampaignMutation = gql`
 const CampaignCreatePage: NextPage = () => {
   const { push, query: { slug } } = useRouter();
 
-  console.log(slug);
-
   const { handleSubmit, control, formState: { errors } } = useForm();
   const [ confirm, setConfirm ] = useState(false);
 
