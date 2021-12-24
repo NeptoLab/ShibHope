@@ -13,11 +13,6 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   const addrBuf = util.pubToAddress(publicKey);
   const address = util.bufferToHex(addrBuf);
 
-  console.log('Response', {
-    "X-Hasura-User-Id": address,
-    "X-Hasura-Role": "user"
-  });
-
   return res.json({
     "X-Hasura-User-Id": address,
     "X-Hasura-Role": "user"

@@ -134,7 +134,6 @@ const config = {
 };
 
 const App = ({ Component, pageProps }: AppProps) => {
-  console.log(pageProps);
   const client = getApolloClient(false);
 
   const [fontsLoaded] = useFonts({

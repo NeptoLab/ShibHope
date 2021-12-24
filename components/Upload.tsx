@@ -18,7 +18,6 @@ const Upload: React.FC<{ value: MediaInfo[], onChange: (value: MediaInfo[]) => v
   };
 
   const handleDelete = (media: MediaInfo) => {
-    console.log(value, media);
     onChange(value.filter( v => v.id !== media.id ));
   };
 
