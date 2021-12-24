@@ -6,7 +6,7 @@ import Header from './Header';
 import Web3 from 'web3';
 import { AbstractProvider } from 'web3-core';
 
-function getLibrary(provider: AbstractProvider, connector: any) {
+const getLibrary = (provider: AbstractProvider) => {
   return new Web3(provider);
 }
 
