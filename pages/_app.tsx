@@ -1,5 +1,6 @@
 import type { AppProps } from "next/app";
 import { extendTheme, NativeBaseProvider } from "native-base";
+import { IntlProvider } from "react-intl";
 import { ApolloProvider } from "@apollo/client";
 import { useFonts } from "expo-font";
 import { getApolloClient } from "utils/apollo";
@@ -151,9 +152,11 @@ const App = ({ Component, pageProps }: AppProps) => {
 
   return (
     <ApolloProvider client={client}>
-      <NativeBaseProvider config={config} theme={theme}>
-        <Component {...pageProps} />
-      </NativeBaseProvider>
+      <IntlProvider locale="en">
+        <NativeBaseProvider config={config} theme={theme}>
+          <Component {...pageProps} />
+        </NativeBaseProvider>
+      </IntlProvider>
     </ApolloProvider>
   );
 }

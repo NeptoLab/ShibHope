@@ -52,6 +52,19 @@ const CampaignCreatePage: NextPage = () => {
           />
         </FormControl>
         <FormControl mt={4}>
+          <FormControl.Label _text={{ fontWeight: 'bold' }}>Location</FormControl.Label>
+          <Controller
+            control={control}
+            name="location"
+            rules={{
+              required: true,
+            }}
+            render={({ field: { value, ...fieldProps } }) => (
+              <Input placeholder="Location, where are you or your fund, is located" value={value} {...fieldProps} />
+            )}
+          />
+        </FormControl>
+        <FormControl mt={4}>
           <FormControl.Label _text={{ fontWeight: 'bold' }}>Media</FormControl.Label>
           <Controller
             defaultValue={[]}
@@ -132,5 +145,7 @@ const CampaignCreatePage: NextPage = () => {
     </Layout>
   );
 };
+
+CampaignCreatePage.getInitialProps = async () => ({});
 
 export default CampaignCreatePage;

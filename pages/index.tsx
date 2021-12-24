@@ -13,13 +13,21 @@ import { Query_Root } from "types/models";
 const GetIndexQuery = gql`
   query GetIndex {
     campaign(limit: 3) {
-      title
-      amount
-      category
-      description
       id
-      media
-      owner
+      amount
+      title
+      description
+      location
+      stakes_aggregate {
+        aggregate {
+          sum {
+            amount
+          }
+          max {
+            created_at
+          }
+        }
+      }
     }
   }
 `;
@@ -47,7 +55,7 @@ const IndexPage: NextPage = () => {
         {data?.campaign.map((campaign) => <Campaign key={campaign.id} item={campaign} />)}
       </View>
       <Link href="/campaigns">
-        <Button w="270px" mx="auto" variant="outline" mt={4} mb={12}>Show More</Button>
+        <Button w="270px" mx="auto" variant="outline" mt={4} mb={12}>View All</Button>
       </Link>
       <Title>
         Start Your Campaign

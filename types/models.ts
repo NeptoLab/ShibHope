@@ -81,8 +81,10 @@ export type Campaign = {
   __typename?: 'campaign';
   amount: Scalars['numeric'];
   category?: Maybe<Scalars['category']>;
+  created_at: Scalars['timestamptz'];
   description: Scalars['String'];
   id: Scalars['bigint'];
+  location?: Maybe<Scalars['String']>;
   media: Scalars['json'];
   owner: Scalars['String'];
   /** An array relationship */
@@ -162,8 +164,10 @@ export type Campaign_Bool_Exp = {
   _or?: InputMaybe<Array<Campaign_Bool_Exp>>;
   amount?: InputMaybe<Numeric_Comparison_Exp>;
   category?: InputMaybe<Category_Comparison_Exp>;
+  created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
   description?: InputMaybe<String_Comparison_Exp>;
   id?: InputMaybe<Bigint_Comparison_Exp>;
+  location?: InputMaybe<String_Comparison_Exp>;
   media?: InputMaybe<Json_Comparison_Exp>;
   owner?: InputMaybe<String_Comparison_Exp>;
   stakes?: InputMaybe<Stake_Bool_Exp>;
@@ -186,8 +190,10 @@ export type Campaign_Inc_Input = {
 export type Campaign_Insert_Input = {
   amount?: InputMaybe<Scalars['numeric']>;
   category?: InputMaybe<Scalars['category']>;
+  created_at?: InputMaybe<Scalars['timestamptz']>;
   description?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['bigint']>;
+  location?: InputMaybe<Scalars['String']>;
   media?: InputMaybe<Scalars['json']>;
   owner?: InputMaybe<Scalars['String']>;
   stakes?: InputMaybe<Stake_Arr_Rel_Insert_Input>;
@@ -198,8 +204,10 @@ export type Campaign_Insert_Input = {
 export type Campaign_Max_Fields = {
   __typename?: 'campaign_max_fields';
   amount?: Maybe<Scalars['numeric']>;
+  created_at?: Maybe<Scalars['timestamptz']>;
   description?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['bigint']>;
+  location?: Maybe<Scalars['String']>;
   owner?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
 };
@@ -208,8 +216,10 @@ export type Campaign_Max_Fields = {
 export type Campaign_Min_Fields = {
   __typename?: 'campaign_min_fields';
   amount?: Maybe<Scalars['numeric']>;
+  created_at?: Maybe<Scalars['timestamptz']>;
   description?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['bigint']>;
+  location?: Maybe<Scalars['String']>;
   owner?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
 };
@@ -241,8 +251,10 @@ export type Campaign_On_Conflict = {
 export type Campaign_Order_By = {
   amount?: InputMaybe<Order_By>;
   category?: InputMaybe<Order_By>;
+  created_at?: InputMaybe<Order_By>;
   description?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  location?: InputMaybe<Order_By>;
   media?: InputMaybe<Order_By>;
   owner?: InputMaybe<Order_By>;
   stakes_aggregate?: InputMaybe<Stake_Aggregate_Order_By>;
@@ -261,9 +273,13 @@ export enum Campaign_Select_Column {
   /** column name */
   Category = 'category',
   /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
   Description = 'description',
   /** column name */
   Id = 'id',
+  /** column name */
+  Location = 'location',
   /** column name */
   Media = 'media',
   /** column name */
@@ -276,8 +292,10 @@ export enum Campaign_Select_Column {
 export type Campaign_Set_Input = {
   amount?: InputMaybe<Scalars['numeric']>;
   category?: InputMaybe<Scalars['category']>;
+  created_at?: InputMaybe<Scalars['timestamptz']>;
   description?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['bigint']>;
+  location?: InputMaybe<Scalars['String']>;
   media?: InputMaybe<Scalars['json']>;
   owner?: InputMaybe<Scalars['String']>;
   title?: InputMaybe<Scalars['String']>;
@@ -318,9 +336,13 @@ export enum Campaign_Update_Column {
   /** column name */
   Category = 'category',
   /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
   Description = 'description',
   /** column name */
   Id = 'id',
+  /** column name */
+  Location = 'location',
   /** column name */
   Media = 'media',
   /** column name */
@@ -363,6 +385,302 @@ export type Category_Comparison_Exp = {
   _nin?: InputMaybe<Array<Scalars['category']>>;
 };
 
+/** columns and relationships of "comment" */
+export type Comment = {
+  __typename?: 'comment';
+  created_at: Scalars['timestamptz'];
+  id: Scalars['bigint'];
+  /** An object relationship */
+  stake: Stake;
+  stake_id: Scalars['bigint'];
+  text: Scalars['String'];
+};
+
+/** aggregated selection of "comment" */
+export type Comment_Aggregate = {
+  __typename?: 'comment_aggregate';
+  aggregate?: Maybe<Comment_Aggregate_Fields>;
+  nodes: Array<Comment>;
+};
+
+/** aggregate fields of "comment" */
+export type Comment_Aggregate_Fields = {
+  __typename?: 'comment_aggregate_fields';
+  avg?: Maybe<Comment_Avg_Fields>;
+  count: Scalars['Int'];
+  max?: Maybe<Comment_Max_Fields>;
+  min?: Maybe<Comment_Min_Fields>;
+  stddev?: Maybe<Comment_Stddev_Fields>;
+  stddev_pop?: Maybe<Comment_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Comment_Stddev_Samp_Fields>;
+  sum?: Maybe<Comment_Sum_Fields>;
+  var_pop?: Maybe<Comment_Var_Pop_Fields>;
+  var_samp?: Maybe<Comment_Var_Samp_Fields>;
+  variance?: Maybe<Comment_Variance_Fields>;
+};
+
+
+/** aggregate fields of "comment" */
+export type Comment_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Comment_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** order by aggregate values of table "comment" */
+export type Comment_Aggregate_Order_By = {
+  avg?: InputMaybe<Comment_Avg_Order_By>;
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Comment_Max_Order_By>;
+  min?: InputMaybe<Comment_Min_Order_By>;
+  stddev?: InputMaybe<Comment_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<Comment_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<Comment_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<Comment_Sum_Order_By>;
+  var_pop?: InputMaybe<Comment_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<Comment_Var_Samp_Order_By>;
+  variance?: InputMaybe<Comment_Variance_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "comment" */
+export type Comment_Arr_Rel_Insert_Input = {
+  data: Array<Comment_Insert_Input>;
+  /** on conflict condition */
+  on_conflict?: InputMaybe<Comment_On_Conflict>;
+};
+
+/** aggregate avg on columns */
+export type Comment_Avg_Fields = {
+  __typename?: 'comment_avg_fields';
+  id?: Maybe<Scalars['Float']>;
+  stake_id?: Maybe<Scalars['Float']>;
+};
+
+/** order by avg() on columns of table "comment" */
+export type Comment_Avg_Order_By = {
+  id?: InputMaybe<Order_By>;
+  stake_id?: InputMaybe<Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "comment". All fields are combined with a logical 'AND'. */
+export type Comment_Bool_Exp = {
+  _and?: InputMaybe<Array<Comment_Bool_Exp>>;
+  _not?: InputMaybe<Comment_Bool_Exp>;
+  _or?: InputMaybe<Array<Comment_Bool_Exp>>;
+  created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  id?: InputMaybe<Bigint_Comparison_Exp>;
+  stake?: InputMaybe<Stake_Bool_Exp>;
+  stake_id?: InputMaybe<Bigint_Comparison_Exp>;
+  text?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "comment" */
+export enum Comment_Constraint {
+  /** unique or primary key constraint */
+  CommentPkey = 'comment_pkey'
+}
+
+/** input type for incrementing numeric columns in table "comment" */
+export type Comment_Inc_Input = {
+  id?: InputMaybe<Scalars['bigint']>;
+  stake_id?: InputMaybe<Scalars['bigint']>;
+};
+
+/** input type for inserting data into table "comment" */
+export type Comment_Insert_Input = {
+  created_at?: InputMaybe<Scalars['timestamptz']>;
+  id?: InputMaybe<Scalars['bigint']>;
+  stake?: InputMaybe<Stake_Obj_Rel_Insert_Input>;
+  stake_id?: InputMaybe<Scalars['bigint']>;
+  text?: InputMaybe<Scalars['String']>;
+};
+
+/** aggregate max on columns */
+export type Comment_Max_Fields = {
+  __typename?: 'comment_max_fields';
+  created_at?: Maybe<Scalars['timestamptz']>;
+  id?: Maybe<Scalars['bigint']>;
+  stake_id?: Maybe<Scalars['bigint']>;
+  text?: Maybe<Scalars['String']>;
+};
+
+/** order by max() on columns of table "comment" */
+export type Comment_Max_Order_By = {
+  created_at?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  stake_id?: InputMaybe<Order_By>;
+  text?: InputMaybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Comment_Min_Fields = {
+  __typename?: 'comment_min_fields';
+  created_at?: Maybe<Scalars['timestamptz']>;
+  id?: Maybe<Scalars['bigint']>;
+  stake_id?: Maybe<Scalars['bigint']>;
+  text?: Maybe<Scalars['String']>;
+};
+
+/** order by min() on columns of table "comment" */
+export type Comment_Min_Order_By = {
+  created_at?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  stake_id?: InputMaybe<Order_By>;
+  text?: InputMaybe<Order_By>;
+};
+
+/** response of any mutation on the table "comment" */
+export type Comment_Mutation_Response = {
+  __typename?: 'comment_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Comment>;
+};
+
+/** on conflict condition type for table "comment" */
+export type Comment_On_Conflict = {
+  constraint: Comment_Constraint;
+  update_columns?: Array<Comment_Update_Column>;
+  where?: InputMaybe<Comment_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "comment". */
+export type Comment_Order_By = {
+  created_at?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  stake?: InputMaybe<Stake_Order_By>;
+  stake_id?: InputMaybe<Order_By>;
+  text?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: comment */
+export type Comment_Pk_Columns_Input = {
+  id: Scalars['bigint'];
+};
+
+/** select columns of table "comment" */
+export enum Comment_Select_Column {
+  /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  StakeId = 'stake_id',
+  /** column name */
+  Text = 'text'
+}
+
+/** input type for updating data in table "comment" */
+export type Comment_Set_Input = {
+  created_at?: InputMaybe<Scalars['timestamptz']>;
+  id?: InputMaybe<Scalars['bigint']>;
+  stake_id?: InputMaybe<Scalars['bigint']>;
+  text?: InputMaybe<Scalars['String']>;
+};
+
+/** aggregate stddev on columns */
+export type Comment_Stddev_Fields = {
+  __typename?: 'comment_stddev_fields';
+  id?: Maybe<Scalars['Float']>;
+  stake_id?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev() on columns of table "comment" */
+export type Comment_Stddev_Order_By = {
+  id?: InputMaybe<Order_By>;
+  stake_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Comment_Stddev_Pop_Fields = {
+  __typename?: 'comment_stddev_pop_fields';
+  id?: Maybe<Scalars['Float']>;
+  stake_id?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev_pop() on columns of table "comment" */
+export type Comment_Stddev_Pop_Order_By = {
+  id?: InputMaybe<Order_By>;
+  stake_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Comment_Stddev_Samp_Fields = {
+  __typename?: 'comment_stddev_samp_fields';
+  id?: Maybe<Scalars['Float']>;
+  stake_id?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev_samp() on columns of table "comment" */
+export type Comment_Stddev_Samp_Order_By = {
+  id?: InputMaybe<Order_By>;
+  stake_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate sum on columns */
+export type Comment_Sum_Fields = {
+  __typename?: 'comment_sum_fields';
+  id?: Maybe<Scalars['bigint']>;
+  stake_id?: Maybe<Scalars['bigint']>;
+};
+
+/** order by sum() on columns of table "comment" */
+export type Comment_Sum_Order_By = {
+  id?: InputMaybe<Order_By>;
+  stake_id?: InputMaybe<Order_By>;
+};
+
+/** update columns of table "comment" */
+export enum Comment_Update_Column {
+  /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  StakeId = 'stake_id',
+  /** column name */
+  Text = 'text'
+}
+
+/** aggregate var_pop on columns */
+export type Comment_Var_Pop_Fields = {
+  __typename?: 'comment_var_pop_fields';
+  id?: Maybe<Scalars['Float']>;
+  stake_id?: Maybe<Scalars['Float']>;
+};
+
+/** order by var_pop() on columns of table "comment" */
+export type Comment_Var_Pop_Order_By = {
+  id?: InputMaybe<Order_By>;
+  stake_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_samp on columns */
+export type Comment_Var_Samp_Fields = {
+  __typename?: 'comment_var_samp_fields';
+  id?: Maybe<Scalars['Float']>;
+  stake_id?: Maybe<Scalars['Float']>;
+};
+
+/** order by var_samp() on columns of table "comment" */
+export type Comment_Var_Samp_Order_By = {
+  id?: InputMaybe<Order_By>;
+  stake_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate variance on columns */
+export type Comment_Variance_Fields = {
+  __typename?: 'comment_variance_fields';
+  id?: Maybe<Scalars['Float']>;
+  stake_id?: Maybe<Scalars['Float']>;
+};
+
+/** order by variance() on columns of table "comment" */
+export type Comment_Variance_Order_By = {
+  id?: InputMaybe<Order_By>;
+  stake_id?: InputMaybe<Order_By>;
+};
+
 /** Boolean expression to compare columns of type "json". All fields are combined with logical 'AND'. */
 export type Json_Comparison_Exp = {
   _eq?: InputMaybe<Scalars['json']>;
@@ -383,6 +701,10 @@ export type Mutation_Root = {
   delete_campaign?: Maybe<Campaign_Mutation_Response>;
   /** delete single row from the table: "campaign" */
   delete_campaign_by_pk?: Maybe<Campaign>;
+  /** delete data from the table: "comment" */
+  delete_comment?: Maybe<Comment_Mutation_Response>;
+  /** delete single row from the table: "comment" */
+  delete_comment_by_pk?: Maybe<Comment>;
   /** delete data from the table: "stake" */
   delete_stake?: Maybe<Stake_Mutation_Response>;
   /** delete single row from the table: "stake" */
@@ -391,6 +713,10 @@ export type Mutation_Root = {
   insert_campaign?: Maybe<Campaign_Mutation_Response>;
   /** insert a single row into the table: "campaign" */
   insert_campaign_one?: Maybe<Campaign>;
+  /** insert data into the table: "comment" */
+  insert_comment?: Maybe<Comment_Mutation_Response>;
+  /** insert a single row into the table: "comment" */
+  insert_comment_one?: Maybe<Comment>;
   /** insert data into the table: "stake" */
   insert_stake?: Maybe<Stake_Mutation_Response>;
   /** insert a single row into the table: "stake" */
@@ -399,6 +725,10 @@ export type Mutation_Root = {
   update_campaign?: Maybe<Campaign_Mutation_Response>;
   /** update single row of the table: "campaign" */
   update_campaign_by_pk?: Maybe<Campaign>;
+  /** update data of the table: "comment" */
+  update_comment?: Maybe<Comment_Mutation_Response>;
+  /** update single row of the table: "comment" */
+  update_comment_by_pk?: Maybe<Comment>;
   /** update data of the table: "stake" */
   update_stake?: Maybe<Stake_Mutation_Response>;
   /** update single row of the table: "stake" */
@@ -414,6 +744,18 @@ export type Mutation_RootDelete_CampaignArgs = {
 
 /** mutation root */
 export type Mutation_RootDelete_Campaign_By_PkArgs = {
+  id: Scalars['bigint'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_CommentArgs = {
+  where: Comment_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Comment_By_PkArgs = {
   id: Scalars['bigint'];
 };
 
@@ -445,6 +787,20 @@ export type Mutation_RootInsert_Campaign_OneArgs = {
 
 
 /** mutation root */
+export type Mutation_RootInsert_CommentArgs = {
+  objects: Array<Comment_Insert_Input>;
+  on_conflict?: InputMaybe<Comment_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Comment_OneArgs = {
+  object: Comment_Insert_Input;
+  on_conflict?: InputMaybe<Comment_On_Conflict>;
+};
+
+
+/** mutation root */
 export type Mutation_RootInsert_StakeArgs = {
   objects: Array<Stake_Insert_Input>;
   on_conflict?: InputMaybe<Stake_On_Conflict>;
@@ -471,6 +827,22 @@ export type Mutation_RootUpdate_Campaign_By_PkArgs = {
   _inc?: InputMaybe<Campaign_Inc_Input>;
   _set?: InputMaybe<Campaign_Set_Input>;
   pk_columns: Campaign_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_CommentArgs = {
+  _inc?: InputMaybe<Comment_Inc_Input>;
+  _set?: InputMaybe<Comment_Set_Input>;
+  where: Comment_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Comment_By_PkArgs = {
+  _inc?: InputMaybe<Comment_Inc_Input>;
+  _set?: InputMaybe<Comment_Set_Input>;
+  pk_columns: Comment_Pk_Columns_Input;
 };
 
 
@@ -526,6 +898,12 @@ export type Query_Root = {
   campaign_aggregate: Campaign_Aggregate;
   /** fetch data from the table: "campaign" using primary key columns */
   campaign_by_pk?: Maybe<Campaign>;
+  /** fetch data from the table: "comment" */
+  comment: Array<Comment>;
+  /** fetch aggregated fields from the table: "comment" */
+  comment_aggregate: Comment_Aggregate;
+  /** fetch data from the table: "comment" using primary key columns */
+  comment_by_pk?: Maybe<Comment>;
   /** fetch data from the table: "stake" */
   stake: Array<Stake>;
   /** fetch aggregated fields from the table: "stake" */
@@ -554,6 +932,29 @@ export type Query_RootCampaign_AggregateArgs = {
 
 
 export type Query_RootCampaign_By_PkArgs = {
+  id: Scalars['bigint'];
+};
+
+
+export type Query_RootCommentArgs = {
+  distinct_on?: InputMaybe<Array<Comment_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Comment_Order_By>>;
+  where?: InputMaybe<Comment_Bool_Exp>;
+};
+
+
+export type Query_RootComment_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Comment_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Comment_Order_By>>;
+  where?: InputMaybe<Comment_Bool_Exp>;
+};
+
+
+export type Query_RootComment_By_PkArgs = {
   id: Scalars['bigint'];
 };
 
@@ -587,10 +988,34 @@ export type Stake = {
   /** An object relationship */
   campaign: Campaign;
   campaign_id: Scalars['bigint'];
+  /** An array relationship */
+  comments: Array<Comment>;
+  /** An aggregate relationship */
+  comments_aggregate: Comment_Aggregate;
   created_at: Scalars['timestamptz'];
   id: Scalars['Int'];
   owner: Scalars['String'];
   tx_number: Scalars['String'];
+};
+
+
+/** columns and relationships of "stake" */
+export type StakeCommentsArgs = {
+  distinct_on?: InputMaybe<Array<Comment_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Comment_Order_By>>;
+  where?: InputMaybe<Comment_Bool_Exp>;
+};
+
+
+/** columns and relationships of "stake" */
+export type StakeComments_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Comment_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Comment_Order_By>>;
+  where?: InputMaybe<Comment_Bool_Exp>;
 };
 
 /** aggregated selection of "stake" */
@@ -668,6 +1093,7 @@ export type Stake_Bool_Exp = {
   amount?: InputMaybe<Numeric_Comparison_Exp>;
   campaign?: InputMaybe<Campaign_Bool_Exp>;
   campaign_id?: InputMaybe<Bigint_Comparison_Exp>;
+  comments?: InputMaybe<Comment_Bool_Exp>;
   created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
   id?: InputMaybe<Int_Comparison_Exp>;
   owner?: InputMaybe<String_Comparison_Exp>;
@@ -692,6 +1118,7 @@ export type Stake_Insert_Input = {
   amount?: InputMaybe<Scalars['numeric']>;
   campaign?: InputMaybe<Campaign_Obj_Rel_Insert_Input>;
   campaign_id?: InputMaybe<Scalars['bigint']>;
+  comments?: InputMaybe<Comment_Arr_Rel_Insert_Input>;
   created_at?: InputMaybe<Scalars['timestamptz']>;
   id?: InputMaybe<Scalars['Int']>;
   owner?: InputMaybe<Scalars['String']>;
@@ -749,6 +1176,13 @@ export type Stake_Mutation_Response = {
   returning: Array<Stake>;
 };
 
+/** input type for inserting object relation for remote table "stake" */
+export type Stake_Obj_Rel_Insert_Input = {
+  data: Stake_Insert_Input;
+  /** on conflict condition */
+  on_conflict?: InputMaybe<Stake_On_Conflict>;
+};
+
 /** on conflict condition type for table "stake" */
 export type Stake_On_Conflict = {
   constraint: Stake_Constraint;
@@ -761,6 +1195,7 @@ export type Stake_Order_By = {
   amount?: InputMaybe<Order_By>;
   campaign?: InputMaybe<Campaign_Order_By>;
   campaign_id?: InputMaybe<Order_By>;
+  comments_aggregate?: InputMaybe<Comment_Aggregate_Order_By>;
   created_at?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   owner?: InputMaybe<Order_By>;
@@ -927,6 +1362,12 @@ export type Subscription_Root = {
   campaign_aggregate: Campaign_Aggregate;
   /** fetch data from the table: "campaign" using primary key columns */
   campaign_by_pk?: Maybe<Campaign>;
+  /** fetch data from the table: "comment" */
+  comment: Array<Comment>;
+  /** fetch aggregated fields from the table: "comment" */
+  comment_aggregate: Comment_Aggregate;
+  /** fetch data from the table: "comment" using primary key columns */
+  comment_by_pk?: Maybe<Comment>;
   /** fetch data from the table: "stake" */
   stake: Array<Stake>;
   /** fetch aggregated fields from the table: "stake" */
@@ -955,6 +1396,29 @@ export type Subscription_RootCampaign_AggregateArgs = {
 
 
 export type Subscription_RootCampaign_By_PkArgs = {
+  id: Scalars['bigint'];
+};
+
+
+export type Subscription_RootCommentArgs = {
+  distinct_on?: InputMaybe<Array<Comment_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Comment_Order_By>>;
+  where?: InputMaybe<Comment_Bool_Exp>;
+};
+
+
+export type Subscription_RootComment_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Comment_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Comment_Order_By>>;
+  where?: InputMaybe<Comment_Bool_Exp>;
+};
+
+
+export type Subscription_RootComment_By_PkArgs = {
   id: Scalars['bigint'];
 };
 

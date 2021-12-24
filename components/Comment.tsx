@@ -1,8 +1,9 @@
 import { Avatar, HStack, View, Text } from 'native-base';
 import React from 'react'
+import type { Comment as TComment } from 'types/models';
 import Block from './Block';
 
-const Media: React.FC = () => {
+const Comment: React.FC<{ item: TComment }> = ({ item }) => {
   return (
     <Block p={4} flexDirection="row">
       <HStack space={4}>
@@ -15,13 +16,13 @@ const Media: React.FC = () => {
           }}
         />
         <View>
-          <Text fontWeight="bold" fontSize="12px">0x00000000000000</Text>
-          <Text my={1} fontSize="16px" fontWeight="thin">Yeah, it&apos;s really sad!</Text>
-          <Text fontWeight="bold" color="primary.500">500 GRUMPYSHIB</Text>
+          <Text fontWeight="bold" fontSize="12px">{item.stake.owner}</Text>
+          <Text my={1} fontSize="16px" fontWeight="thin">{item.text}</Text>
+          <Text fontWeight="bold" color="primary.500">{item.stake.amount}</Text>
         </View>
       </HStack>
     </Block>
   );
 };
 
-export default Media;
+export default Comment;

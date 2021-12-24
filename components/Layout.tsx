@@ -1,5 +1,5 @@
 import { Web3ReactProvider } from '@web3-react/core';
-import { View } from 'native-base';
+import { View, VStack } from 'native-base';
 import React from 'react';
 import Footer from './Footer';
 import Header from './Header';
@@ -12,11 +12,13 @@ function getLibrary(provider: AbstractProvider, connector: any) {
 
 const Layout: React.FC = ({ children }) => (
   <Web3ReactProvider getLibrary={getLibrary}>
-    <Header />
-    <View mx="auto" my={10} width={1170}>
-      {children}
-    </View>
-    <Footer />
+    <VStack flex={1}>
+      <Header />
+      <View mx="auto" flex={1} my={10} width={1170}>
+        {children}
+      </View>
+      <Footer />
+    </VStack>
   </Web3ReactProvider>
 );
 

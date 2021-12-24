@@ -1,14 +1,15 @@
 import { HStack, Text } from 'native-base';
 import React from 'react'
+import type { Stake as TStake } from 'types/models';
 import Block from './Block';
 
-const Stake: React.FC = () => {
+const Stake: React.FC<{ item: TStake, label: string }> = ({ item, label }) => {
   return (
     <Block p={4}>
       <HStack alignItems="center" space={8}>
-        <Text fontSize="20px" fontWeight={900} color="primary.500">01</Text>
-        <Text>0x000000000000000000</Text>
-        <Text fontWeight="bold">500 GRUMPYSHIB</Text>
+        <Text fontSize="20px" fontWeight={900} color="primary.500">{label}</Text>
+        <Text>{item.owner}</Text>
+        <Text fontWeight="bold">{item.amount}</Text>
       </HStack>
     </Block>
   );

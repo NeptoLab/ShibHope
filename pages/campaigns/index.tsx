@@ -18,6 +18,16 @@ const GetCampaignsQuery = gql`
       id
       media
       owner
+      stakes_aggregate {
+        aggregate {
+          sum {
+            amount
+          }
+          max {
+            created_at
+          }
+        }
+      }
     }
   }
 `;
