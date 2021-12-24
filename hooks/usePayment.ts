@@ -19,7 +19,7 @@ const usePayment = (web3: Web3, account?: string | null) => {
 
   useEffect(() => {
     if (account && !cookie.get('token')) {
-      web3.eth.personal.sign('SHIBHOPE: Authentication Required', account, '').then((token) => {
+      web3.eth.personal.sign('Verify Signature', account, '').then((token) => {
         cookie.set('token', token);
       });
     }

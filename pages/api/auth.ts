@@ -9,7 +9,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   }
 
   const sig = util.fromRpcSig(req.headers.authorization);
-  const publicKey = util.ecrecover(util.toBuffer(util.hashPersonalMessage(Buffer.from('SHIBHOPE: Authentication Required'))), sig.v, sig.r, sig.s);
+  const publicKey = util.ecrecover(util.toBuffer(util.hashPersonalMessage(Buffer.from('Verify Signature'))), sig.v, sig.r, sig.s);
   const addrBuf = util.pubToAddress(publicKey);
   const address = util.bufferToHex(addrBuf);
 
