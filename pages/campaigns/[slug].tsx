@@ -24,6 +24,8 @@ const GetCampaignQuery = gql`
       media
       stakes {
         id
+        amount
+        owner
       }
       owner
     }
