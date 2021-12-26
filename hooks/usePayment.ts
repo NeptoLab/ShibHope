@@ -36,15 +36,11 @@ const usePayment = (web3: Web3, account?: string | null) => {
     price,
     send: async (value: number, to: string) => {
       if (!account) { return; }
-      web3.eth.signTransaction({
+      return web3.eth.signTransaction({
         from: account,
         to: contract._address,
         data: contract.methods.transfer(to, web3.utils.toWei( value.toString() ) ).encodeABI(),
         gas: 21000,  
-    }).then(res => {
-        console.log("res",res.tx);
-      }).catch(err => {
-        console.log("err",err);
       });
     }
   };

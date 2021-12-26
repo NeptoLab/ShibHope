@@ -49,7 +49,7 @@ const CampaignViewPage: NextPage = () => {
 
   return (
     <Layout>
-      {isOpen && <StakeModal isOpen={isOpen} onClose={handleClose} />}
+      {isOpen && <StakeModal campaign={data.campaign_by_pk} isOpen={isOpen} onClose={handleClose} />}
       <View alignItems="center" flexDirection="row">
         <Text color="primary.700" fontWeight="bold">{data.campaign_by_pk.location}</Text>
         <Text ml="auto"><Text fontWeight="bold">Posted At:</Text> {intl.formatDate(data.campaign_by_pk.created_at)}</Text>

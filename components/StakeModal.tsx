@@ -4,14 +4,27 @@ import React from 'react'
 import usePayment from 'hooks/usePayment';
 import { useWeb3React } from '@web3-react/core';
 import { IModalProps } from 'native-base/lib/typescript/components/composites/Modal';
+import { gql, useMutation } from '@apollo/client';
+import { Campaign, Mutation_Root } from 'types/models';
 
-const StakeModal: React.FC<IModalProps> = (props) => {
+const StakeCampaignMutation = gql`
+  mutation stake_campaign($campaign_id: bigint!, $amount: numeric!, $text: String!, $tx_number: String!) {
+    stake_campaign(campaign_id: $campaign_id, amount: $amount, text: $text, tx_number: $tx_number) {
+      id
+    }
+  }
+`;
+
+const StakeModal: React.FC<IModalProps & { campaign: Campaign }> = ({ campaign, ...props }) => {
   const { formState: { errors }, control, handleSubmit } = useForm();
   const { account, library } = useWeb3React();
   const { price, send } = usePayment(library, account);
 
-  const handleStake = (data: { amount: number }) => {
-    send(data.amount, '0xc2EdABfaaB792160188d8Bb7B5fEE4e7Cce21634');
+  const [ stakeCampaign ] = useMutation<Mutation_Root>(StakeCampaignMutation);
+
+  const handleStake = async ({ amount }: { amount: number }) => {
+    const result = await send(amount, campaign.owner);
+    stakeCampaign({ variables: { object: { amount, campaign_id: campaign.id, tx: result } } });
   };
 
   return (
