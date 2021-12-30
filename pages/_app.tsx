@@ -4,6 +4,13 @@ import { IntlProvider } from "react-intl";
 import { ApolloProvider } from "@apollo/client";
 import { useFonts } from "expo-font";
 import { getApolloClient } from "utils/apollo";
+import { Web3ReactProvider } from "@web3-react/core";
+import { AbstractProvider } from 'web3-core';
+import Web3 from "web3";
+
+const getLibrary = (provider: AbstractProvider) => {
+  return new Web3(provider);
+};
 
 const theme = extendTheme({
   breakpoints: {
@@ -166,7 +173,9 @@ const App = ({ Component, pageProps }: AppProps) => {
     <ApolloProvider client={client}>
       <IntlProvider locale="en">
         <NativeBaseProvider config={config} theme={theme}>
-          <Component {...pageProps} />
+          <Web3ReactProvider getLibrary={getLibrary}>
+            <Component {...pageProps} />
+          </Web3ReactProvider>
         </NativeBaseProvider>
       </IntlProvider>
     </ApolloProvider>

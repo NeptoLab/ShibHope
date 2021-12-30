@@ -39,7 +39,7 @@ const StakeModal: React.FC<IModalProps & { campaign: Campaign }> = ({ campaign, 
         <Modal.Header>
           Stake for Campaign
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body p={4}>
           <FormControl>
             <FormControl.Label>Amount</FormControl.Label>
             <Controller
