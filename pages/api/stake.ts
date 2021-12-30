@@ -62,7 +62,7 @@ const getCampaign = async (id: number) => {
   return data.campaign_by_pk;
 };
 
-const stakeCampaign = async ({ text, ...variables }: StakeCampaignArgs & { value: number }, headers: any) => {
+const stakeCampaign = async ({ text, ...variables }: StakeCampaignArgs & { amount: number }, headers: any) => {
   const response = await fetch(
     "https://shibhope.hasura.app/v1/graphql",
     {
@@ -101,7 +101,7 @@ const web3 = new Web3(new Web3.providers.HttpProvider('https://bsc-dataseed.bina
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
-    const { object: { tx_number, campaign_id, amount, text } }: Mutation_RootStake_CampaignArgs = req.body.input;
+    const { object: { tx_number, campaign_id, text, value } }: Mutation_RootStake_CampaignArgs = req.body.input;
     const { session_variables } = req.body;
 
     const campaign = await getCampaign(campaign_id);
@@ -112,15 +112,15 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       throw 'Can\'t get transaction receipt';
     }
     
-    const txAmount = parseInt(web3.utils.hexToNumberString(receipt.logs[0].data)) / 10**18;
+    const txValue = parseInt(web3.utils.hexToNumberString(receipt.logs[0].data)) / 10**18;
     const txTo = web3.utils.hexToNumberString(receipt.logs[0].topics[2]);
     const txFrom = receipt.from;
 
-    if (!receipt.status || txAmount !== parseFloat(amount) || txTo !== web3.utils.hexToNumberString(campaign.owner) || txFrom !== session_variables['x-hasura-user-id']) {
+    if (!receipt.status || txValue !== parseFloat(value) || txTo !== web3.utils.hexToNumberString(campaign.owner) || txFrom !== session_variables['x-hasura-user-id']) {
       throw 'Transaction can\'t be verified';
     }
 
-    const data = await stakeCampaign({ tx_number, campaign_id, amount, value: amount * price, text }, { authorization: req.headers.authorization });
+    const data = await stakeCampaign({ tx_number, campaign_id, amount: value * price, value, text }, { authorization: req.headers.authorization });
     return res.json(data);
   } catch(e: any) {
     return res.status(400).json({

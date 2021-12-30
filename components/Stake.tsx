@@ -9,7 +9,7 @@ const Stake: React.FC<{ item: TStake, label: string }> = ({ item, label }) => {
       <HStack alignItems="center" space={8}>
         <Text fontSize="20px" fontWeight={900} color="primary.500">{label}</Text>
         <Text>{item.owner}</Text>
-        <Text fontWeight="bold">{item.amount}</Text>
+        <Text fontWeight="bold">{item.value} GRUMPYSHIB</Text>
       </HStack>
     </Block>
   );
