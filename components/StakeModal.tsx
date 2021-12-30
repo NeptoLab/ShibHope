@@ -21,13 +21,13 @@ const StakeModal: React.FC<IModalProps & { campaign: Campaign }> = ({ campaign, 
   const { account, library } = useWeb3React();
   const { price, send } = usePayment(library, account);
 
-  const [ stakeCampaign ] = useMutation<Mutation_Root>(StakeCampaignMutation, { refetchQueries: ['getCampaign', 'getCampaigns'] });
+  const [ stakeCampaign ] = useMutation<Mutation_Root>(StakeCampaignMutation, { awaitRefetchQueries: true, refetchQueries: ['GetCampaign', 'getCampaigns'] });
 
-  const handleStake = async ({ amount }: { amount: number }) => {
+  const handleStake = async ({ value }: { value: number }) => {
     setIsLoading(true);
-    const result = await send(amount, campaign.owner);
+    const result = await send(value, campaign.owner);
     if (result) {
-      await stakeCampaign({ variables: { object: { amount, campaign_id: campaign.id, tx_number: result.transactionHash } } });
+      await stakeCampaign({ variables: { object: { value, campaign_id: campaign.id, tx_number: result.transactionHash } } });
       onClose();
     }
   };
@@ -45,7 +45,7 @@ const StakeModal: React.FC<IModalProps & { campaign: Campaign }> = ({ campaign, 
             <Controller
               defaultValue={0}
               control={control}
-              name="amount"
+              name="value"
               rules={{
               required: true,
               }}
@@ -56,7 +56,7 @@ const StakeModal: React.FC<IModalProps & { campaign: Campaign }> = ({ campaign, 
                 </>
               )}
             />
-            {errors.amount && <Text>This is required.</Text>}
+            {errors.value && <Text>This is required.</Text>}
           </FormControl>
           <Button isLoading={isLoading} isLoadingText="Staking..." mt={4} variant="glow" onPress={handleSubmit(handleStake)}>Stake</Button>
         </Modal.Body>
