@@ -24,7 +24,7 @@ const CampaignCreatePage: NextPage = () => {
   const { handleSubmit, control, formState: { errors } } = useForm();
   const [ confirm, setConfirm ] = useState(false);
 
-  const [ createCampaign ] = useMutation<Mutation_Root>(CreateCampaignMutation);
+  const [ createCampaign, { loading } ] = useMutation<Mutation_Root>(CreateCampaignMutation);
   
   const handleCreate = async (campaign: Campaign_Insert_Input & { confirm: boolean }) => {
     const result = await createCampaign({
@@ -93,6 +93,12 @@ const CampaignCreatePage: NextPage = () => {
           <FormControl.Label _text={{ fontWeight: 'bold' }}>Description</FormControl.Label>
           <Controller
             control={control}
+            rules={{
+              required: {
+                value: true,
+                message: 'Description is requred field'
+              },
+            }}
             name="description"
             render={({ field: { value, ...fieldProps } }) => (
               <TextArea placeholder="Campaign Description" value={value} {...fieldProps} />
@@ -132,6 +138,8 @@ const CampaignCreatePage: NextPage = () => {
           <Checkbox isChecked={confirm} onChange={setConfirm} value="confirm">I certify I provided complete and truthful information</Checkbox>
           <Button ml="auto" w={200} variant="outline">Cancel</Button>
           <Button
+            isLoading={loading}
+            isLoadingText="Creating..."
             disabled={!confirm}
             ml={4}
             w={200}
