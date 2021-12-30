@@ -12,6 +12,14 @@ const STAKE_CAMPAIGN_MUTATION = `
   }
 `;
 
+const STAKE_WITH_COMMENT_MUTATION = `
+  mutation stake_campaign($campaign_id: bigint!, $amount: numeric!, $text: String, $tx_number: String!) {
+    insert_stake_one(object: {amount: $amount, comment: {data: {text: $text}}, campaign_id: $campaign_id, tx_number: $tx_number}) {
+      id
+    }
+  }
+`;
+
 const GET_CAMPAIGN_QUERY = `
   query get_campaign($id: bigint!) {
     campaign_by_pk(id: $id) {
@@ -54,13 +62,13 @@ const getCampaign = async (id: number) => {
   return data.campaign_by_pk;
 };
 
-const stakeCampaign = async (variables: StakeCampaignArgs) => {
+const stakeCampaign = async ({ text, ...variables }: StakeCampaignArgs) => {
   const response = await fetch(
     "https://shibhope.hasura.app/v1/graphql",
     {
       method: 'POST',
       body: JSON.stringify({
-        query: STAKE_CAMPAIGN_MUTATION,
+        query: !!text ? STAKE_WITH_COMMENT_MUTATION : STAKE_CAMPAIGN_MUTATION,
         variables
       })
     }
