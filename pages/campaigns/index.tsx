@@ -7,6 +7,7 @@ import Campaign from "components/Campaign";
 import Block from "components/Block";
 import { gql, useQuery } from "@apollo/client";
 import { Query_Root } from "types/models";
+import Loading from "components/Loading";
 
 const GetCampaignsQuery = gql`
   query GetCampaigns {
@@ -36,6 +37,10 @@ const CampaignIndexPage: NextPage = () => {
   const [ sortBy, setSortBy ] = useState('createdAt');
   const [ status, setStatus ] = useState('');
   const { data, loading, error } = useQuery<Query_Root>(GetCampaignsQuery);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   if (error) {
     throw error;

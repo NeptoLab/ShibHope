@@ -5,9 +5,9 @@ import {
   Image,
   Button,
   VStack,
-  Link,
 } from "native-base"
 import Block from "./Block";
+import Link from "./Link";
 
 const Create: React.FC<{ title: string, category: 'charity' | 'donation' | 'crowdfunding' }> = ({ title, category }) => {
   return (
@@ -24,7 +24,7 @@ const Create: React.FC<{ title: string, category: 'charity' | 'donation' | 'crow
         <Heading my={4} size="lg">
           {title}
         </Heading>
-        <Link flex={1} href={`create/${category}`}>
+        <Link passHref href={`create/${category}`}>
           <Button flex={1} variant="glow">
             Start Your Campaign
           </Button>

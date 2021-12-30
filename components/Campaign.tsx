@@ -7,12 +7,12 @@ import {
   Stack,
   Progress,
   Button,
-  Link
 } from "native-base";
 import Block from "./Block";
 import type { Campaign as ICampaign } from 'types/models';
 import { useIntl } from "react-intl";
 import { useFormat } from "utils/format";
+import Link from "./Link";
 
 const Campaign: React.FC<{ item: ICampaign }> = ({ item }) => {
   const intl = useIntl();
@@ -32,15 +32,17 @@ const Campaign: React.FC<{ item: ICampaign }> = ({ item }) => {
       </AspectRatio>
       <Stack p="4" space={3} flex={1}>
         <Stack space={2}>
-          <Text
-              textTransform="uppercase"
-              color="#6573FC"
-              fontWeight="bold"
-              fontSize="md"
-              my={1}
-            >
-              {item.location}
-          </Text>
+          <Link passHref href={`/campaigns/${item.id}`}>
+            <Text
+                textTransform="uppercase"
+                color="#6573FC"
+                fontWeight="bold"
+                fontSize="md"
+                my={1}
+              >
+                {item.location}
+            </Text>
+          </Link>
           <Heading textAlign="left" size="sm">
             {item.title}
           </Heading>
@@ -60,8 +62,8 @@ const Campaign: React.FC<{ item: ICampaign }> = ({ item }) => {
         <Text>
           <Text fontWeight="bold">{intl.formatNumber(item.stakes_aggregate.aggregate?.sum?.amount, { style: 'currency', currency: 'USD', minimumFractionDigits: 0 })} raised</Text> of ${item.amount}
         </Text>
-        <Link href={`/campaigns/${item.id}`}>
-          <Button flex={1} variant="glow" mt={1}>Stake</Button>
+        <Link passHref href={`/campaigns/${item.id}`}>
+          <Button size="md" variant="glow" mt={1}>Stake</Button>
         </Link>
       </Stack>
     </Block>

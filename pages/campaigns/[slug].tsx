@@ -5,13 +5,14 @@ import { useRouter } from "next/router";
 import Error from 'next/error';
 import React from "react";
 import Layout from "components/Layout";
-import { View, Text, Heading, HStack, VStack, Button, AspectRatio, Image } from "native-base";
+import { View, Text, Heading, HStack, VStack, Button } from "native-base";
 import Comment from "components/Comment";
 import Stake from "components/Stake";
 import StakeModal from "components/StakeModal";
 import useModal from "hooks/useModal";
 import { Query_Root } from "types/models";
 import Gallery from "components/Gallery";
+import Loading from "components/Loading";
 
 const GetCampaignQuery = gql`
   query GetCampaign($id: bigint!) {
@@ -46,7 +47,13 @@ const CampaignViewPage: NextPage = () => {
   const intl = useIntl();
   
   const { isOpen, handleClose, handleOpen } = useModal();
-  const { data } = useQuery<Query_Root>(GetCampaignQuery, { variables: { id: slug } });
+  const { data, loading } = useQuery<Query_Root>(GetCampaignQuery, { variables: { id: slug } });
+
+  if (loading) {
+    return (
+      <Loading />
+    );
+  }
 
   if (!data?.campaign_by_pk) {
     return <Error statusCode={404} />

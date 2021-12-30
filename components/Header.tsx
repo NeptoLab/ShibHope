@@ -1,9 +1,10 @@
 import { useWeb3React } from '@web3-react/core';
-import { Button, HStack, Link, Popover, Text } from 'native-base';
+import { Pressable, Button, HStack, Popover, Text } from 'native-base';
 import { InjectedConnector } from '@web3-react/injected-connector';
 import React, { useEffect } from 'react';
 import Logo from './Logo';
 import usePayment from 'hooks/usePayment';
+import Link from './Link';
 
 const injected = new InjectedConnector({
   supportedChainIds: [1, 3, 4, 5, 42, 56],
@@ -35,8 +36,10 @@ const Header: React.FC = () => {
 
   return (
     <HStack bg="white" shadow={5} space={2} py={6} px={10} justifyContent="center">
-      <Link flex={1} href="/">
-        <Logo flex={1} />
+      <Link href="/" passHref>
+        <Pressable flex={1}>
+          <Logo />
+        </Pressable>
       </Link>
       {!active ? (
         <Button
