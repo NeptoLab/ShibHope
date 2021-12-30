@@ -1,6 +1,6 @@
 import { Button, FormControl, HStack, Input, Modal, Text } from 'native-base';
 import { Controller, useForm } from 'react-hook-form';
-import React from 'react'
+import React, { useState } from 'react'
 import usePayment from 'hooks/usePayment';
 import { useWeb3React } from '@web3-react/core';
 import { IModalProps } from 'native-base/lib/typescript/components/composites/Modal';
@@ -17,12 +17,14 @@ const StakeCampaignMutation = gql`
 
 const StakeModal: React.FC<IModalProps & { campaign: Campaign }> = ({ campaign, onClose, ...props }) => {
   const { formState: { errors }, control, handleSubmit } = useForm();
+  const [ isLoading, setIsLoading ] = useState(false);
   const { account, library } = useWeb3React();
   const { price, send } = usePayment(library, account);
 
   const [ stakeCampaign ] = useMutation<Mutation_Root>(StakeCampaignMutation, { refetchQueries: ['getCampaign', 'getCampaigns'] });
 
   const handleStake = async ({ amount }: { amount: number }) => {
+    setIsLoading(true);
     const result = await send(amount, campaign.owner);
     if (result) {
       await stakeCampaign({ variables: { object: { amount, campaign_id: campaign.id, tx_number: result.transactionHash } } });
@@ -56,7 +58,7 @@ const StakeModal: React.FC<IModalProps & { campaign: Campaign }> = ({ campaign, 
             />
             {errors.amount && <Text>This is required.</Text>}
           </FormControl>
-          <Button mt={4} variant="glow" onPress={handleSubmit(handleStake)}>Stake</Button>
+          <Button isLoading={isLoading} isLoadingText="Staking..." mt={4} variant="glow" onPress={handleSubmit(handleStake)}>Stake</Button>
         </Modal.Body>
       </Modal.Content>
     </Modal>
