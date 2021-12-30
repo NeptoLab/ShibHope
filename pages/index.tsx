@@ -55,15 +55,19 @@ const IndexPage: NextPage = () => {
           <Button variant="glow" mt={4} bgSize="lg">Learn More About GrumpyShiba Token</Button>
         </Link>
       </Cover>
-      <Title>
-        Top Fundraisers
-      </Title>
-      <HStack justifyContent="center" m={-15} mt={7} mb={0} flexWrap="wrap">
-        {data?.campaign.map((campaign) => <Campaign key={campaign.id} item={campaign} />)}
-      </HStack>
-      <Link href="/campaigns" passHref>
-        <Button w="270px" mx="auto" variant="outline" mt={4} mb={12}>View All</Button>
-      </Link>
+      {data?.campaign && data.campaign.length > 0 && (
+        <>
+          <Title>
+            Top Fundraisers
+          </Title>
+          <HStack justifyContent="center" m={-15} mt={7} mb={0} flexWrap="wrap">
+            {data?.campaign.map((campaign) => <Campaign key={campaign.id} item={campaign} />)}
+          </HStack>
+          <Link href="/campaigns" passHref>
+            <Button w="270px" mx="auto" variant="outline" mt={4} mb={12}>View All</Button>
+          </Link>
+        </>
+      )}
       <Title>
         Start Your Campaign
       </Title>
