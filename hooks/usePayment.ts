@@ -40,7 +40,6 @@ const usePayment = (web3: Web3, account?: string | null) => {
         from: account,
         to: contract._address,
         data: contract.methods.transfer(to, web3.utils.toWei( value.toString() ) ).encodeABI(),
-        gas: 30000,
       });
     }
   };

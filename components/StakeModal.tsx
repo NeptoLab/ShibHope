@@ -8,8 +8,8 @@ import { gql, useMutation } from '@apollo/client';
 import { Campaign, Mutation_Root } from 'types/models';
 
 const StakeCampaignMutation = gql`
-  mutation stake_campaign($campaign_id: bigint!, $amount: numeric!, $text: String!, $tx_number: String!) {
-    stake_campaign(campaign_id: $campaign_id, amount: $amount, text: $text, tx_number: $tx_number) {
+  mutation stake_campaign($object: StakeCampaignArgs!) {
+    stake_campaign(object: $object) {
       id
     }
   }
@@ -24,7 +24,9 @@ const StakeModal: React.FC<IModalProps & { campaign: Campaign }> = ({ campaign, 
 
   const handleStake = async ({ amount }: { amount: number }) => {
     const result = await send(amount, campaign.owner);
-    await stakeCampaign({ variables: { object: { amount, campaign_id: campaign.id, tx: result } } });
+    if (result) {
+      await stakeCampaign({ variables: { object: { amount, campaign_id: campaign.id, tx_number: result.transactionHash } } });
+    }
   };
 
   return (

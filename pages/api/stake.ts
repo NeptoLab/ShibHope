@@ -80,8 +80,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const data = await stakeCampaign({ tx_number, campaign_id, amount, text });
     return res.json(data);
-  } catch(e) {
-    return res.status(400).json(e);
+  } catch(e: any) {
+    return res.status(400).json({
+      message: e.toString()
+    });
   }
 };
 

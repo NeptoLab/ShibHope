@@ -33,7 +33,7 @@ export type Int_Comparison_Exp = {
 export type StakeCampaignArgs = {
   amount: Scalars['numeric'];
   campaign_id: Scalars['bigint'];
-  text: Scalars['String'];
+  text?: InputMaybe<Scalars['String']>;
   tx_number: Scalars['String'];
 };
 
