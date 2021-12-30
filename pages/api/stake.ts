@@ -62,7 +62,7 @@ const getCampaign = async (id: number) => {
   return data.campaign_by_pk;
 };
 
-const stakeCampaign = async ({ text, ...variables }: StakeCampaignArgs) => {
+const stakeCampaign = async ({ text, ...variables }: StakeCampaignArgs, headers: any) => {
   const response = await fetch(
     "https://shibhope.hasura.app/v1/graphql",
     {
@@ -70,7 +70,8 @@ const stakeCampaign = async ({ text, ...variables }: StakeCampaignArgs) => {
       body: JSON.stringify({
         query: !!text ? STAKE_WITH_COMMENT_MUTATION : STAKE_CAMPAIGN_MUTATION,
         variables: !!text ? { text, ...variables } : variables,
-      })
+      }),
+      headers,
     }
   );
   const result = await response.json();
@@ -96,7 +97,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const { object: { tx_number, campaign_id, amount, text } }: Mutation_RootStake_CampaignArgs = req.body.input;
     const { session_variables } = req.body;
-    console.log('session', session_variables);
 
     const campaign = await getCampaign(campaign_id);
     const receipt = await web3.eth.getTransactionReceipt(tx_number);
@@ -113,7 +113,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       throw 'Transaction can\'t be verified';
     }
 
-    const data = await stakeCampaign({ tx_number, campaign_id, amount, text });
+    const data = await stakeCampaign({ tx_number, campaign_id, amount, text }, req.headers);
     return res.json(data);
   } catch(e: any) {
     return res.status(400).json({
