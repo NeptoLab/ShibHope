@@ -2,7 +2,7 @@ import Web3 from 'web3';
 
 import fetch from "isomorphic-fetch"
 import { NextApiRequest, NextApiResponse } from 'next';
-import { Mutation_Root, Mutation_RootStake_CampaignArgs, Query_Root, StakeCampaignArgs, StakeCampaignOutput } from "types/models";
+import { Mutation_Root, Mutation_RootStake_CampaignArgs, Query_Root, StakeCampaignArgs } from "types/models";
 
 const STAKE_CAMPAIGN_MUTATION = `mutation stake_campaign($campaign_id: bigint!, $amount: numeric!, $text: String!, $tx_number: String!) {
   insert_stake_one(object: {amount: $amount, comment: {data: {text: $text}}, campaign_id: $campaign_id, tx_number: $tx}) {
