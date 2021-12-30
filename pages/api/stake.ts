@@ -116,7 +116,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     return res.json(data);
   } catch(e: any) {
     return res.status(400).json({
-      message: e.toString()
+      message: e.message || e.toString()
     });
   }
 };
