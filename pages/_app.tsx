@@ -6,6 +6,19 @@ import { useFonts } from "expo-font";
 import { getApolloClient } from "utils/apollo";
 
 const theme = extendTheme({
+  breakpoints: {
+    base: 0,
+    sm: 580,
+    md: 992,
+    lg: 1024,
+    xl: 1280,
+  },
+  media: {
+    "phone": "@media (max-width: 580px)",
+    "tablet": "@media (min-width: 580px) and (max-width: 1024px)",
+    "mobile": "@media (max-width: 1024px)",
+    "desktop": "@media (min-width: 1024px)"
+  },
   fontConfig: {
     MuseoSansCyrl: {
       100: {

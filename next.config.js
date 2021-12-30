@@ -3,6 +3,7 @@
 
 const { withExpo } = require("@expo/next-adapter");
 const withFonts = require("next-fonts");
+const withImages = require('next-images');
 const withPlugins = require("next-compose-plugins");
 const withTM = require("next-transpile-modules")([
   "react-native-web",
@@ -15,6 +16,9 @@ const nextConfig = {};
 module.exports = withPlugins(
   [
     withTM,
+    [withImages, { images: {
+      disableStaticImages: true
+    }}],
     [withFonts, { projectRoot: __dirname }],
     [withExpo, { projectRoot: __dirname }],
   ],

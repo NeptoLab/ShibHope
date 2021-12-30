@@ -1,5 +1,6 @@
 import React from 'react';
 import NextDocument from '@expo/next-adapter/document';
+import { flush } from 'react-native-media-query';
 import { Head, Main, NextScript, Html } from 'next/document';
 import { getDataFromTree } from '@apollo/client/react/ssr';
 import { getApolloClient } from 'utils/apollo';
@@ -16,7 +17,7 @@ class MyDocument extends NextDocument {
     await getDataFromTree(<ctx.AppTree {...ctx.appProps} />);
     const initialProps = await NextDocument.getInitialProps(ctx);
     const apolloState = apolloClient.extract();
-    return { ...initialProps, apolloState };
+    return { ...initialProps, apolloState, styles: [ ...initialProps.styles, flush() ] };
   }
 
   public render(): JSX.Element {

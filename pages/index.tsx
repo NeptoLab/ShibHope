@@ -1,6 +1,6 @@
 import { NextPage } from "next";
 
-import { Button, Heading, HStack, View } from 'native-base';
+import { Button, Heading, HStack, useTheme, View } from 'native-base';
 import React from "react";
 import Cover from "components/Cover";
 import Layout from "components/Layout";
@@ -58,16 +58,16 @@ const IndexPage: NextPage = () => {
       <Title>
         Top Fundraisers
       </Title>
-      <View m="-15px" mt={7} flexWrap="wrap" flexDirection="row">
+      <HStack justifyContent="center" m={-15} mt={7} mb={0} flexWrap="wrap">
         {data?.campaign.map((campaign) => <Campaign key={campaign.id} item={campaign} />)}
-      </View>
+      </HStack>
       <Link href="/campaigns" passHref>
         <Button w="270px" mx="auto" variant="outline" mt={4} mb={12}>View All</Button>
       </Link>
       <Title>
         Start Your Campaign
       </Title>
-      <HStack mt={7} space="30px" flexWrap="wrap">
+      <HStack justifyContent="center" m={-15} mt={7} flexWrap="wrap">
         <Create category="charity" title="For Charity" />
         <Create category="donation" title="For People" />
         <Create category="crowdfunding" title="For Project" />

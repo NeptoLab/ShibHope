@@ -1,4 +1,7 @@
 import React from "react"
+import CharityImage from 'images/charity.png';
+import DonationImage from 'images/donation.png';
+import CrowdfundingImage from 'images/crowdfunding.png';
 import {
   Heading,
   AspectRatio,
@@ -9,14 +12,18 @@ import {
 import Block from "./Block";
 import Link from "./Link";
 
-const Create: React.FC<{ title: string, category: 'charity' | 'donation' | 'crowdfunding' }> = ({ title, category }) => {
+const imageMap = {
+  charity: CharityImage,
+  donation: DonationImage,
+  crowdfunding: CrowdfundingImage
+};
+
+const Create: React.FC<{ title: string, category: keyof typeof imageMap }> = ({ title, category }) => {
   return (
-    <Block w={370} my={3}>
+    <Block w={370} m={15}>
       <AspectRatio w="100%" ratio={16 / 9}>
         <Image
-          source={{
-            uri: "https://www.holidify.com/images/cmsuploads/compressed/Bangalore_citycover_20190613234056.jpg",
-          }}
+          source={imageMap[category]}
           alt="image"
         />
       </AspectRatio>

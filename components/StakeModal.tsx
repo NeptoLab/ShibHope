@@ -1,4 +1,4 @@
-import { Button, FormControl, HStack, Input, Modal, Text } from 'native-base';
+import { Button, FormControl, HStack, Input, Modal, Text, TextArea } from 'native-base';
 import { Controller, useForm } from 'react-hook-form';
 import React, { useState } from 'react'
 import usePayment from 'hooks/usePayment';
@@ -57,6 +57,17 @@ const StakeModal: React.FC<IModalProps & { campaign: Campaign }> = ({ campaign, 
               )}
             />
             {errors.value && <Text>This is required.</Text>}
+          </FormControl>
+          <FormControl mt={3}>
+            <FormControl.Label>Comment</FormControl.Label>
+            <Controller
+              defaultValue={''}
+              control={control}
+              name="text"
+              render={({ field: fieldProps }) => (
+                <TextArea {...fieldProps} />
+              )}
+            />
           </FormControl>
           <Button isLoading={isLoading} isLoadingText="Staking..." mt={4} variant="glow" onPress={handleSubmit(handleStake)}>Stake</Button>
         </Modal.Body>

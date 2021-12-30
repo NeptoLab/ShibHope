@@ -1,11 +1,12 @@
 import { NextPage } from "next";
+import StyleSheet from 'react-native-media-query';
 import { gql, useQuery } from "@apollo/client";
 import { useIntl } from "react-intl";
 import { useRouter } from "next/router";
 import Error from 'next/error';
 import React from "react";
 import Layout from "components/Layout";
-import { View, Text, Heading, HStack, VStack, Button } from "native-base";
+import { View, Text, Heading, HStack, VStack, Button, useTheme } from "native-base";
 import Comment from "components/Comment";
 import Stake from "components/Stake";
 import StakeModal from "components/StakeModal";
@@ -43,6 +44,18 @@ const GetCampaignQuery = gql`
 `;
 
 const CampaignViewPage: NextPage = () => {
+  const theme: any = useTheme();
+  const { ids, styles } = StyleSheet.create({
+    column: {
+      // [theme.media.desktop]: {
+      //   marginLeft: '30px',
+      // },
+      // [theme.media.mobile]: {
+      //   width: 'auto'
+      // }
+    }
+  });
+
   const { query: { slug } } = useRouter();
   const intl = useIntl();
   
@@ -67,8 +80,8 @@ const CampaignViewPage: NextPage = () => {
         <Text ml="auto"><Text fontWeight="bold">Posted At:</Text> {intl.formatDate(data.campaign_by_pk.created_at)}</Text>
       </View>
       <Heading mt={4} textAlign="left">{data.campaign_by_pk.title}</Heading>
-      <HStack space="30px">
-        <View flex={1}>
+      <HStack justifyContent="center" flexWrap="wrap">
+        <View minW={500} flex={1}>
           <Text mt={4}>
             {data.campaign_by_pk.description}
           </Text>
@@ -83,7 +96,7 @@ const CampaignViewPage: NextPage = () => {
             </>
           )}
         </View>
-        <View flex={1}>
+        <View width="560px" dataSet={{ media: ids.column }} style={styles.column}>
           <Gallery media={data.campaign_by_pk.media} />
           <Button mt={4} variant="glow" onPress={handleOpen}>Stake</Button>
           {data.campaign_by_pk.stakes.length > 0 && (

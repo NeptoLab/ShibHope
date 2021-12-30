@@ -19,7 +19,7 @@ const Campaign: React.FC<{ item: ICampaign }> = ({ item }) => {
   const { formatRelativeDateTime } = useFormat();
 
   return (
-    <Block w={370} m="15px">
+    <Block w={370} m={15}>
       <AspectRatio w="100%" ratio={16 / 9}>
         {item.media[0] && (
           <Image

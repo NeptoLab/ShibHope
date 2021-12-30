@@ -69,7 +69,7 @@ const Header: React.FC = () => {
         </Button>
       ) : (
         <Popover trigger={(triggerProps) => (
-          <Button _text={ { numberOfLines: 1, maxW: '150px' } } variant="outline" {...triggerProps}>
+          <Button _text={ { numberOfLines: 1, maxW: '120px' } } variant="outline" {...triggerProps}>
             {account}
           </Button>
         )}>

@@ -7,14 +7,14 @@ const Gallery: React.FC<{ media: MediaInfo[] }> = ({ media }) => {
 
   return (
     <>
-      <AspectRatio w="100%" ratio={16 / 9}>
-        <Image
-          source={{
-            uri: media[index].uri,
-          }}
-          alt="image"
-        />
-      </AspectRatio>
+      <Image
+        mt={1}
+        source={{
+          uri: media[index].uri,
+        }}
+        h={400}
+        alt="image"
+      />
       {media.map((media: MediaInfo) => {
         <Thumbnail source={{ uri: media.uri }} />
       })}
