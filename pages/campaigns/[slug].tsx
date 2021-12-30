@@ -46,13 +46,21 @@ const GetCampaignQuery = gql`
 const CampaignViewPage: NextPage = () => {
   const theme: any = useTheme();
   const { ids, styles } = StyleSheet.create({
-    column: {
-      // [theme.media.desktop]: {
-      //   marginLeft: '30px',
-      // },
-      // [theme.media.mobile]: {
-      //   width: 'auto'
-      // }
+    sidebar: {
+      [theme.media.desktop]: {
+        marginLeft: '30px',
+      },
+      [theme.media.mobile]: {
+        width: '100%'
+      }
+    },
+    content: {
+      [theme.media.desktop]: {
+        width: '560px',
+      },
+      [theme.media.mobile]: {
+        width: '100%'
+      }
     }
   });
 
@@ -81,7 +89,7 @@ const CampaignViewPage: NextPage = () => {
       </View>
       <Heading mt={4} textAlign="left">{data.campaign_by_pk.title}</Heading>
       <HStack justifyContent="center" flexWrap="wrap">
-        <View minW={500} flex={1}>
+        <View flex={1} dataSet={{ media: ids.content }} style={styles.content}>
           <Text mt={4}>
             {data.campaign_by_pk.description}
           </Text>
@@ -96,7 +104,7 @@ const CampaignViewPage: NextPage = () => {
             </>
           )}
         </View>
-        <View width="560px" dataSet={{ media: ids.column }} style={styles.column}>
+        <View dataSet={{ media: ids.sidebar }} style={styles.sidebar}>
           <Gallery media={data.campaign_by_pk.media} />
           <Button mt={4} variant="glow" onPress={handleOpen}>Stake</Button>
           {data.campaign_by_pk.stakes.length > 0 && (
