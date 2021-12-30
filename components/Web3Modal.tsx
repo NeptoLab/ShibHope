@@ -1,6 +1,6 @@
 import { AbstractConnector } from '@web3-react/abstract-connector';
 import { InjectedConnector } from '@web3-react/injected-connector';
-import { WalletConnectConnector } from '@web3-react/walletconnect-connector';
+import { WalletConnectConnector, WalletConnectConnectorArguments } from '@web3-react/walletconnect-connector';
 import { Button, Modal } from 'native-base';
 import { IModalProps } from 'native-base/lib/typescript/components/composites/Modal';
 import React from 'react';
@@ -16,7 +16,9 @@ const walletconnect = new WalletConnectConnector({
   rpc: {  
     56: "https://bsc-dataseed.binance.org",
   },
-});
+  chainId: 56,
+  network: 'binance'
+} as WalletConnectConnectorArguments);
 
 const Web3Modal: React.FC<{ onSelect: (provider: AbstractConnector) => void } & IModalProps> = ({ onSelect, ...props }) => {
   return (
