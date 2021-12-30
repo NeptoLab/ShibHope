@@ -46,7 +46,7 @@ const Header: React.FC = () => {
       <Web3Modal isOpen={isOpen} onSelect={handleSelectProvider} onClose={handleClose} />
       <HStack bg="white" shadow={5} space={2} py={6} px={10} justifyContent="center">
         <Link href="/" passHref>
-          <Pressable flex={1}>
+          <Pressable flex={1} maxW="245px" justifyContent="center" mr="auto">
             <Logo />
           </Pressable>
         </Link>

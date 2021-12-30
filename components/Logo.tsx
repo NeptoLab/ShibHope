@@ -10,8 +10,7 @@ import Svg, {
 
 const Logo: React.FC<SvgProps> = (props: SvgProps) => (
   <Svg
-    width={235}
-    height={50}
+    viewBox="0 0 235 50"
     fill="none"
     {...props}
   >
