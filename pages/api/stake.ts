@@ -95,7 +95,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     if (!tx || !receipt || !receipt.status || tx.to !== campaign.owner || (tx as any).value !== amount || tx.from !== session_variables['x-hasura-user-id']) {
       // console.log(tx, receipt, session_variables['x-hasura-user-id']);
-      console.log(web3.utils.toAscii(tx.input));
+      console.log(web3.eth.abi.decodeParameters(['address', 'uint256'], tx.input));
       throw 'Transaction can\'t be verified';
     }
 
