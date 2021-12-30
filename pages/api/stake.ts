@@ -93,8 +93,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const receipt = await web3.eth.getTransactionReceipt(tx_number);
     const tx = await web3.eth.getTransaction(tx_number);
 
-    if (!receipt.status || tx.to !== campaign.owner || (tx as any).value !== amount || tx.from !== session_variables['x-hasura-user-id']) {
-      console.log(tx, receipt, session_variables['x-hasura-user-id']);
+    if (!tx || !receipt || !receipt.status || tx.to !== campaign.owner || (tx as any).value !== amount || tx.from !== session_variables['x-hasura-user-id']) {
+      // console.log(tx, receipt, session_variables['x-hasura-user-id']);
+      console.log(web3.utils.hexToString(tx.input));
       throw 'Transaction can\'t be verified';
     }
 
