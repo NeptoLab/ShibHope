@@ -19,12 +19,14 @@ const Campaign: React.FC<{ item: ICampaign }> = ({ item }) => {
   return (
     <Block w={370} m="15px">
       <AspectRatio w="100%" ratio={16 / 9}>
-        <Image
-          source={{
-            uri: "https://www.holidify.com/images/cmsuploads/compressed/Bangalore_citycover_20190613234056.jpg",
-          }}
-          alt="image"
-        />
+        {item.media[0] && (
+          <Image
+            source={{
+              uri: item.media[0].uri,
+            }}
+            alt="image"
+          />
+        )}
       </AspectRatio>
       <Stack p="4" space={3} flex={1}>
         <Stack space={2}>

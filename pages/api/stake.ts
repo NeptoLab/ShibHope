@@ -113,7 +113,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       throw 'Transaction can\'t be verified';
     }
 
-    const data = await stakeCampaign({ tx_number, campaign_id, amount, text }, req.headers);
+    const data = await stakeCampaign({ tx_number, campaign_id, amount, text }, { authorization: req.headers.authorization });
     return res.json(data);
   } catch(e: any) {
     return res.status(400).json({

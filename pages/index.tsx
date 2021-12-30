@@ -18,6 +18,7 @@ const GetIndexQuery = gql`
       title
       description
       location
+      media
       stakes_aggregate {
         aggregate {
           sum {
