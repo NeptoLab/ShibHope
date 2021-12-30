@@ -13,6 +13,9 @@ const injected = new InjectedConnector({
 
 const walletconnect = new WalletConnectConnector({
   supportedChainIds: [56],
+  rpc: {  
+    56: "https://bsc-dataseed.binance.org",
+  },
 });
 
 const Web3Modal: React.FC<{ onSelect: (provider: AbstractConnector) => void } & IModalProps> = ({ onSelect, ...props }) => {
