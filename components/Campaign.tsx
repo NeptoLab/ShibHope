@@ -12,9 +12,11 @@ import {
 import Block from "./Block";
 import type { Campaign as ICampaign } from 'types/models';
 import { useIntl } from "react-intl";
+import { useFormat } from "utils/format";
 
 const Campaign: React.FC<{ item: ICampaign }> = ({ item }) => {
   const intl = useIntl();
+  const { formatRelativeDateTime } = useFormat();
 
   return (
     <Block w={370} m="15px">
@@ -51,7 +53,7 @@ const Campaign: React.FC<{ item: ICampaign }> = ({ item }) => {
                 fontSize="xs"
                 fontWeight="400"
           >
-            Last Donation {intl.formatRelativeTime(item.stakes_aggregate.aggregate.max.created_at)}
+            Last Donation {formatRelativeDateTime(item.stakes_aggregate.aggregate.max.created_at)}
           </Text>
         )}
         <Progress value={item.stakes_aggregate.aggregate?.sum?.amount/item.amount * 100} />
