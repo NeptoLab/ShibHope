@@ -84,11 +84,11 @@ const stakeCampaign = async ({ text, ...variables }: StakeCampaignArgs, headers:
 
   const data: Mutation_Root = result.data;
 
-  if (!data.stake_campaign) {
+  if (!data.insert_stake_one) {
     throw 'Stake Payload Is Empty';
   }
 
-  return data.stake_campaign;
+  return data.insert_stake_one;
 };
 
 const web3 = new Web3(new Web3.providers.HttpProvider('https://bsc-dataseed.binance.org/'));
