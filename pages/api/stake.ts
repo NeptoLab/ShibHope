@@ -100,7 +100,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const txTo = web3.utils.hexToNumberString(receipt.logs[0].topics[2]);
     const txFrom = receipt.from;
 
-    if (receipt.status || txAmount !== parseFloat(amount) || txTo !== web3.utils.hexToNumberString(campaign.owner) || txFrom !== session_variables['x-hasura-user-id']) {
+    if (!receipt.status || txAmount !== parseFloat(amount) || txTo !== web3.utils.hexToNumberString(campaign.owner) || txFrom !== session_variables['x-hasura-user-id']) {
       throw 'Transaction can\'t be verified';
     }
 
