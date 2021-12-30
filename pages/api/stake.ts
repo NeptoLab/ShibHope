@@ -91,13 +91,16 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const campaign = await getCampaign(campaign_id);
     const receipt = await web3.eth.getTransactionReceipt(tx_number);
+
+    if (!receipt) {
+      throw 'Can\'t get transaction receipt';
+    }
     
     const txAmount = parseInt(web3.utils.hexToNumberString(receipt.logs[0].data)) / 10**18;
     const txTo = web3.utils.hexToNumberString(receipt.logs[0].topics[2]);
     const txFrom = receipt.from;
 
-    if (!receipt || !receipt.status || txAmount !== amount || txTo !== web3.utils.hexToNumberString(campaign.owner) || txFrom !== session_variables['x-hasura-user-id']) {
-      // console.log(tx, receipt, session_variables['x-hasura-user-id']);
+    if (receipt.status || txAmount !== parseFloat(amount) || txTo !== web3.utils.hexToNumberString(campaign.owner) || txFrom !== session_variables['x-hasura-user-id']) {
       throw 'Transaction can\'t be verified';
     }
 
