@@ -69,7 +69,7 @@ const stakeCampaign = async ({ text, ...variables }: StakeCampaignArgs) => {
       method: 'POST',
       body: JSON.stringify({
         query: !!text ? STAKE_WITH_COMMENT_MUTATION : STAKE_CAMPAIGN_MUTATION,
-        variables
+        variables: !!text ? { text, ...variables } : variables,
       })
     }
   );
