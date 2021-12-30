@@ -18,7 +18,7 @@ const Comment: React.FC<{ item: TComment }> = ({ item }) => {
         <View>
           <Text fontWeight="bold" fontSize="12px">{item.stake.owner}</Text>
           <Text my={1} fontSize="16px" fontWeight="thin">{item.text}</Text>
-          <Text fontWeight="bold" color="primary.500">{item.stake.amount}</Text>
+          <Text fontWeight="bold" color="primary.500">{item.stake.value}</Text>
         </View>
       </HStack>
     </Block>

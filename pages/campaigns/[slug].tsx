@@ -33,6 +33,10 @@ const GetCampaignQuery = gql`
     comment(where: {stake: {campaign_id: {_eq: $id}}}) {
       id
       text
+      stake {
+        value
+        owner
+      }
     }
   }
 `;
