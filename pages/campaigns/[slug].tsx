@@ -79,7 +79,7 @@ const CampaignViewPage: NextPage = () => {
               <Heading mt={8} mb={2} textAlign="left" fontSize="20px">Top 5 donations</Heading>
               <VStack space="2px">
                 {data.campaign_by_pk.stakes.map((stake, index) => (
-                  <Stake key={stake.id} label={`0${index}`} item={stake} />
+                  <Stake key={stake.id} label={`0${index + 1}`} item={stake} />
                 ))}
               </VStack>
             </>
