@@ -15,22 +15,23 @@ const StakeCampaignMutation = gql`
   }
 `;
 
-const StakeModal: React.FC<IModalProps & { campaign: Campaign }> = ({ campaign, ...props }) => {
+const StakeModal: React.FC<IModalProps & { campaign: Campaign }> = ({ campaign, onClose, ...props }) => {
   const { formState: { errors }, control, handleSubmit } = useForm();
   const { account, library } = useWeb3React();
   const { price, send } = usePayment(library, account);
 
-  const [ stakeCampaign ] = useMutation<Mutation_Root>(StakeCampaignMutation);
+  const [ stakeCampaign ] = useMutation<Mutation_Root>(StakeCampaignMutation, { refetchQueries: ['getCampaign', 'getCampaigns'] });
 
   const handleStake = async ({ amount }: { amount: number }) => {
     const result = await send(amount, campaign.owner);
     if (result) {
       await stakeCampaign({ variables: { object: { amount, campaign_id: campaign.id, tx_number: result.transactionHash } } });
+      onClose();
     }
   };
 
   return (
-    <Modal {...props}>
+    <Modal onClose={onClose} {...props}>
       <Modal.Content>
         <Modal.CloseButton p={0} m={-2} />
         <Modal.Header>
