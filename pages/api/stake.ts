@@ -5,16 +5,16 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { Mutation_Root, Mutation_RootStake_CampaignArgs, Query_Root, StakeCampaignArgs } from "types/models";
 
 const STAKE_CAMPAIGN_MUTATION = `
-  mutation stake_campaign($campaign_id: bigint!, $amount: numeric!, $tx_number: String!) {
-    insert_stake_one(object: {amount: $amount, campaign_id: $campaign_id, tx_number: $tx_number}) {
+  mutation stake_campaign($campaign_id: bigint!, $amount: numeric!, $value: numeric!, $tx_number: String!) {
+    insert_stake_one(object: {amount: $amount, value: $value, campaign_id: $campaign_id, tx_number: $tx_number}) {
       id
     }
   }
 `;
 
 const STAKE_WITH_COMMENT_MUTATION = `
-  mutation stake_campaign($campaign_id: bigint!, $amount: numeric!, $text: String, $tx_number: String!) {
-    insert_stake_one(object: {amount: $amount, comment: {data: {text: $text}}, campaign_id: $campaign_id, tx_number: $tx_number}) {
+  mutation stake_campaign($campaign_id: bigint!, $amount: numeric!, $value: numeric!, $text: String, $tx_number: String!) {
+    insert_stake_one(object: {amount: $amount, value: $value, comment: {data: {text: $text}}, campaign_id: $campaign_id, tx_number: $tx_number}) {
       id
     }
   }
@@ -62,7 +62,7 @@ const getCampaign = async (id: number) => {
   return data.campaign_by_pk;
 };
 
-const stakeCampaign = async ({ text, ...variables }: StakeCampaignArgs, headers: any) => {
+const stakeCampaign = async ({ text, ...variables }: StakeCampaignArgs & { value: number }, headers: any) => {
   const response = await fetch(
     "https://shibhope.hasura.app/v1/graphql",
     {
@@ -91,6 +91,12 @@ const stakeCampaign = async ({ text, ...variables }: StakeCampaignArgs, headers:
   return data.insert_stake_one;
 };
 
+const getTokenPrice = async () => {
+  const response = await fetch('https://api.pancakeswap.info/api/v2/tokens/0xAe448cB5A3ec77BA4aDcc6C8f9621e5921DCd77a');
+  const data = await response.json();
+  return data.price || 0;
+}
+
 const web3 = new Web3(new Web3.providers.HttpProvider('https://bsc-dataseed.binance.org/'));
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -100,6 +106,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const campaign = await getCampaign(campaign_id);
     const receipt = await web3.eth.getTransactionReceipt(tx_number);
+    const price = await getTokenPrice();
 
     if (!receipt) {
       throw 'Can\'t get transaction receipt';
@@ -113,7 +120,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       throw 'Transaction can\'t be verified';
     }
 
-    const data = await stakeCampaign({ tx_number, campaign_id, amount, text }, { authorization: req.headers.authorization });
+    const data = await stakeCampaign({ tx_number, campaign_id, amount, value: amount * price, text }, { authorization: req.headers.authorization });
     return res.json(data);
   } catch(e: any) {
     return res.status(400).json({
