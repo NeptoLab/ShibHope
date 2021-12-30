@@ -34,7 +34,7 @@ export type StakeCampaignArgs = {
   amount: Scalars['numeric'];
   campaign_id: Scalars['bigint'];
   text: Scalars['String'];
-  tx: Scalars['json'];
+  tx_number: Scalars['String'];
 };
 
 export type StakeCampaignOutput = {

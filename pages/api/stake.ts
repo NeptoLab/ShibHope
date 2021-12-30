@@ -2,46 +2,87 @@ import Web3 from 'web3';
 
 import fetch from "isomorphic-fetch"
 import { NextApiRequest, NextApiResponse } from 'next';
-import { Mutation_RootStake_CampaignArgs, Stake_Insert_Input } from "types/models";
+import { Mutation_Root, Mutation_RootStake_CampaignArgs, Query_Root, StakeCampaignArgs, StakeCampaignOutput } from "types/models";
 
-const HASURA_OPERATION = `mutation stake_campaign($campaign_id: bigint!, $amount: numeric!, $text: String!, $tx_number: String!) {
+const STAKE_CAMPAIGN_MUTATION = `mutation stake_campaign($campaign_id: bigint!, $amount: numeric!, $text: String!, $tx_number: String!) {
   insert_stake_one(object: {amount: $amount, comment: {data: {text: $text}}, campaign_id: $campaign_id, tx_number: $tx}) {
     id
   }
 }`;
 
-const execute = async (variables: Stake_Insert_Input) => {
-  const fetchResponse = await fetch(
+const GET_CAMPAIGN_QUERY = ``;
+
+const getCampaign = async (id: number) => {
+  const response = await fetch(
     "https://shibhope.hasura.app/v1/graphql",
     {
       method: 'POST',
       body: JSON.stringify({
-        query: HASURA_OPERATION,
+        query: GET_CAMPAIGN_QUERY,
+        variables: { id }
+      })
+    }
+  );
+  const result = await response.json();
+
+  if (result.errors) {
+    throw result.errrors[0];
+  }
+
+  const data: Query_Root = result.data;
+
+  if (!data.campaign_by_pk) {
+    throw 'Campaign Not Found';
+  }
+
+  return data.campaign_by_pk;
+};
+
+const stakeCampaign = async (variables: StakeCampaignArgs) => {
+  const response = await fetch(
+    "https://shibhope.hasura.app/v1/graphql",
+    {
+      method: 'POST',
+      body: JSON.stringify({
+        query: STAKE_CAMPAIGN_MUTATION,
         variables
       })
     }
   );
-  const data = await fetchResponse.json();
-  console.log('DEBUG: ', data);
-  return data;
+  const result = await response.json();
+  
+  if (result.errors) {
+    throw result.errors[0];
+  }
+
+  const data: Mutation_Root = result.data;
+
+  if (!data.stake_campaign) {
+    throw 'Stake Payload Is Empty';
+  }
+
+  return data.stake_campaign;
 };
 
 const web3 = new Web3(new Web3.providers.HttpProvider('https://bsc-dataseed.binance.org/'));
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { object: { tx, ...object } }: Mutation_RootStake_CampaignArgs = req.body.input;
-  
-  const response = await web3.eth.sendSignedTransaction(tx.raw);
+  try {
+    const { object: { tx_number, campaign_id, amount, text } }: Mutation_RootStake_CampaignArgs = req.body.input;
+    const { session_variables } = req.body;
 
-  const { data, errors } = await execute({ tx_number: response.transactionHash,...object });
+    const campaign = await getCampaign(campaign_id);
+    const tx = await web3.eth.getTransactionReceipt(tx_number);
 
-  if (errors) {
-    return res.status(400).json(errors[0]);
+    if (tx.to !== campaign.owner || (tx as any).value !== amount || tx.from !== session_variables['x-hasura-user-id']) {
+      throw 'Transaction can\'t be verified';
+    }
+
+    const data = await stakeCampaign({ tx_number, campaign_id, amount, text });
+    return res.json(data);
+  } catch(e) {
+    return res.status(400).json(e);
   }
-
-  return res.json({
-    ...data.insert_stake_one
-  });
 };
 
 export default handler;

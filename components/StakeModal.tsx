@@ -24,7 +24,7 @@ const StakeModal: React.FC<IModalProps & { campaign: Campaign }> = ({ campaign, 
 
   const handleStake = async ({ amount }: { amount: number }) => {
     const result = await send(amount, campaign.owner);
-    stakeCampaign({ variables: { object: { amount, campaign_id: campaign.id, tx: result } } });
+    await stakeCampaign({ variables: { object: { amount, campaign_id: campaign.id, tx: result } } });
   };
 
   return (
