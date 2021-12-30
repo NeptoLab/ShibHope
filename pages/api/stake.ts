@@ -25,6 +25,8 @@ const getCampaign = async (id: number) => {
   );
   const result = await response.json();
 
+  console.log(result.errors);
+
   if (result.errors) {
     throw result.errrors[0];
   }
@@ -50,6 +52,8 @@ const stakeCampaign = async (variables: StakeCampaignArgs) => {
     }
   );
   const result = await response.json();
+
+  console.log(result.errors);
   
   if (result.errors) {
     throw result.errors[0];
