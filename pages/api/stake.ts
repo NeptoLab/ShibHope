@@ -96,6 +96,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const { object: { tx_number, campaign_id, amount, text } }: Mutation_RootStake_CampaignArgs = req.body.input;
     const { session_variables } = req.body;
+    console.log('session', session_variables);
 
     const campaign = await getCampaign(campaign_id);
     const receipt = await web3.eth.getTransactionReceipt(tx_number);
@@ -109,7 +110,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const txFrom = receipt.from;
 
     if (!receipt.status || txAmount !== parseFloat(amount) || txTo !== web3.utils.hexToNumberString(campaign.owner) || txFrom !== session_variables['x-hasura-user-id']) {
-      console.log(receipt, session_variables['x-hasura-user-id'], txTo, web3.utils.hexToNumberString(campaign.owner), campaign.owner);
       throw 'Transaction can\'t be verified';
     }
 
