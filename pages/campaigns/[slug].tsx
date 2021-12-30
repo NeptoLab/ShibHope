@@ -25,6 +25,7 @@ const GetCampaignQuery = gql`
       stakes {
         id
         amount
+        value
         owner
       }
       owner
