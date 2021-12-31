@@ -5,16 +5,16 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { Mutation_Root, Mutation_RootStake_CampaignArgs, Query_Root, StakeCampaignArgs } from "types/models";
 
 const STAKE_CAMPAIGN_MUTATION = `
-  mutation stake_campaign($campaign_id: bigint!, $amount: numeric!, $value: numeric!, $tx_number: String!) {
-    insert_stake_one(object: {amount: $amount, value: $value, campaign_id: $campaign_id, tx_number: $tx_number}) {
+  mutation stake_campaign($campaign_id: bigint!, $amount: numeric!, $value: numeric!, $tx_number: String!, $owner: String!) {
+    insert_stake_one(object: {amount: $amount, value: $value, campaign_id: $campaign_id, tx_number: $tx_number, owner: $owner}) {
       id
     }
   }
 `;
 
 const STAKE_WITH_COMMENT_MUTATION = `
-  mutation stake_campaign($campaign_id: bigint!, $amount: numeric!, $value: numeric!, $text: String, $tx_number: String!) {
-    insert_stake_one(object: {amount: $amount, value: $value, comment: {data: {text: $text}}, campaign_id: $campaign_id, tx_number: $tx_number}) {
+  mutation stake_campaign($campaign_id: bigint!, $amount: numeric!, $value: numeric!, $text: String, $tx_number: String!, $owner: String!) {
+    insert_stake_one(object: {amount: $amount, value: $value, comment: {data: {text: $text}}, campaign_id: $campaign_id, tx_number: $tx_number, owner: $owner}) {
       id
     }
   }
@@ -60,7 +60,7 @@ const getCampaign = async (id: number) => {
   return data.campaign_by_pk;
 };
 
-const stakeCampaign = async ({ text, ...variables }: StakeCampaignArgs & { amount: number }, headers: any) => {
+const stakeCampaign = async ({ text, ...variables }: StakeCampaignArgs & { amount: number, owner: string }, headers: any) => {
   const response = await fetch(
     "https://shibhope.hasura.app/v1/graphql",
     {
@@ -118,7 +118,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       throw 'Transaction can\'t be verified';
     }
 
-    const data = await stakeCampaign({ tx_number, campaign_id, amount: value * price, value, text }, {
+    const data = await stakeCampaign({ tx_number, campaign_id, amount: value * price, value, text, owner: session_variables['x-hasura-user-id'] }, {
       authorization: req.headers.authorization,
       'x-hasura-admin-secret': req.headers['x-hasura-admin-secret']
     });
