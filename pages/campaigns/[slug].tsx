@@ -89,7 +89,7 @@ const CampaignViewPage: NextPage = () => {
       </View>
       <Heading mt={4} textAlign="left">{data.campaign_by_pk.title}</Heading>
       <HStack justifyContent="center" flexWrap="wrap">
-        <View flex={1} dataSet={{ media: ids.content }} style={styles.content}>
+        <View dataSet={{ media: ids.content }} style={styles.content}>
           <Text mt={4}>
             {data.campaign_by_pk.description}
           </Text>
