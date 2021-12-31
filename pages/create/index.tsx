@@ -10,6 +10,7 @@ import { Campaign_Insert_Input, Mutation_Root } from "types/models";
 import { gql, useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 import Upload from "components/Upload";
+import Tab from "components/Tab";
 
 const CreateCampaignMutation = gql`
   mutation CreateCampaign($campaign: campaign_insert_input!) {
@@ -22,6 +23,19 @@ const CreateCampaignMutation = gql`
 const CampaignCreatePage: NextPage = () => {
   const theme: any = useTheme();
   const { ids, styles } = StyleSheet.create({
+    stack: {
+      [theme.media.desktop]: {
+        flexDirection: 'row',
+        minWidth: '500px'
+      },
+      [theme.media.mobile]: {
+        minWidth: '500px'
+      },
+      [theme.media.phone]: {
+        flexDirection: 'column',
+        minWidth: '100%'
+      },
+    },
     wrapper: {
       [theme.media.mobile]: {
         flexDirection: 'column'
@@ -137,27 +151,23 @@ const CampaignCreatePage: NextPage = () => {
             rules={{
               required: true,
             }}
-            render={({ field: { value, ref, ...fieldProps } }) => (
-              <Radio.Group
-                value={value}
-                flexDirection="row"
-                {...fieldProps}
-              >
-                <Radio mr={4} value="charity" my={1}>
+            render={({ field: { ref, ...fieldProps } }) => (
+              <Tab dataSet={{ media: ids.stack }} style={styles.stack} {...fieldProps}>
+                <Tab.Item value="charity">
                   Charity
-                </Radio>
-                <Radio mr={4} value="donation" my={1}>
+                </Tab.Item>
+                <Tab.Item value="donation">
                   Donation
-                </Radio>
-                <Radio value="crowdfunding" my={1}>
+                </Tab.Item>
+                <Tab.Item value="crowdfunding">
                   Crowdfunding
-                </Radio>
-              </Radio.Group>
+                </Tab.Item>
+              </Tab>
             )}
           />
         </FormControl>
 
-        <View w="100%" mt={4} alignItems="center" flexDirection="row" flexWrap="wrap" style={styles.wrapper} dataSet={{ media: ids.wrapper }}>
+        <View w="100%" mt={8} alignItems="center" flexDirection="row" flexWrap="wrap" style={styles.wrapper} dataSet={{ media: ids.wrapper }}>
           <Box flex={1}>
             <Checkbox w="100%" mb={4} isChecked={confirm} onChange={setConfirm} value="confirm">
               I certify I provided complete and truthful information
