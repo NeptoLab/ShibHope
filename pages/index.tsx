@@ -1,6 +1,6 @@
 import { NextPage } from "next";
 
-import { Button, Heading, HStack, useTheme, View } from 'native-base';
+import { Button, Heading, HStack } from 'native-base';
 import React from "react";
 import Cover from "components/Cover";
 import Layout from "components/Layout";
@@ -11,6 +11,7 @@ import { gql, useQuery } from "@apollo/client";
 import { Query_Root } from "types/models";
 import Link from "components/Link";
 import Loading from "components/Loading";
+import { Platform } from "react-native";
 
 const GetIndexQuery = gql`
   query GetIndex {
@@ -51,8 +52,8 @@ const IndexPage: NextPage = () => {
       <Cover width="100%" rounded="lg" mb={6}>
         <Heading color="white" size="xl">Fund Incredible Future!</Heading>
         <Heading color="white" size="md">Stake Your #GrumpyShib</Heading>
-        <Link href="https://grumpyshib.com">
-          <Button variant="glow" mt={4} bgSize="lg">Learn More About GrumpyShiba Token</Button>
+        <Link href="https://grumpyshib.com" as="_blank" passHref>
+          <Button accessibilityRole="link" variant="glow" mt={4} bgSize="lg">Learn More About GrumpyShiba Token</Button>
         </Link>
       </Cover>
       {data?.campaign && data.campaign.length > 0 && (
