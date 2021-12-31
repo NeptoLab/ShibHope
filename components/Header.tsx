@@ -1,5 +1,6 @@
 import { useWeb3React } from '@web3-react/core';
 import cookie from 'js-cookie';
+import { useIntl } from 'react-intl';
 import { Pressable, Button, HStack, Popover, Text } from 'native-base';
 import { InjectedConnector } from '@web3-react/injected-connector';
 import { WalletConnectConnector, WalletConnectConnectorArguments } from '@web3-react/walletconnect-connector';
@@ -28,6 +29,7 @@ const Header: React.FC = () => {
   const { isOpen, handleClose, handleOpen } = useModal();
   const { active, account, library, activate, deactivate } = useWeb3React();
   const { balance, price } = usePayment(library, account);
+  const intl = useIntl();
 
   const handleSelectProvider = async (name: string) => {
     await handleConnect(name as keyof typeof providers);
@@ -90,12 +92,12 @@ const Header: React.FC = () => {
               {account}
             </Button>
           )}>
-            <Popover.Content p={4} accessibilityLabel="Delete Customerd" w="56">
+            <Popover.Content p={4} accessibilityLabel="Delete Customerd" w="250px">
               <Popover.Arrow />
               {balance && (
                 <>
-                  <Text fontSize="8px" fontWeight="bold">{`${(balance / Math.pow(10, 18))} GRUMPYSHIB`}</Text>
-                  <Text mt={1} color="gray.600" fontSize="8px">≈{(price * balance / Math.pow(10, 18)).toFixed(2)}</Text>
+                  <Text fontSize="14px" fontWeight="bold">{`${(intl.formatNumber(balance / Math.pow(10, 18), {style: 'decimal'}))}`} GRUMPYSHIB</Text>
+                  <Text mt={1} color="gray.600" fontSize="12px">≈{(price * balance / Math.pow(10, 18)).toFixed(2)}</Text>
                 </>
               )}
               <Button mt={4} onPress={handleDisconnect}>Disconnect</Button>
