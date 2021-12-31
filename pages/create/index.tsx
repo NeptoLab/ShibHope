@@ -169,7 +169,7 @@ const CampaignCreatePage: NextPage = () => {
 
         <View w="100%" mt={8} alignItems="center" flexDirection="row" flexWrap="wrap" style={styles.wrapper} dataSet={{ media: ids.wrapper }}>
           <Box flex={1}>
-            <Checkbox w="100%" mb={4} isChecked={confirm} onChange={setConfirm} value="confirm">
+            <Checkbox alignItems="flex-start" w="100%" mb={4} isChecked={confirm} onChange={setConfirm} value="confirm">
               I certify I provided complete and truthful information
             </Checkbox>
           </Box>
