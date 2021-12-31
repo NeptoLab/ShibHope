@@ -1,22 +1,49 @@
 import { useWeb3React } from '@web3-react/core';
+import cookie from 'js-cookie';
 import { Pressable, Button, HStack, Popover, Text } from 'native-base';
-import React, { useEffect, useState } from 'react';
+import { InjectedConnector } from '@web3-react/injected-connector';
+import { WalletConnectConnector, WalletConnectConnectorArguments } from '@web3-react/walletconnect-connector';
+import React, { useEffect } from 'react';
 import Logo from './Logo';
 import usePayment from 'hooks/usePayment';
 import Link from './Link';
 import Web3Modal from './Web3Modal';
-import { AbstractConnector } from '@web3-react/abstract-connector';
 import useModal from 'hooks/useModal';
+
+const providers = {
+  injected: new InjectedConnector({
+    supportedChainIds: [56],
+  }),
+  walletconnect: new WalletConnectConnector({
+    supportedChainIds: [56],
+    rpc: {  
+      56: "https://bsc-dataseed.binance.org",
+    },
+    chainId: 56,
+    network: 'binance'
+  } as WalletConnectConnectorArguments)
+}
 
 const Header: React.FC = () => {
   const { isOpen, handleClose, handleOpen } = useModal();
   const { active, account, library, activate, deactivate } = useWeb3React();
   const { balance, price } = usePayment(library, account);
 
-  const handleSelectProvider = async (provider: AbstractConnector) => {
-    await activate(provider);
+  const handleSelectProvider = async (name: string) => {
+    await handleConnect(name as keyof typeof providers);
+    cookie.set('provider', name);
     handleClose();
-  }
+  };
+
+  const handleConnect = async (name: keyof typeof providers) => {
+    await activate(providers[name]);
+  };
+
+  useEffect(() => {
+    if (cookie.get('provider')) {
+      handleConnect(cookie.get('provider') as keyof typeof providers);
+    }
+  }, []);
 
   const handleDisconnect = async () => {
     deactivate();

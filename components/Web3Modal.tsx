@@ -7,20 +7,7 @@ import React from 'react';
 import MetaMaskIcon from './MetaMaskIcon';
 import WalletConnectIcon from './WalletConnectIcon';
 
-const injected = new InjectedConnector({
-  supportedChainIds: [56],
-});
-
-const walletconnect = new WalletConnectConnector({
-  supportedChainIds: [56],
-  rpc: {  
-    56: "https://bsc-dataseed.binance.org",
-  },
-  chainId: 56,
-  network: 'binance'
-} as WalletConnectConnectorArguments);
-
-const Web3Modal: React.FC<{ onSelect: (provider: AbstractConnector) => void } & IModalProps> = ({ onSelect, ...props }) => {
+const Web3Modal: React.FC<{ onSelect: (name: string) => void } & IModalProps> = ({ onSelect, ...props }) => {
   return (
     <Modal {...props}>
       <Modal.Content>
@@ -29,8 +16,8 @@ const Web3Modal: React.FC<{ onSelect: (provider: AbstractConnector) => void } & 
           Connect Wallet
         </Modal.Header>
         <Modal.Body p={4}>
-          <Button variant="outline" leftIcon={<MetaMaskIcon size={50} />} size="lg" onPress={() => onSelect(injected)}>MetaMask</Button>
-          <Button variant="outline" mt={2} leftIcon={<WalletConnectIcon size={50} />} size="lg" onPress={() => onSelect(walletconnect)}>WalletConnect</Button>
+          <Button variant="outline" leftIcon={<MetaMaskIcon size={50} />} size="lg" onPress={() => onSelect('injected')}>MetaMask</Button>
+          <Button variant="outline" mt={2} leftIcon={<WalletConnectIcon size={50} />} size="lg" onPress={() => onSelect('walletconnect')}>WalletConnect</Button>
         </Modal.Body>
       </Modal.Content>
     </Modal>
