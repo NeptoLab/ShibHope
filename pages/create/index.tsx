@@ -1,9 +1,10 @@
 import { NextPage } from "next";
+import StyleSheet from 'react-native-media-query';
 
 import React, { useState } from "react";
 import Layout from "components/Layout";
 import Block from "components/Block";
-import { Button, Checkbox, FormControl, Input, Radio, TextArea, Text, View, HStack } from "native-base";
+import { Button, Checkbox, FormControl, Input, Radio, TextArea, Text, View, HStack, useTheme } from "native-base";
 import { Controller, useForm } from "react-hook-form";
 import { Campaign_Insert_Input, Mutation_Root } from "types/models";
 import { gql, useMutation } from "@apollo/client";
@@ -19,6 +20,23 @@ const CreateCampaignMutation = gql`
 `;
 
 const CampaignCreatePage: NextPage = () => {
+  const theme: any = useTheme();
+  const { ids, styles } = StyleSheet.create({
+    button: {
+      [theme.media.phone]: {
+        width: '100%',
+        marginBottom: '8px',
+      },
+    },
+    container: {
+      [theme.media.phone]: {
+        width: '100%',
+        flexDirection: 'column',
+        marginLeft: 0
+      },
+    }
+  });
+  
   const { push, query: { slug } } = useRouter();
 
   const { handleSubmit, control, formState: { errors } } = useForm();
@@ -135,17 +153,27 @@ const CampaignCreatePage: NextPage = () => {
         </FormControl>
 
         <View mt={4} alignItems="center" flexDirection="row" flexWrap="wrap">
-          <Checkbox mb={4} isChecked={confirm} onChange={setConfirm} value="confirm">I certify I provided complete and truthful information</Checkbox>
-          <HStack ml="auto">
-            <Button ml={4} w={200} variant="outline">Cancel</Button>
+          <Checkbox mb={4} mr={4} isChecked={confirm} onChange={setConfirm} value="confirm">I certify I provided complete and truthful information</Checkbox>
+          <HStack ml="auto" space={4} style={styles.container} dataSet={{ media: ids.container }}>
             <Button
+              flex={1}
+              minW={200}
+              variant="outline"
+              style={styles.button}
+              dataSet={{ media: ids.button }}
+            >
+              Cancel
+            </Button>
+            <Button
+              flex={1}
+              minW={200}
               isLoading={loading}
               isLoadingText="Creating..."
               disabled={!confirm}
-              ml={4}
-              w={200}
               variant="glow"
               onPress={handleSubmit(handleCreate)}
+              style={styles.button}
+              dataSet={{ media: ids.button }}
             >
               Create Item
             </Button>
