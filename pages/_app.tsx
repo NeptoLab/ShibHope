@@ -7,6 +7,7 @@ import { getApolloClient } from "utils/apollo";
 import { Web3ReactProvider } from "@web3-react/core";
 import { AbstractProvider } from 'web3-core';
 import Web3 from "web3";
+import Loading from "components/Loading";
 
 const getLibrary = (provider: AbstractProvider) => {
   return new Web3(provider);
@@ -174,7 +175,9 @@ const App = ({ Component, pageProps }: AppProps) => {
       <IntlProvider locale="en">
         <NativeBaseProvider config={config} theme={theme}>
           <Web3ReactProvider getLibrary={getLibrary}>
-            <Component {...pageProps} />
+            {!fontsLoaded ? <Loading /> : (
+              <Component {...pageProps} />
+            )}
           </Web3ReactProvider>
         </NativeBaseProvider>
       </IntlProvider>
