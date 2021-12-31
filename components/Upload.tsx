@@ -5,7 +5,7 @@ import Media, { MediaInfo } from './Media';
 
 const Upload: React.FC<{ value: MediaInfo[], onChange: (value: MediaInfo[]) => void }> = ({ value, onChange }) => {
   const handleChange = async () => {
-    const { cancelled, ...result } = await ExpoImagePicker.launchCameraAsync({
+    const { cancelled, ...result } = await ExpoImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
       aspect: [4, 3],
     });
