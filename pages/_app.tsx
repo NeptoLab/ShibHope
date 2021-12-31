@@ -180,7 +180,7 @@ const App = ({ Component, pageProps }: AppProps) => {
       <IntlProvider locale="en">
         <NativeBaseProvider config={config} theme={theme}>
           <Web3ReactProvider getLibrary={getLibrary}>
-            {!fontsLoaded ? <Loading /> : (
+            {!fontsLoaded && typeof window !== 'undefined' ? <Loading /> : (
               <Component {...pageProps} />
             )}
           </Web3ReactProvider>
