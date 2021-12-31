@@ -11,7 +11,6 @@ import { gql, useQuery } from "@apollo/client";
 import { Query_Root } from "types/models";
 import Link from "components/Link";
 import Loading from "components/Loading";
-import { Platform } from "react-native";
 
 const GetIndexQuery = gql`
   query GetIndex {
