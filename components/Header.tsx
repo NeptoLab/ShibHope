@@ -48,6 +48,7 @@ const Header: React.FC = () => {
   }, []);
 
   const handleDisconnect = async () => {
+    cookie.remove('provider');
     deactivate();
   };
 
