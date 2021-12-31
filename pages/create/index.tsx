@@ -134,8 +134,8 @@ const CampaignCreatePage: NextPage = () => {
           />
         </FormControl>
 
-        <View mt={4} alignItems="center" flexDirection="row">
-          <Checkbox isChecked={confirm} onChange={setConfirm} value="confirm">I certify I provided complete and truthful information</Checkbox>
+        <View mt={4} alignItems="center" flexDirection="row" flexWrap="wrap">
+          <Checkbox mb={4} isChecked={confirm} onChange={setConfirm} value="confirm">I certify I provided complete and truthful information</Checkbox>
           <Button ml="auto" w={200} variant="outline">Cancel</Button>
           <Button
             isLoading={loading}
