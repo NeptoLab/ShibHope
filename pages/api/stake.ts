@@ -47,8 +47,6 @@ const getCampaign = async (id: number) => {
   );
   const result = await response.json();
 
-  console.log(result);
-
   if (result.errors) {
     throw result.errrors[0];
   }
@@ -75,8 +73,6 @@ const stakeCampaign = async ({ text, ...variables }: StakeCampaignArgs & { amoun
     }
   );
   const result = await response.json();
-
-  console.log(result);
   
   if (result.errors) {
     throw result.errors[0];
@@ -103,6 +99,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const { object: { tx_number, campaign_id, text, value } }: Mutation_RootStake_CampaignArgs = req.body.input;
     const { session_variables } = req.body;
+
+    console.log('Session', session_variables, 'Headers', req.headers);
 
     const campaign = await getCampaign(campaign_id);
     const receipt = await web3.eth.getTransactionReceipt(tx_number);

@@ -23,11 +23,11 @@ const StakeModal: React.FC<IModalProps & { campaign: Campaign }> = ({ campaign, 
 
   const [ stakeCampaign ] = useMutation<Mutation_Root>(StakeCampaignMutation, { awaitRefetchQueries: true, refetchQueries: ['GetCampaign', 'getCampaigns'] });
 
-  const handleStake = async ({ value }: { value: number }) => {
+  const handleStake = async ({ value, text }: { value: number, text: string }) => {
     setIsLoading(true);
     const result = await send(value, campaign.owner);
     if (result) {
-      await stakeCampaign({ variables: { object: { value, campaign_id: campaign.id, tx_number: result.transactionHash } } });
+      await stakeCampaign({ variables: { object: { value, campaign_id: campaign.id, tx_number: result.transactionHash, text } } });
       onClose();
     }
   };
