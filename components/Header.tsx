@@ -10,34 +10,15 @@ import useModal from 'hooks/useModal';
 
 const Header: React.FC = () => {
   const { isOpen, handleClose, handleOpen } = useModal();
-  const [ provider, setProvider ] = useState<AbstractConnector>();
   const { active, account, library, activate, deactivate } = useWeb3React();
   const { balance, price } = usePayment(library, account);
 
   const handleSelectProvider = async (provider: AbstractConnector) => {
-    setProvider(provider);
+    await activate(provider);
     handleClose();
   }
 
-  useEffect(() => {
-    provider && handleConnect();
-  }, [provider]);
-
-  const handleConnect = async () => {
-    try {
-      if (!provider) {
-        handleOpen();
-        return;
-      }
-      
-      await activate(provider);
-    } catch(e) {
-      console.error(e);
-    }
-  };
-
   const handleDisconnect = async () => {
-    setProvider(undefined);
     deactivate();
   };
 
@@ -72,7 +53,7 @@ const Header: React.FC = () => {
               fontWeight: "bold",
               color: "white",
             }}
-            onPress={handleConnect}
+            onPress={handleOpen}
           >
             Connect Wallet
           </Button>
