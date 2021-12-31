@@ -13,7 +13,6 @@ const usePayment = (web3: Web3, account?: string | null) => {
 
   useEffect(() => {
     if (web3 && !!parseInt(status)) {
-      console.log(web3.eth.currentProvider);
       contract.current = new web3.eth.Contract(JSON.parse(result), '0xAe448cB5A3ec77BA4aDcc6C8f9621e5921DCd77a');
       contract.current.methods.balanceOf(account).call().then((balance: number) => {
         setBalance(balance);

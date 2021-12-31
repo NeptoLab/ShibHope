@@ -49,6 +49,7 @@ const CampaignViewPage: NextPage = () => {
     sidebar: {
       [theme.media.desktop]: {
         marginLeft: '30px',
+        minWidth: '480px'
       },
       [theme.media.mobile]: {
         width: '100%'
@@ -56,7 +57,7 @@ const CampaignViewPage: NextPage = () => {
     },
     content: {
       [theme.media.desktop]: {
-        width: '560px',
+        flex: 1,
       },
       [theme.media.mobile]: {
         width: '100%'

@@ -80,6 +80,11 @@ const theme = extendTheme({
       }
     },
     components: {
+      Input: {
+        defaultProps: {
+          fontSize: '16px' 
+        }
+      },
       Progress: {
         baseStyle: {
           bg: '#DADBDC',
