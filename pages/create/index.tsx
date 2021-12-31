@@ -3,7 +3,7 @@ import { NextPage } from "next";
 import React, { useState } from "react";
 import Layout from "components/Layout";
 import Block from "components/Block";
-import { Button, Checkbox, FormControl, Input, Radio, TextArea, Text, View } from "native-base";
+import { Button, Checkbox, FormControl, Input, Radio, TextArea, Text, View, HStack } from "native-base";
 import { Controller, useForm } from "react-hook-form";
 import { Campaign_Insert_Input, Mutation_Root } from "types/models";
 import { gql, useMutation } from "@apollo/client";
@@ -136,18 +136,20 @@ const CampaignCreatePage: NextPage = () => {
 
         <View mt={4} alignItems="center" flexDirection="row" flexWrap="wrap">
           <Checkbox mb={4} isChecked={confirm} onChange={setConfirm} value="confirm">I certify I provided complete and truthful information</Checkbox>
-          <Button ml="auto" w={200} variant="outline">Cancel</Button>
-          <Button
-            isLoading={loading}
-            isLoadingText="Creating..."
-            disabled={!confirm}
-            ml={4}
-            w={200}
-            variant="glow"
-            onPress={handleSubmit(handleCreate)}
-          >
-            Create Item
-          </Button>
+          <HStack ml="auto">
+            <Button ml={4} w={200} variant="outline">Cancel</Button>
+            <Button
+              isLoading={loading}
+              isLoadingText="Creating..."
+              disabled={!confirm}
+              ml={4}
+              w={200}
+              variant="glow"
+              onPress={handleSubmit(handleCreate)}
+            >
+              Create Item
+            </Button>
+          </HStack>
         </View>
       </Block>
     </Layout>
