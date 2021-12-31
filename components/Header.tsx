@@ -41,7 +41,9 @@ const Header: React.FC = () => {
 
   useEffect(() => {
     if (cookie.get('provider')) {
-      handleConnect(cookie.get('provider') as keyof typeof providers);
+      setTimeout(() => {
+        handleConnect(cookie.get('provider') as keyof typeof providers);
+      }, 500);
     }
   }, []);
 
