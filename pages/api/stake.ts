@@ -118,7 +118,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       throw 'Transaction can\'t be verified';
     }
 
-    const data = await stakeCampaign({ tx_number, campaign_id, amount: value * price, value, text }, { authorization: req.headers.authorization });
+    const data = await stakeCampaign({ tx_number, campaign_id, amount: value * price, value, text }, {
+      authorization: req.headers.authorization,
+      'x-hasura-admin-secret': req.headers['x-hasura-admin-secret']
+    });
     return res.json(data);
   } catch(e: any) {
     return res.status(400).json({
