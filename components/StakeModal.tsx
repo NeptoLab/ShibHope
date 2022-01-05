@@ -52,7 +52,7 @@ const StakeModal: React.FC<IModalProps & { campaign: Campaign }> = ({ campaign, 
               render={({ field: { value, ...fieldProps } }) => (
                 <>
                   <Input placeholder="XXXXX GRUMPYSHIB" value={value} {...fieldProps} />
-                  <Text mt={2} color="gray.600" fontSize="8px">≈{(price * value / Math.pow(10, 18)).toFixed(2)}</Text>
+                  <Text mt={2} color="gray.600" fontSize="8px">≈{(price * value).toFixed(2)}</Text>
                 </>
               )}
             />
