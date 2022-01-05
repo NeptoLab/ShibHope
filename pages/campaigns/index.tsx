@@ -63,14 +63,14 @@ const CampaignIndexPage: NextPage = () => {
   return (
     <Layout>
       <Block px={4} py={2} alignItems="center" flexDirection="row" flexWrap="wrap">
-        <FormControl alignItems="center" w={250} mr={2} flexDirection="row">
+        <FormControl alignItems="center" minW={250} mr={2} flexDirection="row">
           <FormControl.Label _text={{ fontWeight: 'bold' }} m={0} mr={2}>Sort By:</FormControl.Label>
           <Select onValueChange={setSortBy} selectedValue={sortBy}>
             <Select.Item label="Creation Date" value="created" />
             <Select.Item label="Funding Raised" value="total" />
           </Select>
         </FormControl>
-        <FormControl alignItems="center" w={250} flexDirection="row">
+        <FormControl alignItems="center" minW={250} flexDirection="row">
           <FormControl.Label _text={{ fontWeight: 'bold' }} fontWeight={900} m={0} mr={2}>Status:</FormControl.Label>
           <Select onValueChange={setStatus} selectedValue={status}>
             <Select.Item label="Everything" value="" />
