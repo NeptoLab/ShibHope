@@ -61,7 +61,7 @@ const CampaignCreatePage: NextPage = () => {
   const { handleSubmit, control, formState: { errors } } = useForm();
   const [ confirm, setConfirm ] = useState(false);
 
-  const [ createCampaign, { loading } ] = useMutation<Mutation_Root>(CreateCampaignMutation);
+  const [ createCampaign, { loading } ] = useMutation<Mutation_Root>(CreateCampaignMutation, { refetchQueries: ['getCampaigns', 'GetIndex'] });
   
   const handleCreate = async (campaign: Campaign_Insert_Input & { confirm: boolean }) => {
     const result = await createCampaign({
