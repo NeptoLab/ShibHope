@@ -3,7 +3,7 @@ import GrumpyShibaAbi from 'contracts/GrumpyShibaAbi.json';
 import useSWR from "swr";
 import type Web3 from "web3";
 import cookie from 'js-cookie';
-import { getTokenPrice, TOKEN_INFO_URL } from "services/price";
+import { getTokenPrice, TOKEN_INFO_URL } from "services/token";
 
 const usePayment = (web3: Web3, account?: string | null) => {
   const contract = useRef<any>(null);

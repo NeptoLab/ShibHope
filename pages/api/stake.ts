@@ -3,7 +3,7 @@ import Web3 from 'web3';
 import fetch from "isomorphic-fetch"
 import { NextApiRequest, NextApiResponse } from 'next';
 import { Mutation_Root, Mutation_RootStake_CampaignArgs, Query_Root, StakeCampaignArgs } from "types/models";
-import { getTokenPrice } from 'services/price';
+import { getTokenPrice } from 'services/token';
 
 const STAKE_CAMPAIGN_MUTATION = `
   mutation stake_campaign($campaign_id: bigint!, $amount: numeric!, $value: numeric!, $tx_number: String!, $owner: String!) {
