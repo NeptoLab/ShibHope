@@ -3,13 +3,12 @@ import GrumpyShibaAbi from 'contracts/GrumpyShibaAbi.json';
 import useSWR from "swr";
 import type Web3 from "web3";
 import cookie from 'js-cookie';
-
-const fetcher = (url: string) => fetch(url).then(r => r.json());
+import { getTokenPrice, TOKEN_INFO_URL } from "services/price";
 
 const usePayment = (web3: Web3, account?: string | null) => {
   const contract = useRef<any>(null);
   const [ balance, setBalance ] = useState<number | undefined>(undefined);
-  const { data: { data: { price } } = { data: { price: 0 } } } = useSWR('https://api.pancakeswap.info/api/v2/tokens/0xAe448cB5A3ec77BA4aDcc6C8f9621e5921DCd77a', fetcher);
+  const { data: price = 0 } = useSWR(TOKEN_INFO_URL, getTokenPrice);
 
   useEffect(() => {
     if (web3) {

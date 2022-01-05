@@ -98,7 +98,7 @@ const Header: React.FC = () => {
               {balance && (
                 <>
                   <Text fontSize="14px" fontWeight="bold">{`${(intl.formatNumber(balance / Math.pow(10, 18), {style: 'decimal'}))}`} GRUMPYSHIB</Text>
-                  <Text mt={1} color="gray.600" fontSize="12px">≈{(price * balance / Math.pow(10, 18)).toFixed(2)}</Text>
+                  <Text mt={1} color="gray.600" fontSize="12px">≈{intl.formatNumber(price * balance / Math.pow(10, 18), { style: 'currency', currency: 'USD' })}</Text>
                 </>
               )}
               <Button mt={4} onPress={handleDisconnect}>Disconnect</Button>

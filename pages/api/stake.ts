@@ -3,6 +3,7 @@ import Web3 from 'web3';
 import fetch from "isomorphic-fetch"
 import { NextApiRequest, NextApiResponse } from 'next';
 import { Mutation_Root, Mutation_RootStake_CampaignArgs, Query_Root, StakeCampaignArgs } from "types/models";
+import { getTokenPrice } from 'services/price';
 
 const STAKE_CAMPAIGN_MUTATION = `
   mutation stake_campaign($campaign_id: bigint!, $amount: numeric!, $value: numeric!, $tx_number: String!, $owner: String!) {
@@ -86,12 +87,6 @@ const stakeCampaign = async ({ text, ...variables }: StakeCampaignArgs & { amoun
 
   return data.insert_stake_one;
 };
-
-const getTokenPrice = async () => {
-  const response = await fetch('https://api.pancakeswap.info/api/v2/tokens/0xAe448cB5A3ec77BA4aDcc6C8f9621e5921DCd77a');
-  const data = await response.json();
-  return data.price || 0;
-}
 
 const web3 = new Web3(new Web3.providers.HttpProvider('https://bsc-dataseed.binance.org/'));
 
