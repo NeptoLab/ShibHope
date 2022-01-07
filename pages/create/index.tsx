@@ -75,6 +75,19 @@ const CampaignCreatePage: NextPage = () => {
   return (
     <Layout>
       <Block flex={1} p={4}>
+      <FormControl mt={4}>
+        <FormControl.Label _text={{ fontWeight: 'bold' }}>Email</FormControl.Label>
+          <Controller
+            control={control}
+            name="email"
+            rules={{
+              required: true,
+            }}
+            render={({ field: { value, ...fieldProps } }) => (
+              <Input placeholder="email@example.com" value={value} {...fieldProps} />
+            )}
+          />
+        </FormControl>
         <FormControl mt={4}>
           <FormControl.Label _text={{ fontWeight: 'bold' }}>Description</FormControl.Label>
           <Controller

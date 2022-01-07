@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import Error from 'next/error';
 import React from "react";
 import Layout from "components/Layout";
-import { View, Text, Heading, HStack, VStack, Button, useTheme } from "native-base";
+import { View, Text, Heading, HStack, VStack, Button, useTheme, Alert, Box } from "native-base";
 import Comment from "components/Comment";
 import Stake from "components/Stake";
 import StakeModal from "components/StakeModal";
@@ -24,6 +24,7 @@ const GetCampaignQuery = gql`
       description
       id
       media
+      is_verified
       stakes {
         id
         amount
@@ -83,6 +84,26 @@ const CampaignViewPage: NextPage = () => {
 
   return (
     <Layout>
+      {!data.campaign_by_pk.is_verified && (
+        <Alert mb={4} w="100%" status="warning" colorScheme="warning">
+          <VStack space={2} flexShrink={1} w="100%">
+            <HStack flexShrink={1} space={2} alignItems="center">
+              <Alert.Icon />
+              <Text fontSize="md" fontWeight="medium" color="coolGray.800">
+                Verification Required
+              </Text>
+            </HStack>
+            <Box
+              pl="6"
+              _text={{
+                color: "coolGray.600",
+              }}
+            >
+              This campaign is just created and currently in a preview mode. Please give us 2-7 business days to verify your email and campaign details.
+            </Box>
+          </VStack>
+        </Alert>
+      )}
       {isOpen && <StakeModal campaign={data.campaign_by_pk} isOpen={isOpen} onClose={handleClose} />}
       <View alignItems="center" flexDirection="row">
         <Text color="primary.700" fontWeight="bold">{data.campaign_by_pk.location}</Text>
@@ -107,7 +128,7 @@ const CampaignViewPage: NextPage = () => {
         </View>
         <View dataSet={{ media: ids.sidebar }} style={styles.sidebar}>
           <Gallery media={data.campaign_by_pk.media} />
-          <Button mt={4} variant="glow" onPress={handleOpen}>Stake</Button>
+          {data.campaign_by_pk.is_verified && <Button mt={4} variant="glow" onPress={handleOpen}>Stake</Button>}
           {data.campaign_by_pk.stakes.length > 0 && (
             <>
               <Heading mt={8} mb={2} textAlign="left" fontSize="20px">Top 5 donations</Heading>
