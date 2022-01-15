@@ -12,7 +12,7 @@ import {
 import Block from "./Block";
 import Link from "./Link";
 
-const imageMap = {
+export const imageMap = {
   charity: CharityImage,
   donation: DonationImage,
   crowdfunding: CrowdfundingImage
@@ -31,7 +31,7 @@ const Create: React.FC<{ title: string, category: keyof typeof imageMap }> = ({ 
         <Heading my={4} size="lg">
           {title}
         </Heading>
-        <Link passHref href={`create/${category}`}>
+        <Link passHref href={`campaigns/create/${category}`}>
           <Button flex={1} variant="glow">
             Start Your Campaign
           </Button>

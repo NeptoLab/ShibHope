@@ -21,6 +21,7 @@ const GetIndexQuery = gql`
       description
       location
       media
+      category
       stakes_aggregate {
         aggregate {
           sum {
@@ -60,7 +61,7 @@ const IndexPage: NextPage = () => {
           <Title>
             Top Fundraisers
           </Title>
-          <HStack justifyContent="center" m={-15} mt={7} mb={0} flexWrap="wrap">
+          <HStack justifyContent={["center", "flex-start"]} m={-15} mt={7} mb={0} flexWrap="wrap">
             {data?.campaign.map((campaign) => <Campaign key={campaign.id} item={campaign} />)}
           </HStack>
           <Link href="/campaigns" passHref>

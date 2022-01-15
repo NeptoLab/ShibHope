@@ -1,4 +1,5 @@
-import { Factory, View, Center } from "native-base";
+import { View, Center } from "native-base";
+import { IViewProps } from "native-base/lib/typescript/components/basic/View/types";
 import * as React from "react"
 import Svg, {
   Mask,
@@ -11,7 +12,7 @@ import Svg, {
   TMaskUnits,
 } from "react-native-svg"
 
-const Cover: React.FC = ({ children, ...props }) => (
+const Cover: React.FC<IViewProps> = ({ children, ...props }) => (
   <View position="relative" {...props}>
     <Center
       position="absolute"
@@ -21,9 +22,8 @@ const Cover: React.FC = ({ children, ...props }) => (
       {children}
     </Center>
     <Svg
-      width={1170}
+      width="100%"
       height={300}
-      {...props}
       fill="none"
     >
       <Mask
@@ -61,4 +61,4 @@ const Cover: React.FC = ({ children, ...props }) => (
   </View>
 )
 
-export default Factory(Cover);
+export default Cover;

@@ -2,7 +2,7 @@ import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core';
 import cookie from 'js-cookie';
 import { useIntl } from 'react-intl';
 import { Pressable, Button, HStack, Popover, Text } from 'native-base';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import Logo from './Logo';
 import usePayment, { providers, Web3ProviderType } from 'hooks/usePayment';
 import Link from './Link';

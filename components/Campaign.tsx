@@ -2,13 +2,14 @@ import React from "react";
 import {
   Heading,
   AspectRatio,
-  Image,
   Text,
   Stack,
   Progress,
   Button,
 } from "native-base";
-import Block from "./Block";
+import Image from 'components/Image';
+import { imageMap } from "components/Create";
+import Block from "components/Block";
 import type { Campaign as ICampaign } from 'types/models';
 import { useIntl } from "react-intl";
 import { useFormat } from "utils/format";
@@ -21,14 +22,10 @@ const Campaign: React.FC<{ item: ICampaign }> = ({ item }) => {
   return (
     <Block w={370} m={15}>
       <AspectRatio w="100%" ratio={16 / 9}>
-        {item.media[0] && (
-          <Image
-            source={{
-              uri: item.media[0].uri,
-            }}
-            alt="image"
-          />
-        )}
+        <Image
+          source={item.media.length > 0 ? { uri: item.media[0].uri } : imageMap[item.category as keyof typeof imageMap]}
+          alt="image"
+        />
       </AspectRatio>
       <Stack p="4" space={3} flex={1}>
         <Stack space={2}>

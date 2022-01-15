@@ -15,7 +15,7 @@ class MyDocument extends NextDocument {
 
   static async getInitialProps(ctx: any) {
     // console.log(cookie.parse(ctx?.req?.headers?.cookie || ''));
-    const apolloClient = getApolloClient(true);
+    const apolloClient = getApolloClient();
     await getDataFromTree(<ctx.AppTree {...ctx.appProps} />);
     const initialProps = await NextDocument.getInitialProps(ctx);
     const apolloState = apolloClient.extract();
