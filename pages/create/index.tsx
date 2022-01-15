@@ -4,7 +4,7 @@ import StyleSheet from 'react-native-media-query';
 import React, { useState } from "react";
 import Layout from "components/Layout";
 import Block from "components/Block";
-import { Button, Checkbox, FormControl, Input, Radio, TextArea, Text, View, HStack, useTheme, Box } from "native-base";
+import { Button, Checkbox, FormControl, Input, TextArea, View, HStack, useTheme, Box } from "native-base";
 import { Controller, useForm } from "react-hook-form";
 import { Campaign_Insert_Input, Mutation_Root } from "types/models";
 import { gql, useMutation } from "@apollo/client";
