@@ -5,7 +5,7 @@ import usePayment from 'hooks/usePayment';
 import { useWeb3React } from '@web3-react/core';
 import { IModalProps } from 'native-base/lib/typescript/components/composites/Modal';
 import { gql, useMutation } from '@apollo/client';
-import { Campaign, Mutation_Root } from 'types/models';
+import { Campaign, Mutation_Root, StakeCampaignArgs } from 'types/models';
 
 const StakeCampaignMutation = gql`
   mutation stake_campaign($object: StakeCampaignArgs!) {
@@ -16,14 +16,14 @@ const StakeCampaignMutation = gql`
 `;
 
 const StakeModal: React.FC<IModalProps & { campaign: Campaign }> = ({ campaign, onClose, ...props }) => {
-  const { formState: { errors }, control, handleSubmit } = useForm();
+  const { formState: { errors }, control, handleSubmit } = useForm<StakeCampaignArgs>();
   const [ isLoading, setIsLoading ] = useState(false);
   const { account, library } = useWeb3React();
   const { price, send } = usePayment(library, account);
 
   const [ stakeCampaign ] = useMutation<Mutation_Root>(StakeCampaignMutation, { awaitRefetchQueries: true, refetchQueries: ['GetCampaign', 'getCampaigns'] });
 
-  const handleStake = async ({ value, text }: { value: number, text: string }) => {
+  const handleStake = async ({ value, text }: StakeCampaignArgs) => {
     setIsLoading(true);
     const result = await send(value, campaign.owner);
     if (result) {
@@ -35,7 +35,7 @@ const StakeModal: React.FC<IModalProps & { campaign: Campaign }> = ({ campaign, 
   return (
     <Modal onClose={onClose} {...props}>
       <Modal.Content>
-        <Modal.CloseButton p={0} m={-2} />
+        <Modal.CloseButton />
         <Modal.Header>
           Stake for Campaign
         </Modal.Header>
@@ -51,7 +51,7 @@ const StakeModal: React.FC<IModalProps & { campaign: Campaign }> = ({ campaign, 
               }}
               render={({ field: { value, ...fieldProps } }) => (
                 <>
-                  <Input placeholder="XXXXX GRUMPYSHIB" value={value} {...fieldProps} />
+                  <Input placeholder="XXXXX GRUMPYSHIB" value={value.toString()} {...fieldProps} />
                   <Text mt={2} color="gray.600" fontSize="8px">≈{(price * value).toFixed(2)}</Text>
                 </>
               )}
@@ -64,8 +64,8 @@ const StakeModal: React.FC<IModalProps & { campaign: Campaign }> = ({ campaign, 
               defaultValue={''}
               control={control}
               name="text"
-              render={({ field: fieldProps }) => (
-                <TextArea {...fieldProps} />
+              render={({ field: { value, ...fieldProps } }) => (
+                <TextArea value={value || ''} {...fieldProps} />
               )}
             />
           </FormControl>

@@ -9,7 +9,7 @@ const Web3Modal: React.FC<{ onSelect: (name: Web3ProviderType) => void } & IModa
   return (
     <Modal {...props}>
       <Modal.Content>
-        <Modal.CloseButton p={0} m={-2} />
+        <Modal.CloseButton />
         <Modal.Header>
           Connect Wallet
         </Modal.Header>

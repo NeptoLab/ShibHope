@@ -1,33 +1,45 @@
-import { useWeb3React } from '@web3-react/core';
+import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core';
 import cookie from 'js-cookie';
 import { useIntl } from 'react-intl';
 import { Pressable, Button, HStack, Popover, Text } from 'native-base';
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Logo from './Logo';
 import usePayment, { providers, Web3ProviderType } from 'hooks/usePayment';
 import Link from './Link';
 import Web3Modal from './Web3Modal';
 import useModal from 'hooks/useModal';
+import UnsupportedNetworkModal from './UnsupportedNetworkModal';
 
 const Header: React.FC = () => {
-  const { isOpen, handleClose, handleOpen } = useModal();
-  const { active, account, library, activate, deactivate } = useWeb3React();
+  const web3Modal = useModal();
+  const errorModal = useModal();
+
+  const { active, account, library, activate, deactivate, connector, error } = useWeb3React();
   const { balance, price } = usePayment(library, account);
   const intl = useIntl();
+
+  useEffect(() => {
+    if (error instanceof UnsupportedChainIdError) {
+      errorModal.handleOpen();
+    }
+  }, [error]);
 
   const handleSelectProvider = async (name: Web3ProviderType) => {
     await handleConnect(name);
     cookie.set('provider', name);
-    handleClose();
+    web3Modal.handleClose();
   };
 
   const handleConnect = async (name: Web3ProviderType) => {
-    const provider = providers[name];
-    provider.on('networkChanged', (networkId) => {
-      alert(networkId);
-    });
     await activate(providers[name]);
   };
+
+  const handleSwitchNetwork = async () => {  
+    connector && await (await connector.getProvider()).request({
+      method: "wallet_switchEthereumChain",
+      params: [{ chainId: "0x38" }]
+    });
+  }
 
   useEffect(() => {
     if (cookie.get('provider')) {
@@ -42,7 +54,8 @@ const Header: React.FC = () => {
 
   return (
     <>
-      <Web3Modal isOpen={isOpen} onSelect={handleSelectProvider} onClose={handleClose} />
+      <UnsupportedNetworkModal isOpen={errorModal.isOpen} onSwitchNetwork={handleSwitchNetwork} onClose={errorModal.handleClose} />
+      <Web3Modal onSelect={handleSelectProvider} isOpen={web3Modal.isOpen} onClose={web3Modal.handleClose} />
       <HStack bg="white" shadow={5} space={2} py={6} px={10} justifyContent="center">
         <Link href="/" passHref>
           <Pressable flex={1} maxW="245px" justifyContent="center" mr="auto">
@@ -71,7 +84,7 @@ const Header: React.FC = () => {
               fontWeight: "bold",
               color: "white",
             }}
-            onPress={handleOpen}
+            onPress={web3Modal.handleOpen}
           >
             Connect Wallet
           </Button>

@@ -80,6 +80,18 @@ const theme = extendTheme({
       }
     },
     components: {
+      ModalCloseButton: {
+        baseStyle: {
+          p: 0,
+          m: -2
+        }
+      },
+      AlertDialogCloseButton: {
+        baseStyle: {
+          p: 0,
+          m: -2
+        }
+      },
       Input: {
         defaultProps: {
           fontSize: '16px' 

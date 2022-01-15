@@ -20,6 +20,8 @@ const CreateCampaignMutation = gql`
   }
 `;
 
+type CampaignFormType = Omit<Campaign_Insert_Input, 'stakes'> & { confirm: boolean };
+
 const CampaignCreatePage: NextPage = () => {
   const theme: any = useTheme();
   const { ids, styles } = StyleSheet.create({
@@ -58,12 +60,12 @@ const CampaignCreatePage: NextPage = () => {
   
   const { push, query: { slug } } = useRouter();
 
-  const { handleSubmit, control, formState: { errors } } = useForm();
+  const { handleSubmit, control, formState: { errors } } = useForm<CampaignFormType>();
   const [ confirm, setConfirm ] = useState(false);
 
   const [ createCampaign, { loading } ] = useMutation<Mutation_Root>(CreateCampaignMutation, { refetchQueries: ['getCampaigns', 'GetIndex'] });
   
-  const handleCreate = async (campaign: Campaign_Insert_Input & { confirm: boolean }) => {
+  const handleCreate = async (campaign: CampaignFormType) => {
     const result = await createCampaign({
       variables: { campaign }
     });
@@ -84,7 +86,7 @@ const CampaignCreatePage: NextPage = () => {
               required: true,
             }}
             render={({ field: { value, ...fieldProps } }) => (
-              <Input placeholder="email@example.com" value={value} {...fieldProps} />
+              <Input placeholder="email@example.com" value={value || ''} {...fieldProps} />
             )}
           />
         </FormControl>
@@ -97,7 +99,7 @@ const CampaignCreatePage: NextPage = () => {
               required: true,
             }}
             render={({ field: { value, ...fieldProps } }) => (
-              <Input placeholder="You Campaign Title" value={value} {...fieldProps} />
+              <Input placeholder="You Campaign Title" value={value || ''} {...fieldProps} />
             )}
           />
         </FormControl>
@@ -110,7 +112,7 @@ const CampaignCreatePage: NextPage = () => {
               required: true,
             }}
             render={({ field: { value, ...fieldProps } }) => (
-              <Input placeholder="Location, where are you or your fund, is located" value={value} {...fieldProps} />
+              <Input placeholder="Location, where are you or your fund, is located" value={value || ''} {...fieldProps} />
             )}
           />
         </FormControl>
@@ -151,14 +153,14 @@ const CampaignCreatePage: NextPage = () => {
             }}
             name="description"
             render={({ field: { value, ...fieldProps } }) => (
-              <TextArea placeholder="Campaign Description" value={value} {...fieldProps} />
+              <TextArea placeholder="Campaign Description" value={value || ''} {...fieldProps} />
             )}
           />
         </FormControl>
 
         <FormControl mt={4} alignItems="center">
           <Controller
-            defaultValue={slug}
+            defaultValue={slug as string}
             control={control}
             name="category"
             rules={{
