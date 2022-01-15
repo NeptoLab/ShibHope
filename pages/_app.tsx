@@ -172,7 +172,7 @@ const config = {
 };
 
 const App = ({ Component, pageProps }: AppProps) => {
-  const client = getApolloClient(false);
+  const client = getApolloClient();
 
   const [fontsLoaded] = useFonts({
     'MuseoSansCyrl-Bold': require('fonts/MuseoSansCyrl-Bold.ttf').default,

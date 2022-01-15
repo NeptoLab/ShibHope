@@ -48,7 +48,6 @@ const getOrderByValue = (value: string) => {
 const CampaignIndexPage: NextPage = () => {
   const [ sortBy, setSortBy ] = useState('created');
   const [ status, setStatus ] = useState('');
-  console.log(getWhereByValue(status));
 
   const { data, loading, error } = useQuery<Query_Root>(GetCampaignsQuery, { variables: { order: getOrderByValue(sortBy), where: getWhereByValue(status) } } );
 
@@ -62,7 +61,7 @@ const CampaignIndexPage: NextPage = () => {
 
   return (
     <Layout>
-      <Block px={4} py={2} alignItems="center" flexDirection="row" flexWrap="wrap">
+      <Block px={4} py={2} minW={['100%', 250]} alignItems="center" flexDirection="row" flexWrap="wrap">
         <FormControl alignItems="center" w="auto" minW={250} mr={4} flexDirection="row">
           <FormControl.Label _text={{ fontWeight: 'bold' }} m={0} mr={2}>Sort By:</FormControl.Label>
           <Select onValueChange={setSortBy} selectedValue={sortBy}>
@@ -79,7 +78,7 @@ const CampaignIndexPage: NextPage = () => {
           </Select>
         </FormControl>
       </Block>
-      <HStack m="-15px" justifyContent="center" mt={7} flexWrap="wrap">
+      <HStack m="-15px" justifyContent={["center", "center", "center", "flex-start"]} mt={7} flexWrap="wrap">
         {data?.campaign.map((campaign) => <Campaign key={campaign.id} item={campaign} />
         )}
       </HStack>
