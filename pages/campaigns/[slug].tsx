@@ -145,6 +145,4 @@ const CampaignViewPage: NextPage = () => {
   );
 };
 
-CampaignViewPage.getInitialProps = async () => ({});
-
 export default CampaignViewPage;

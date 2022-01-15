@@ -224,6 +224,4 @@ const CampaignCreatePage: NextPage = () => {
   );
 };
 
-CampaignCreatePage.getInitialProps = async () => ({});
-
 export default CampaignCreatePage;

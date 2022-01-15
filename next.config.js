@@ -12,16 +12,17 @@ const withTM = require("next-transpile-modules")([
   "native-base",
 ]);
 
-const nextConfig = { webpack5: true };
-
 module.exports = withPlugins(
   [
     withTM,
     [withImages, { images: {
       disableStaticImages: true
     }}],
-    [withFonts, { projectRoot: __dirname }],
-    [withExpo, { projectRoot: __dirname }],
+    withFonts,
+    withExpo,
   ],
-  nextConfig
+  {
+    webpack5: true,
+    projectRoot: __dirname
+  }
 );
