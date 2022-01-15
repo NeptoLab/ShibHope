@@ -1,13 +1,11 @@
-import { AbstractConnector } from '@web3-react/abstract-connector';
-import { InjectedConnector } from '@web3-react/injected-connector';
-import { WalletConnectConnector, WalletConnectConnectorArguments } from '@web3-react/walletconnect-connector';
 import { Button, Modal } from 'native-base';
 import { IModalProps } from 'native-base/lib/typescript/components/composites/Modal';
 import React from 'react';
 import MetaMaskIcon from './MetaMaskIcon';
 import WalletConnectIcon from './WalletConnectIcon';
+import type { Web3ProviderType } from 'hooks/usePayment';
 
-const Web3Modal: React.FC<{ onSelect: (name: string) => void } & IModalProps> = ({ onSelect, ...props }) => {
+const Web3Modal: React.FC<{ onSelect: (name: Web3ProviderType) => void } & IModalProps> = ({ onSelect, ...props }) => {
   return (
     <Modal {...props}>
       <Modal.Content>

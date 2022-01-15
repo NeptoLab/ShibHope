@@ -6,12 +6,13 @@ const withFonts = require("next-fonts");
 const withImages = require('next-images');
 const withPlugins = require("next-compose-plugins");
 const withTM = require("next-transpile-modules")([
+  "expo-font",
   "react-native-web",
   "react-native-svg",
   "native-base",
 ]);
 
-const nextConfig = {};
+const nextConfig = { webpack5: true };
 
 module.exports = withPlugins(
   [

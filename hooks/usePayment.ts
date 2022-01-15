@@ -1,9 +1,28 @@
 import { useEffect, useRef, useState } from "react";
-import GrumpyShibaAbi from 'contracts/GrumpyShibaAbi.json';
 import useSWR from "swr";
 import type Web3 from "web3";
 import cookie from 'js-cookie';
+import { InjectedConnector } from "@web3-react/injected-connector";
+import { WalletConnectConnector, WalletConnectConnectorArguments } from "@web3-react/walletconnect-connector";
+
 import { getTokenPrice, TOKEN_INFO_URL } from "services/token";
+import GrumpyShibaAbi from 'contracts/GrumpyShibaAbi.json';
+
+export const providers = {
+  injected: new InjectedConnector({
+    supportedChainIds: [56],
+  }),
+  walletconnect: new WalletConnectConnector({
+    supportedChainIds: [56],
+    rpc: {  
+      56: "https://bsc-dataseed.binance.org",
+    },
+    chainId: 56,
+    network: 'binance'
+  } as WalletConnectConnectorArguments)
+};
+
+export type Web3ProviderType = keyof typeof providers;
 
 const usePayment = (web3: Web3, account?: string | null) => {
   const contract = useRef<any>(null);
