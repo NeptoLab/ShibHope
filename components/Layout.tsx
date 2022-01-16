@@ -9,7 +9,7 @@ const Layout: React.FC = ({ children }) => {
   return (
     <VStack flex={1} position="static">
       <Header />
-      <View minW={[ '100%', '100%', '100%', '1170px' ]} mx="auto" my={10}>
+      <View maxW={[ '100%', '100%', '100%', '1170px' ]} mx="auto" my={10}>
         {children}
       </View>
       <Footer />
