@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Pressable } from 'native-base';
+import { AspectRatio, Pressable } from 'native-base';
 import Image from 'components/Image';
 import type { MediaInfo } from "components/Media";
 
@@ -12,19 +12,27 @@ const Gallery: React.FC<{ media: MediaInfo[] }> = ({ media }) => {
 
   return (
     <>
-      <Image
-        mt={1}
-        source={{
-          uri: media[index].uri,
-        }}
-        h={400}
-        alt="image"
-      />
-      {media.map((media: MediaInfo, index: number) => {
-        <Pressable onPress={() => setIndex(index)}>
-          <Image alt="image" resizeMode="contain" borderColor="primary.500" w={124} h={76} source={{ uri: media.uri }} />
+      <AspectRatio mb={4} w="100%" ratio={16 / 9}>
+        <Image
+          source={{
+            uri: media[index].uri,
+          }}
+          alt="image"
+        />
+      </AspectRatio>
+      {media.length > 1 && media.map((media: MediaInfo, elId: number) => (
+        <Pressable key={media.id} onPress={() => setIndex(elId)}>
+          <Image
+            borderWidth={elId === index ? '2' : '0'}
+            alt="image"
+            resizeMode="contain"
+            borderColor="primary.500"
+            w="124px"
+            h="76px"
+            source={{ uri: media.uri }}
+          />
         </Pressable>
-      })}
+      ))}
     </>
   )
 };

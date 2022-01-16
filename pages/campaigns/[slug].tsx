@@ -1,5 +1,4 @@
 import { NextPage } from "next";
-import StyleSheet from 'react-native-media-query';
 import { gql, useQuery } from "@apollo/client";
 import { useIntl } from "react-intl";
 import { useRouter } from "next/router";
@@ -46,25 +45,6 @@ const GetCampaignQuery = gql`
 
 const CampaignViewPage: NextPage = () => {
   const theme: any = useTheme();
-  const { ids, styles } = StyleSheet.create({
-    sidebar: {
-      [theme.media.desktop]: {
-        marginLeft: '30px',
-        minWidth: '480px'
-      },
-      [theme.media.mobile]: {
-        width: '100%'
-      }
-    },
-    content: {
-      [theme.media.desktop]: {
-        flex: 1,
-      },
-      [theme.media.mobile]: {
-        width: '100%'
-      }
-    }
-  });
 
   const { query: { slug } } = useRouter();
   const intl = useIntl();
@@ -111,7 +91,7 @@ const CampaignViewPage: NextPage = () => {
       </View>
       <Heading mt={4} textAlign="left">{data.campaign_by_pk.title}</Heading>
       <HStack justifyContent="center" flexWrap="wrap">
-        <View dataSet={{ media: ids.content }} style={styles.content}>
+        <View flex={1}>
           <Text mt={4}>
             {data.campaign_by_pk.description}
           </Text>
@@ -126,7 +106,7 @@ const CampaignViewPage: NextPage = () => {
             </>
           )}
         </View>
-        <View dataSet={{ media: ids.sidebar }} style={styles.sidebar}>
+        <View minW={['100%', '100%', '100%', '480px']} ml={30}>
           <Gallery media={data.campaign_by_pk.media} />
           {data.campaign_by_pk.is_verified && <Button mt={4} variant="glow" onPress={handleOpen}>Stake</Button>}
           {data.campaign_by_pk.stakes.length > 0 && (

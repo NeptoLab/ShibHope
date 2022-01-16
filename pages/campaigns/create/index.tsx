@@ -1,10 +1,9 @@
 import { NextPage } from "next";
-import StyleSheet from 'react-native-media-query';
 
 import React, { useState } from "react";
 import Layout from "components/Layout";
 import Block from "components/Block";
-import { Button, Checkbox, FormControl, Input, TextArea, View, HStack, useTheme, Box } from "native-base";
+import { Button, Checkbox, FormControl, Input, TextArea, View, HStack } from "native-base";
 import { Controller, useForm } from "react-hook-form";
 import { Campaign_Insert_Input, Mutation_Root } from "types/models";
 import { gql, useMutation } from "@apollo/client";
@@ -23,41 +22,6 @@ const CreateCampaignMutation = gql`
 type CampaignFormType = Omit<Campaign_Insert_Input, 'stakes'>;
 
 const CampaignCreatePage: NextPage = () => {
-  const theme: any = useTheme();
-  const { ids, styles } = StyleSheet.create({
-    stack: {
-      [theme.media.desktop]: {
-        flexDirection: 'row',
-        minWidth: '500px'
-      },
-      [theme.media.mobile]: {
-        minWidth: '500px'
-      },
-      [theme.media.phone]: {
-        flexDirection: 'column',
-        minWidth: '100%'
-      },
-    },
-    wrapper: {
-      [theme.media.mobile]: {
-        flexDirection: 'column'
-      },
-    },
-    button: {
-      [theme.media.phone]: {
-        width: '100%',
-        marginBottom: '8px',
-      },
-    },
-    container: {
-      [theme.media.phone]: {
-        width: '100%',
-        flexDirection: 'column',
-        marginLeft: 0
-      },
-    }
-  });
-  
   const { push, query: { slug } } = useRouter();
 
   const { handleSubmit, control, formState: { errors } } = useForm<CampaignFormType>();
@@ -174,7 +138,7 @@ const CampaignCreatePage: NextPage = () => {
               required: "Required Field"
             }}
             render={({ field: { ref, ...fieldProps } }) => (
-              <Tab dataSet={{ media: ids.stack }} style={styles.stack} {...fieldProps}>
+              <Tab {...fieldProps}>
                 <Tab.Item value="charity">
                   Charity
                 </Tab.Item>
@@ -190,17 +154,15 @@ const CampaignCreatePage: NextPage = () => {
           {errors.category && <FormControl.ErrorMessage>{errors.category.message}</FormControl.ErrorMessage>}
         </FormControl>
 
-        <View w="100%" mt={8} alignItems="center" justifyContent="center" flexDirection="row" flexWrap="wrap" style={styles.wrapper} dataSet={{ media: ids.wrapper }}>
+        <View w="100%" mt={8} alignItems="center" justifyContent="center" flexDirection="row" flexWrap="wrap">
           <Checkbox w="100%" mr={4} mb={4} isInvalid={!confirm} isChecked={confirm} onChange={setConfirm} value="confirm">
             I certify, I provided complete and truthful information
           </Checkbox>
-          <HStack ml="auto" space={4} style={styles.container} dataSet={{ media: ids.container }}>
+          <HStack ml="auto" space={4}>
             <Button
               flex={1}
               minW={200}
               variant="outline"
-              style={styles.button}
-              dataSet={{ media: ids.button }}
             >
               Cancel
             </Button>
@@ -212,8 +174,6 @@ const CampaignCreatePage: NextPage = () => {
               disabled={!confirm}
               variant="glow"
               onPress={handleSubmit(handleCreate)}
-              style={styles.button}
-              dataSet={{ media: ids.button }}
             >
               Create Item
             </Button>

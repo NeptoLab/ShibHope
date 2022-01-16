@@ -1,14 +1,8 @@
 import React from 'react';
 import NextDocument from '@expo/next-adapter/document';
-import { flush } from 'react-native-media-query';
-import { Head, Main, NextScript, Html, DocumentContext, DocumentInitialProps } from 'next/document';
+import { Head, Main, NextScript, Html } from 'next/document';
 
 class MyDocument extends NextDocument {
-  static async getInitialProps(ctx: any) {
-    const initialProps = await NextDocument.getInitialProps(ctx);
-    return { ...initialProps, styles: [ ...initialProps.styles, flush() ] };
-  }
-
   public render(): JSX.Element {
     return (
       <Html>
