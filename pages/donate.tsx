@@ -28,38 +28,38 @@ const DonatePage: NextPage = () => {
       <Title>Donate</Title>
       <Text textAlign="center">You can donate any amount on our charity wallet that would be spreaded between all campaigns</Text>
       <Text textAlign="center">Your donation will be transferred to ShibHope charity wallet: <Link isExternal>{CHARITY_WALLET_ADDRESS}</Link></Text>
-      <View flex={1} maxW={200}>
-      <FormControl>
-        <FormControl.Label>Amount</FormControl.Label>
-        <Controller
-          defaultValue={0}
-          control={control}
-          name="value"
-          rules={{
-          required: true,
-          }}
-          render={({ field: { value, ...fieldProps } }) => (
-            <>
-              <Input placeholder="XXXXX GRUMPYSHIB" value={value.toString()} {...fieldProps} />
-              <Text mt={2} color="gray.600" fontSize="8px">≈{(price * value).toFixed(2)}</Text>
-            </>
-          )}
-        />
-        {errors.value && <Text>This is required.</Text>}
-      </FormControl>
-      <Button mt={4} variant="glow" onPress={handleSubmit(handleDonate)}>Donate</Button>
-      <Modal isOpen={donationModal.isOpen} onClose={donationModal.handleClose}>
-      <Modal.Content>
-        <Modal.CloseButton />
-        <Modal.Header>
-          Thank You
-        </Modal.Header>
-        <Modal.Body p={4}>
-          You{"'"}ve successfully donated {watch('value')}
-        </Modal.Body>
-      </Modal.Content>
-      </Modal>
+      <View mx="auto" flex={1} maxW={200}>
+        <FormControl>
+          <FormControl.Label>Amount</FormControl.Label>
+          <Controller
+            defaultValue={0}
+            control={control}
+            name="value"
+            rules={{
+            required: true,
+            }}
+            render={({ field: { value, ...fieldProps } }) => (
+              <>
+                <Input placeholder="XXXXX GRUMPYSHIB" value={value.toString()} {...fieldProps} />
+                <Text mt={2} color="gray.600" fontSize="8px">≈{(price * value).toFixed(2)}</Text>
+              </>
+            )}
+          />
+          {errors.value && <Text>This is required.</Text>}
+        </FormControl>
+        <Button mt={4} variant="glow" onPress={handleSubmit(handleDonate)}>Donate</Button>
       </View>
+      <Modal isOpen={donationModal.isOpen} onClose={donationModal.handleClose}>
+        <Modal.Content>
+          <Modal.CloseButton />
+          <Modal.Header>
+            Thank You
+          </Modal.Header>
+          <Modal.Body p={4}>
+            You{"'"}ve successfully donated {watch('value')}
+          </Modal.Body>
+        </Modal.Content>
+      </Modal>
     </Layout>
   );
 };
