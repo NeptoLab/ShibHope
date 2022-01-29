@@ -28,7 +28,7 @@ const DonatePage: NextPage = () => {
       <Title>Donate</Title>
       <Text textAlign="center">You can donate any amount on our charity wallet that would be spreaded between all campaigns</Text>
       <Text textAlign="center">Your donation will be transferred to ShibHope charity wallet: <Link isExternal>{CHARITY_WALLET_ADDRESS}</Link></Text>
-      <View mx="auto" flex={1} mt={7} maxW={200}>
+      <View mx="auto" mt={7} w={["auto", "auto", "auto", "450px"]}>
         <FormControl>
           <FormControl.Label>Amount</FormControl.Label>
           <Controller
@@ -47,7 +47,7 @@ const DonatePage: NextPage = () => {
           />
           {errors.value && <Text>This is required.</Text>}
         </FormControl>
-        <Button mt={4} variant="glow" onPress={handleSubmit(handleDonate)}>Donate</Button>
+        <Button mt={4} mx="auto" maxW={250} variant="glow" onPress={handleSubmit(handleDonate)}>Donate</Button>
       </View>
       <Modal isOpen={donationModal.isOpen} onClose={donationModal.handleClose}>
         <Modal.Content>
