@@ -61,7 +61,7 @@ const IndexPage: NextPage = () => {
           <Title>
             Top Fundraisers
           </Title>
-          <HStack justifyContent={["center", "center", "center", "flex-start"]} m={-15} mt={7} mb={0} flexWrap="wrap">
+          <HStack justifyContent={["center", "center", "center", "flex-start"]} m={-15} mb={0} flexWrap="wrap">
             {data?.campaign.map((campaign) => <Campaign key={campaign.id} item={campaign} />)}
           </HStack>
           <Link href="/campaigns" passHref>
@@ -72,7 +72,7 @@ const IndexPage: NextPage = () => {
       <Title>
         Start Your Campaign
       </Title>
-      <HStack justifyContent={["center", "center", "center", "flex-start"]} m={-15} mt={7} flexWrap="wrap">
+      <HStack justifyContent={["center", "center", "center", "flex-start"]} m={-15} flexWrap="wrap">
         <Create category="charity" title="For Charity" />
         <Create category="donation" title="For People" />
         <Create category="crowdfunding" title="For Project" />
