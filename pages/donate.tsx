@@ -26,10 +26,10 @@ const DonatePage: NextPage = () => {
   return (
     <Layout>
       <Title>Donate</Title>
-      <Text textAlign="center">You can donate any amount on our charity wallet that would be spreaded between all campaigns</Text>
       <Text textAlign="center">
-        Your donation will be transferred to a special charity wallet:
-        <Link href="https://bscscan.com/address/0x45a164217DA69B98f9cCa828cF0f22dDe0E95582" isExternal>{CHARITY_WALLET_ADDRESS}</Link>
+        You can donate any amount on our
+        <Link href="https://bscscan.com/address/0x45a164217DA69B98f9cCa828cF0f22dDe0E95582" isExternal>charity wallet</Link>
+        that would be spreaded between all campaigns
       </Text>
       <View mx="auto" mt={7} alignItems="center" w={["100%", "100%", "100%", "450px"]}>
         <FormControl>
