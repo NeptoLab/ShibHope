@@ -4,8 +4,6 @@ import Footer from './Footer';
 import Header from './Header';
 
 const Layout: React.FC = ({ children }) => {
-  const theme: any = useTheme();
-  
   return (
     <VStack flex={1} position="static">
       <Header />
