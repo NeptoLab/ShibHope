@@ -27,7 +27,10 @@ const DonatePage: NextPage = () => {
     <Layout>
       <Title>Donate</Title>
       <Text textAlign="center">You can donate any amount on our charity wallet that would be spreaded between all campaigns</Text>
-      <Text textAlign="center">Your donation will be transferred to ShibHope charity wallet: <Link isExternal>{CHARITY_WALLET_ADDRESS}</Link></Text>
+      <Text textAlign="center">
+        Your donation will be transferred to a special charity wallet:
+        <Link href="https://bscscan.com/address/0x45a164217DA69B98f9cCa828cF0f22dDe0E95582" isExternal>{CHARITY_WALLET_ADDRESS}</Link>
+      </Text>
       <View mx="auto" mt={7} w={["auto", "auto", "auto", "450px"]}>
         <FormControl>
           <FormControl.Label>Amount</FormControl.Label>
