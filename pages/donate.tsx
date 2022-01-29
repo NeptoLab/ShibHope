@@ -32,9 +32,9 @@ const DonatePage: NextPage = () => {
       <View p={4}>
         <Title>Donate</Title>
         <Text textAlign="center">
-          You can donate any amount on our
-          {' '}<Link href="https://bscscan.com/address/0x45a164217DA69B98f9cCa828cF0f22dDe0E95582" isExternal>charity wallet</Link>{' '}
-          that would be spreaded between all campaigns
+          Donate any amount to our
+          {' '}<Link href="https://bscscan.com/address/0x45a164217DA69B98f9cCa828cF0f22dDe0E95582" isExternal>charity wallet</Link>{' '}!
+          These funds will be spread among all campaigns.
         </Text>
         <View mx="auto" mt={7} alignItems="center" w={["100%", "100%", "100%", "450px"]}>
           <FormControl>
