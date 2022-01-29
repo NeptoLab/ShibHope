@@ -50,7 +50,7 @@ const DonatePage: NextPage = () => {
           />
           {errors.value && <Text>This is required.</Text>}
         </FormControl>
-        <Button mt={4} mx="auto" maxW={250} variant="glow" onPress={handleSubmit(handleDonate)}>Donate</Button>
+        <Button mt={4} mx="auto" w={["100%", "100%", "100%", "250px"]} variant="glow" onPress={handleSubmit(handleDonate)}>Donate</Button>
       </View>
       <Modal isOpen={donationModal.isOpen} onClose={donationModal.handleClose}>
         <Modal.Content>
