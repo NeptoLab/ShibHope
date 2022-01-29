@@ -25,44 +25,46 @@ const DonatePage: NextPage = () => {
 
   return (
     <Layout>
-      <Title>Donate</Title>
-      <Text textAlign="center">
-        You can donate any amount on our
-        {' '}<Link href="https://bscscan.com/address/0x45a164217DA69B98f9cCa828cF0f22dDe0E95582" isExternal>charity wallet</Link>{' '}
-        that would be spreaded between all campaigns
-      </Text>
-      <View mx="auto" mt={7} alignItems="center" w={["100%", "100%", "100%", "450px"]}>
-        <FormControl>
-          <FormControl.Label>Amount</FormControl.Label>
-          <Controller
-            defaultValue={0}
-            control={control}
-            name="value"
-            rules={{
-            required: true,
-            }}
-            render={({ field: { value, ...fieldProps } }) => (
-              <>
-                <Input placeholder="XXXXX GRUMPYSHIB" value={value.toString()} {...fieldProps} />
-                <Text mt={2} color="gray.600" fontSize="8px">≈{(price * value).toFixed(2)}</Text>
-              </>
-            )}
-          />
-          {errors.value && <Text>This is required.</Text>}
-        </FormControl>
-        <Button mt={4} mx="auto" w={["100%", "100%", "100%", "250px"]} variant="glow" onPress={handleSubmit(handleDonate)}>Donate</Button>
+      <View p={4}>
+        <Title>Donate</Title>
+        <Text textAlign="center">
+          You can donate any amount on our
+          {' '}<Link href="https://bscscan.com/address/0x45a164217DA69B98f9cCa828cF0f22dDe0E95582" isExternal>charity wallet</Link>{' '}
+          that would be spreaded between all campaigns
+        </Text>
+        <View mx="auto" mt={7} alignItems="center" w={["100%", "100%", "100%", "450px"]}>
+          <FormControl>
+            <FormControl.Label>Amount</FormControl.Label>
+            <Controller
+              defaultValue={0}
+              control={control}
+              name="value"
+              rules={{
+              required: true,
+              }}
+              render={({ field: { value, ...fieldProps } }) => (
+                <>
+                  <Input placeholder="XXXXX GRUMPYSHIB" value={value.toString()} {...fieldProps} />
+                  <Text mt={2} color="gray.600" fontSize="8px">≈{(price * value).toFixed(2)}</Text>
+                </>
+              )}
+            />
+            {errors.value && <Text>This is required.</Text>}
+          </FormControl>
+          <Button mt={4} mx="auto" w={["100%", "100%", "100%", "250px"]} variant="glow" onPress={handleSubmit(handleDonate)}>Donate</Button>
+        </View>
+        <Modal isOpen={donationModal.isOpen} onClose={donationModal.handleClose}>
+          <Modal.Content>
+            <Modal.CloseButton />
+            <Modal.Header>
+              Thank You
+            </Modal.Header>
+            <Modal.Body p={4}>
+              You{"'"}ve successfully donated {watch('value')}
+            </Modal.Body>
+          </Modal.Content>
+        </Modal>
       </View>
-      <Modal isOpen={donationModal.isOpen} onClose={donationModal.handleClose}>
-        <Modal.Content>
-          <Modal.CloseButton />
-          <Modal.Header>
-            Thank You
-          </Modal.Header>
-          <Modal.Body p={4}>
-            You{"'"}ve successfully donated {watch('value')}
-          </Modal.Body>
-        </Modal.Content>
-      </Modal>
     </Layout>
   );
 };
