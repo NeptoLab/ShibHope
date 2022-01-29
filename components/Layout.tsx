@@ -10,6 +10,7 @@ const Layout: React.FC = ({ children }) => {
       <View maxW={[ '100%', '100%', '100%', '1170px' ]} mx="auto" my={10}>
         {children}
       </View>
+      <View flex={1} />
       <Footer />
     </VStack>
   );
