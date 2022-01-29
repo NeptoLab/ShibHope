@@ -1,4 +1,5 @@
 import { NextPage } from "next";
+import Head from "next/head";
 import { FormControl, Input, Modal, Text, View, Button, Link } from 'native-base';
 
 import React from "react";
@@ -25,6 +26,9 @@ const DonatePage: NextPage = () => {
 
   return (
     <Layout>
+      <Head>
+        <title>Donation | ShibHope</title>
+      </Head>
       <View p={4}>
         <Title>Donate</Title>
         <Text textAlign="center">
