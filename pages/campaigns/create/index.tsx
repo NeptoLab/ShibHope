@@ -3,13 +3,14 @@ import { NextPage } from "next";
 import React, { useState } from "react";
 import Layout from "components/Layout";
 import Block from "components/Block";
-import { Button, Checkbox, FormControl, Input, TextArea, View, HStack } from "native-base";
+import { Button, Checkbox, FormControl, Input, TextArea, View, HStack, Alert, VStack, Heading, Box } from "native-base";
 import { Controller, useForm } from "react-hook-form";
 import { Campaign_Insert_Input, Mutation_Root } from "types/models";
 import { gql, useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 import Upload from "components/Upload";
 import Tab from "components/Tab";
+import { useWeb3React } from "@web3-react/core";
 
 const CreateCampaignMutation = gql`
   mutation CreateCampaign($campaign: campaign_insert_input!) {
@@ -22,6 +23,7 @@ const CreateCampaignMutation = gql`
 type CampaignFormType = Omit<Campaign_Insert_Input, 'stakes'>;
 
 const CampaignCreatePage: NextPage = () => {
+  const { account } = useWeb3React();
   const { push, query: { slug } } = useRouter();
 
   const { handleSubmit, control, formState: { errors } } = useForm<CampaignFormType>();
@@ -40,6 +42,27 @@ const CampaignCreatePage: NextPage = () => {
   
   return (
     <Layout>
+      {!account && (
+        <Alert shadow={2} colorScheme="info" mb={4}>
+          <VStack space={1} flexShrink={1} w="100%">
+            <HStack flexShrink={1} space={2} alignItems="center" justifyContent="space-between">
+              <HStack space={2} flexShrink={1} alignItems="center">
+                <Alert.Icon />
+                <Heading fontSize="md" fontWeight="medium" color="coolGray.800">
+                  Wallet is not connected
+                </Heading>
+              </HStack>
+            </HStack>
+            <Box
+              pl="6"
+              _text={{ color: "coolGray.600" }}
+            >
+              You have not connected your wallet.
+              If you already have one, connect it using the «Connect Wallet» button.
+            </Box>
+          </VStack>
+        </Alert>
+      )}
       <Block flex={1} p={4}>
       <FormControl isInvalid={!!errors.email} mt={4}>
         <FormControl.Label _text={{ fontWeight: 'bold' }}>Email</FormControl.Label>
@@ -169,6 +192,7 @@ const CampaignCreatePage: NextPage = () => {
             <Button
               flex={1}
               minW={200}
+              isDisabled={!!account}
               isLoading={loading}
               isLoadingText="Creating..."
               disabled={!confirm}

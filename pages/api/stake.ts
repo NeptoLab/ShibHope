@@ -1,6 +1,6 @@
 import Web3 from 'web3';
 
-import fetch from "isomorphic-fetch"
+import fetch from "isomorphic-fetch";
 import { NextApiRequest, NextApiResponse } from 'next';
 import { Mutation_Root, Mutation_RootStake_CampaignArgs, Query_Root, StakeCampaignArgs } from "types/models";
 import { getTokenPrice } from 'services/token';
