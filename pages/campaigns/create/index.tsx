@@ -43,7 +43,7 @@ const CampaignCreatePage: NextPage = () => {
   return (
     <Layout>
       {!account && (
-        <Alert shadow={2} colorScheme="info" mb={4}>
+        <Alert shadow={2} colorScheme="warning" mb={4}>
           <VStack space={1} flexShrink={1} w="100%">
             <HStack flexShrink={1} space={2} alignItems="center" justifyContent="space-between">
               <HStack space={2} flexShrink={1} alignItems="center">
