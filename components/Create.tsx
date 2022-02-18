@@ -1,7 +1,7 @@
 import React from "react"
-import CharityImage from 'images/charity.png';
-import DonationImage from 'images/donation.png';
-import CrowdfundingImage from 'images/crowdfunding.png';
+import CharityImage from 'images/charity.webp';
+import DonationImage from 'images/donation.webp';
+import CrowdfundingImage from 'images/crowdfunding.webp';
 import {
   Heading,
   AspectRatio,
