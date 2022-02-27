@@ -29,7 +29,7 @@
     "graphql": "^16.2.0",
     "js-cookie": "^3.0.1",
     "local-reverse-geocoder": "^0.11.1",
-    "native-base": "^3.3.7",
+    "native-base": "3.3.4",
     "next": "12.1.0",
     "next-images": "^1.8.4",
     "next-with-apollo": "^5.2.1",
@@ -45,7 +45,6 @@
     "web3": "^1.6.1"
   },
   "devDependencies": {
-    "@babel/runtime": "^7.17.2",
     "@expo/next-adapter": "^3.1.20",
     "@types/cookie": "^0.4.1",
     "@types/isomorphic-fetch": "^0.0.35",
