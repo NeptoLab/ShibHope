@@ -16,6 +16,9 @@ const Header: React.FC = () => {
 
   const { active, account, library, activate, deactivate, connector, error } = useWeb3React();
   const { balance, price } = usePayment(library, account);
+
+  console.log(balance);
+
   const intl = useIntl();
 
   useEffect(() => {
@@ -96,13 +99,15 @@ const Header: React.FC = () => {
           )}>
             <Popover.Content p={4} accessibilityLabel="Delete Customerd" w="250px">
               <Popover.Arrow />
-              {balance && (
-                <>
-                  <Text fontSize="14px" fontWeight="bold">{`${(intl.formatNumber(balance / Math.pow(10, 18), {style: 'decimal'}))}`} GRUMPYSHIB</Text>
-                  <Text mt={1} color="gray.600" fontSize="12px">≈{intl.formatNumber(price * balance / Math.pow(10, 18), { style: 'currency', currency: 'USD' })}</Text>
-                </>
-              )}
-              <Button mt={4} onPress={handleDisconnect}>Disconnect</Button>
+              <Popover.Body>
+                {balance && (
+                  <>
+                    <Text fontSize="14px" fontWeight="bold">{`${(intl.formatNumber(balance / Math.pow(10, 18), {style: 'decimal'}))}`} GRUMPYSHIB</Text>
+                    <Text mt={1} color="gray.600" fontSize="12px">≈{intl.formatNumber(price * balance / Math.pow(10, 18), { style: 'currency', currency: 'USD' })}</Text>
+                  </>
+                )}
+                <Button mt={4} onPress={handleDisconnect}>Disconnect</Button>
+              </Popover.Body>
             </Popover.Content>
           </Popover>
         )}
