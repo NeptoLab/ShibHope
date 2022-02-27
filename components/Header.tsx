@@ -17,8 +17,6 @@ const Header: React.FC = () => {
   const { active, account, library, activate, deactivate, connector, error } = useWeb3React();
   const { balance, price } = usePayment(library, account);
 
-  console.log(balance);
-
   const intl = useIntl();
 
   useEffect(() => {
