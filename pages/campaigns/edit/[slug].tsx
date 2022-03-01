@@ -23,6 +23,8 @@ const UpdateCampaignMutation = gql`
 const GetCampaignQuery = gql`
   query GetCampaign($id: bigint!) {
     campaign_by_pk(id: $id) {
+      email
+      location
       title
       amount
       category
