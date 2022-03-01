@@ -89,10 +89,10 @@ const CampaignViewPage: NextPage = () => {
         <Text color="primary.700" fontWeight="bold">{data.campaign_by_pk.location}</Text>
         <Text ml="auto"><Text fontWeight="bold">Posted At:</Text> {intl.formatDate(data.campaign_by_pk.created_at)}</Text>
       </View>
-      <Heading mt={4} textAlign="left">{data.campaign_by_pk.title}</Heading>
+      <Heading my={4} textAlign="left">{data.campaign_by_pk.title}</Heading>
       <HStack justifyContent="center" flexWrap="wrap">
         <View flex={1}>
-          <Text mt={4}>
+          <Text>
             {data.campaign_by_pk.description}
           </Text>
           {data.comment.length > 0 && (
