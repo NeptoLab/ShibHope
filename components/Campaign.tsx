@@ -29,22 +29,22 @@ const Campaign: React.FC<{ item: ICampaign }> = ({ item }) => {
       </AspectRatio>
       <Stack p="4" space={3} flex={1}>
         <Stack space={2}>
+          <Text
+              textTransform="uppercase"
+              color="#6573FC"
+              fontWeight="bold"
+              fontSize="md"
+              my={1}
+            >
+              {item.location}
+          </Text>
           <Link passHref href={`/campaigns/${item.id}`}>
-            <Text
-                textTransform="uppercase"
-                color="#6573FC"
-                fontWeight="bold"
-                fontSize="md"
-                my={1}
-              >
-                {item.location}
-            </Text>
+            <Heading textAlign="left" size="sm">
+              {item.title}
+            </Heading>
           </Link>
-          <Heading textAlign="left" size="sm">
-            {item.title}
-          </Heading>
         </Stack>
-        <Text flex={1} fontWeight="400">
+        <Text flex={1} fontWeight="400" numberOfLines={5}>
           {item.description}
         </Text>
         {item.stakes_aggregate?.aggregate?.max?.created_at && (

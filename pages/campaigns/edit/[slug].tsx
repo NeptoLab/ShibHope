@@ -5,17 +5,31 @@ import Layout from "components/Layout";
 import Block from "components/Block";
 import { Button, Checkbox, FormControl, Input, TextArea, View, HStack, Alert, VStack, Heading, Box } from "native-base";
 import { Controller, useForm } from "react-hook-form";
-import { Campaign_Insert_Input, Mutation_Root } from "types/models";
-import { gql, useMutation } from "@apollo/client";
+import { Campaign_Insert_Input, Mutation_Root, Query_Root } from "types/models";
+import { gql, useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import Upload from "components/Upload";
 import Tab from "components/Tab";
 import { useWeb3React } from "@web3-react/core";
 
-const CreateCampaignMutation = gql`
-  mutation CreateCampaign($campaign: campaign_insert_input!) {
-    insert_campaign_one(object: $campaign) {
+const UpdateCampaignMutation = gql`
+  mutation UpdateCampaign($id: bigint!, $campaign: campaign_set_input!) {
+    update_campaign_by_pk(pk_columns: {id: $id}, _set: $campaign) {
       id
+    }
+  }
+`;
+
+const GetCampaignQuery = gql`
+  query GetCampaign($id: bigint!) {
+    campaign_by_pk(id: $id) {
+      title
+      amount
+      category
+      description
+      id
+      media
+      owner
     }
   }
 `;
@@ -25,50 +39,37 @@ type CampaignFormType = Omit<Campaign_Insert_Input, 'stakes'>;
 const CampaignCreatePage: NextPage = () => {
   const { account } = useWeb3React();
   const { push, query: { slug } } = useRouter();
-
   const { handleSubmit, control, formState: { errors } } = useForm<CampaignFormType>();
   const [ confirm, setConfirm ] = useState(false);
 
-  const [ createCampaign, { loading } ] = useMutation<Mutation_Root>(CreateCampaignMutation, { refetchQueries: ['getCampaigns', 'getIndex'] });
-  
+  const { data } = useQuery<Query_Root>(GetCampaignQuery, { variables: { id: slug } });
+  const [ updateCampaign, { loading } ] = useMutation<Mutation_Root>(UpdateCampaignMutation, { refetchQueries: ['getCampaigns', 'getIndex'] });
+
   const handleCreate = async (campaign: CampaignFormType) => {
-    const result = await createCampaign({
-      variables: { campaign }
+    if (!data?.campaign_by_pk) {
+      return;
+    }
+    const result = await updateCampaign({
+      variables: { campaign, id: data.campaign_by_pk.id }
     });
-    if (result.data?.insert_campaign_one?.id) {
-      push(`/campaigns/${result.data?.insert_campaign_one?.id}`);
+    if (result.data?.update_campaign_by_pk?.id) {
+      push(`/campaigns/${result.data?.update_campaign_by_pk?.id}`);
     }
   };
+
+  if (!data?.campaign_by_pk) {
+    return null;
+  }
   
   return (
     <Layout>
-      {!account && (
-        <Alert shadow={2} colorScheme="warning" mb={4}>
-          <VStack space={1} flexShrink={1} w="100%">
-            <HStack flexShrink={1} space={2} alignItems="center" justifyContent="space-between">
-              <HStack space={2} flexShrink={1} alignItems="center">
-                <Alert.Icon />
-                <Heading fontSize="md" fontWeight="medium" color="coolGray.800">
-                  Wallet is not connected
-                </Heading>
-              </HStack>
-            </HStack>
-            <Box
-              pl="6"
-              _text={{ color: "coolGray.600" }}
-            >
-              You have not connected your wallet.
-              If you already have one, connect it using the «Connect Wallet» button.
-            </Box>
-          </VStack>
-        </Alert>
-      )}
       <Block flex={1} p={4}>
       <FormControl isInvalid={!!errors.email} mt={4}>
         <FormControl.Label _text={{ fontWeight: 'bold' }}>Email</FormControl.Label>
           <Controller
             control={control}
             name="email"
+            defaultValue={data.campaign_by_pk.email}
             rules={{
               required: "Required Field",
               pattern: {
@@ -86,6 +87,7 @@ const CampaignCreatePage: NextPage = () => {
           <FormControl.Label _text={{ fontWeight: 'bold' }}>Description</FormControl.Label>
           <Controller
             control={control}
+            defaultValue={data.campaign_by_pk.title}
             name="title"
             rules={{
               required: "Required Field",
@@ -100,6 +102,7 @@ const CampaignCreatePage: NextPage = () => {
           <FormControl.Label _text={{ fontWeight: 'bold' }}>Location</FormControl.Label>
           <Controller
             control={control}
+            defaultValue={data.campaign_by_pk.location}
             name="location"
             rules={{
               required: "Required Field",
@@ -113,7 +116,7 @@ const CampaignCreatePage: NextPage = () => {
         <FormControl isInvalid={!!errors.media} mt={4}>
           <FormControl.Label _text={{ fontWeight: 'bold' }}>Media</FormControl.Label>
           <Controller
-            defaultValue={[]}
+            defaultValue={data.campaign_by_pk.media}
             control={control}
             name="media"
             render={({ field: fieldProps }) => (
@@ -125,7 +128,7 @@ const CampaignCreatePage: NextPage = () => {
         <FormControl isInvalid={!!errors.amount} mt={4}>
           <FormControl.Label _text={{ fontWeight: 'bold' }}>Amount (USD)</FormControl.Label>
           <Controller
-            defaultValue={0}
+            defaultValue={data.campaign_by_pk.amount}
             control={control}
             name="amount"
             rules={{
@@ -140,6 +143,7 @@ const CampaignCreatePage: NextPage = () => {
         <FormControl isInvalid={!!errors.description} mt={4}>
           <FormControl.Label _text={{ fontWeight: 'bold' }}>Description</FormControl.Label>
           <Controller
+            defaultValue={data.campaign_by_pk.description}
             control={control}
             rules={{
               required: "Required Field"
@@ -154,7 +158,7 @@ const CampaignCreatePage: NextPage = () => {
 
         <FormControl isInvalid={!!errors.category} mt={4} alignItems="center">
           <Controller
-            defaultValue={slug as string}
+            defaultValue={data.campaign_by_pk.category}
             control={control}
             name="category"
             rules={{
@@ -194,12 +198,12 @@ const CampaignCreatePage: NextPage = () => {
               minW={200}
               isDisabled={!!account}
               isLoading={loading}
-              isLoadingText="Creating..."
+              isLoadingText="Saving..."
               disabled={!confirm}
               variant="glow"
               onPress={handleSubmit(handleCreate)}
             >
-              Create Item
+              Save Item
             </Button>
           </HStack>
         </View>

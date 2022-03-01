@@ -61,7 +61,7 @@ const CampaignIndexPage: NextPage = () => {
 
   return (
     <Layout>
-      <Block px={4} py={2} minW={['100%', 250]} alignItems="center" flexDirection="row" flexWrap="wrap">
+      <Block px={4} py={2} alignItems="center" flexDirection="row" flexWrap="wrap">
         <FormControl alignItems="center" w="auto" minW={250} mr={4} flexDirection="row">
           <FormControl.Label _text={{ fontWeight: 'bold' }} m={0} mr={2}>Sort By:</FormControl.Label>
           <Select onValueChange={setSortBy} selectedValue={sortBy}>

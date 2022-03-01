@@ -12,8 +12,8 @@ import { Query_Root } from "types/models";
 import Link from "components/Link";
 import Loading from "components/Loading";
 
-const GetIndexQuery = gql`
-  query GetIndex {
+const getIndexQuery = gql`
+  query getIndex {
     campaign(limit: 3) {
       id
       amount
@@ -33,11 +33,16 @@ const GetIndexQuery = gql`
         }
       }
     }
+    campaign_aggregate {
+      aggregate {
+        count
+      }
+    }
   }
 `;
 
 const IndexPage: NextPage = () => {
-  const { data, loading, error } = useQuery<Query_Root>(GetIndexQuery);
+  const { data, loading, error } = useQuery<Query_Root>(getIndexQuery);
 
   if (loading) {
     return <Loading />;
@@ -64,9 +69,11 @@ const IndexPage: NextPage = () => {
           <HStack justifyContent={["center", "center", "center", "flex-start"]} m={-15} mb={0} flexWrap="wrap">
             {data?.campaign.map((campaign) => <Campaign key={campaign.id} item={campaign} />)}
           </HStack>
-          <Link href="/campaigns" passHref>
-            <Button w="270px" mx="auto" variant="outline" mt={4} mb={12}>View All</Button>
-          </Link>
+          {data.campaign_aggregate.aggregate?.count || 0 >= 3 && (
+            <Link href="/campaigns" passHref>
+              <Button w="270px" mx="auto" variant="outline" mt={4} mb={12}>View All</Button>
+            </Link>
+          )}
         </>
       )}
       <Title>
