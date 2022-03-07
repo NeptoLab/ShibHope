@@ -69,7 +69,7 @@ const IndexPage: NextPage = () => {
           <HStack justifyContent={["center", "center", "center", "flex-start"]} m={-15} mb={0} flexWrap="wrap">
             {data?.campaign.map((campaign) => <Campaign key={campaign.id} item={campaign} />)}
           </HStack>
-          {data.campaign_aggregate.aggregate?.count || 0 >= 3 && (
+          {(data.campaign_aggregate.aggregate?.count || 0) >= 3 && (
             <Link href="/campaigns" passHref>
               <Button w="270px" mx="auto" variant="outline" mt={4} mb={12}>View All</Button>
             </Link>
