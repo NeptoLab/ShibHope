@@ -1,5 +1,5 @@
-import { Factory } from "native-base";
-import * as React from "react"
+import { Factory } from 'native-base';
+import * as React from 'react';
 import Svg, {
   SvgProps,
   Path,

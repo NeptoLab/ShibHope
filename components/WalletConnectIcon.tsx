@@ -1,6 +1,6 @@
-import { Factory } from "native-base";
-import * as React from "react"
-import Svg, { SvgProps, Path } from "react-native-svg"
+import { Factory } from 'native-base';
+import * as React from 'react';
+import Svg, { SvgProps, Path } from 'react-native-svg';
 
 const WalletConnectIcon = (props: SvgProps) => (
   <Svg viewBox="0 0 300 185" {...props}>
@@ -10,6 +10,6 @@ const WalletConnectIcon = (props: SvgProps) => (
       fillRule="nonzero"
     />
   </Svg>
-)
+);
 
 export default Factory(WalletConnectIcon);

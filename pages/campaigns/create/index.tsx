@@ -1,16 +1,16 @@
-import { NextPage } from "next";
+import { NextPage } from 'next';
 
-import React, { useState } from "react";
-import Layout from "components/Layout";
-import Block from "components/Block";
-import { Button, Checkbox, FormControl, Input, TextArea, View, HStack, Alert, VStack, Heading, Box } from "native-base";
-import { Controller, useForm } from "react-hook-form";
-import { Campaign_Insert_Input, Mutation_Root } from "types/models";
-import { gql, useMutation } from "@apollo/client";
-import { useRouter } from "next/router";
-import Upload from "components/Upload";
-import Tab from "components/Tab";
-import { useWeb3React } from "@web3-react/core";
+import React, { useState } from 'react';
+import Layout from 'components/Layout';
+import Block from 'components/Block';
+import { Button, Checkbox, FormControl, Input, TextArea, View, HStack, Alert, VStack, Heading, Box } from 'native-base';
+import { Controller, useForm } from 'react-hook-form';
+import { Campaign_Insert_Input, Mutation_Root } from 'types/models';
+import { gql, useMutation } from '@apollo/client';
+import { useRouter } from 'next/router';
+import Upload from 'components/Upload';
+import Tab from 'components/Tab';
+import { useWeb3React } from '@web3-react/core';
 
 const CreateCampaignMutation = gql`
   mutation CreateCampaign($campaign: campaign_insert_input!) {
@@ -55,7 +55,7 @@ const CampaignCreatePage: NextPage = () => {
             </HStack>
             <Box
               pl="6"
-              _text={{ color: "coolGray.600" }}
+              _text={{ color: 'coolGray.600' }}
             >
               You have not connected your wallet.
               If you already have one, connect it using the «Connect Wallet» button.
@@ -70,10 +70,10 @@ const CampaignCreatePage: NextPage = () => {
             control={control}
             name="email"
             rules={{
-              required: "Required Field",
+              required: 'Required Field',
               pattern: {
                 value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                message: "invalid email address"
+                message: 'invalid email address'
               }
             }}
             render={({ field: { value, ...fieldProps } }) => (
@@ -88,7 +88,7 @@ const CampaignCreatePage: NextPage = () => {
             control={control}
             name="title"
             rules={{
-              required: "Required Field",
+              required: 'Required Field',
             }}
             render={({ field: { value, ...fieldProps } }) => (
               <Input placeholder="You Campaign Title" value={value || ''} {...fieldProps} />
@@ -102,7 +102,7 @@ const CampaignCreatePage: NextPage = () => {
             control={control}
             name="location"
             rules={{
-              required: "Required Field",
+              required: 'Required Field',
             }}
             render={({ field: { value, ...fieldProps } }) => (
               <Input placeholder="Location, where are you or your fund, is located" value={value || ''} {...fieldProps} />
@@ -129,7 +129,7 @@ const CampaignCreatePage: NextPage = () => {
             control={control}
             name="amount"
             rules={{
-              required: "Required Field",
+              required: 'Required Field',
             }}
             render={({ field: { value, ...fieldProps } }) => (
               <Input keyboardType="numeric" placeholder="XXX.XXX.XX USD" value={value} {...fieldProps} />
@@ -142,7 +142,7 @@ const CampaignCreatePage: NextPage = () => {
           <Controller
             control={control}
             rules={{
-              required: "Required Field"
+              required: 'Required Field'
             }}
             name="description"
             render={({ field: { value, ...fieldProps } }) => (
@@ -158,7 +158,7 @@ const CampaignCreatePage: NextPage = () => {
             control={control}
             name="category"
             rules={{
-              required: "Required Field"
+              required: 'Required Field'
             }}
             render={({ field: { ref, ...fieldProps } }) => (
               <Tab {...fieldProps}>

@@ -1,6 +1,6 @@
 import { Button, FormControl, HStack, Input, Modal, Text, TextArea } from 'native-base';
 import { Controller, useForm } from 'react-hook-form';
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import usePayment from 'hooks/usePayment';
 import { useWeb3React } from '@web3-react/core';
 import { IModalProps } from 'native-base/lib/typescript/components/composites/Modal';

@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Heading,
   AspectRatio,
@@ -6,14 +6,14 @@ import {
   Stack,
   Progress,
   Button,
-} from "native-base";
+} from 'native-base';
 import Image from 'components/Image';
-import { imageMap } from "components/Create";
-import Block from "components/Block";
+import { imageMap } from 'components/Create';
+import Block from 'components/Block';
 import type { Campaign as ICampaign } from 'types/models';
-import { useIntl } from "react-intl";
-import { useFormat } from "utils/format";
-import Link from "./Link";
+import { useIntl } from 'react-intl';
+import { useFormat } from 'utils/format';
+import Link from './Link';
 
 const Campaign: React.FC<{ item: ICampaign }> = ({ item }) => {
   const intl = useIntl();
@@ -64,7 +64,7 @@ const Campaign: React.FC<{ item: ICampaign }> = ({ item }) => {
         </Link>
       </Stack>
     </Block>
-  )
-}
+  );
+};
 
 export default Campaign;

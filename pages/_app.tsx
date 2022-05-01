@@ -1,13 +1,13 @@
-import { AppProps } from "next/app";
+import { AppProps } from 'next/app';
 import withApollo from 'utils/apollo';
-import { extendTheme, NativeBaseProvider } from "native-base";
-import { IntlProvider } from "react-intl";
-import { ApolloClient, ApolloProvider, NormalizedCacheObject } from "@apollo/client";
-import { useFonts } from "expo-font";
-import { Web3ReactProvider } from "@web3-react/core";
+import { extendTheme, NativeBaseProvider } from 'native-base';
+import { IntlProvider } from 'react-intl';
+import { ApolloClient, ApolloProvider, NormalizedCacheObject } from '@apollo/client';
+import { useFonts } from 'expo-font';
+import { Web3ReactProvider } from '@web3-react/core';
 import { AbstractProvider } from 'web3-core';
-import Web3 from "web3";
-import Loading from "components/Loading";
+import Web3 from 'web3';
+import Loading from 'components/Loading';
 import baseTheme from 'config/theme.json';
 
 const getLibrary = (provider: AbstractProvider) => {
@@ -49,6 +49,6 @@ const App = ({ Component, pageProps, apollo }: AppProps & { apollo: ApolloClient
       </IntlProvider>
     </ApolloProvider>
   );
-}
+};
 
 export default withApollo(App);

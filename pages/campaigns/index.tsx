@@ -1,13 +1,13 @@
-import { NextPage } from "next";
+import { NextPage } from 'next';
 
 import { HStack, Select, FormControl } from 'native-base';
-import React, { useState } from "react";
-import Layout from "components/Layout";
-import Campaign from "components/Campaign";
-import Block from "components/Block";
-import { gql, useQuery } from "@apollo/client";
-import { Query_Root } from "types/models";
-import Loading from "components/Loading";
+import React, { useState } from 'react';
+import Layout from 'components/Layout';
+import Campaign from 'components/Campaign';
+import Block from 'components/Block';
+import { gql, useQuery } from '@apollo/client';
+import { Query_Root } from 'types/models';
+import Loading from 'components/Loading';
 
 const GetCampaignsQuery = gql`
   query GetCampaigns($order: [campaign_order_by!], $where: campaign_bool_exp!) {
@@ -34,8 +34,8 @@ const GetCampaignsQuery = gql`
 `;
 
 const getWhereByValue = (value: string) => {
-  if (value === 'opened') return { "status": { "_eq": true  } };
-  if (value === 'closed') return { "status": { "_eq": false } };
+  if (value === 'opened') return { 'status': { '_eq': true  } };
+  if (value === 'closed') return { 'status': { '_eq': false } };
   return {};
 };
 
@@ -78,7 +78,7 @@ const CampaignIndexPage: NextPage = () => {
           </Select>
         </FormControl>
       </Block>
-      <HStack m="-15px" justifyContent={["center", "center", "center", "flex-start"]} mt={7} flexWrap="wrap">
+      <HStack m="-15px" justifyContent={['center', 'center', 'center', 'flex-start']} mt={7} flexWrap="wrap">
         {data?.campaign.map((campaign) => <Campaign key={campaign.id} item={campaign} />
         )}
       </HStack>

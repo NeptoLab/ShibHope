@@ -1,5 +1,5 @@
 import { HStack, Text } from 'native-base';
-import React from 'react'
+import React from 'react';
 import type { Stake as TStake } from 'types/models';
 import Block from './Block';
 

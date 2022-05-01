@@ -1,6 +1,6 @@
-import { Factory } from "native-base";
-import * as React from "react"
-import Svg, { SvgProps, Path } from "react-native-svg"
+import { Factory } from 'native-base';
+import * as React from 'react';
+import Svg, { SvgProps, Path } from 'react-native-svg';
 
 const MetaMaskIcon = (props: SvgProps) => (
   <Svg
@@ -53,6 +53,6 @@ const MetaMaskIcon = (props: SvgProps) => (
       d="m180.392 103.99 55.913 16.28 18.165 55.985h-47.924l-33.02.416 24.014-46.808zM75.608 103.99l-17.151 25.873 24.017 46.808-33.005-.416H1.631l18.063-55.985zM163.384 33.112l-15.64 42.239-3.318 57.06-1.27 17.885-.1 45.688h-30.112l-.098-45.602-1.274-17.986-3.32-57.045-15.637-42.24z"
     />
   </Svg>
-)
+);
 
 export default Factory(MetaMaskIcon);

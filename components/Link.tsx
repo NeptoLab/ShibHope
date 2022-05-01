@@ -12,7 +12,7 @@ const Link: React.FC<LinkProps> = ({ passHref, href, as, children, ...restProps 
     onPress: (e: React.SyntheticEvent) => {
       e.preventDefault();
 
-      if (as === "_blank") {
+      if (as === '_blank') {
         window.open(href as string);
         return;
       }

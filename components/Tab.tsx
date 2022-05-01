@@ -1,6 +1,6 @@
-import { Box, HStack, Text } from "native-base";
-import { IHStackProps } from "native-base/lib/typescript/components/primitives/Stack/HStack";
-import React, { useContext } from "react";
+import { Box, HStack, Text } from 'native-base';
+import { IHStackProps } from 'native-base/lib/typescript/components/primitives/Stack/HStack';
+import React, { useContext } from 'react';
 
 const TabContext = React.createContext({
   value: undefined as unknown,
@@ -23,7 +23,7 @@ const Item: React.FC<{ value: unknown }> = ({ children, value }) => {
     alignItems: 'center',
     fontWeight: 'bold',
     p: 4,
-    bgColor: "#F7F8F9",
+    bgColor: '#F7F8F9',
     _text: { color: '#A8A9AA' },
     ...activeValue === value && (
       {
@@ -42,7 +42,7 @@ const Item: React.FC<{ value: unknown }> = ({ children, value }) => {
         {children}
       </Box>
     </Text>
-  )
+  );
 };
 
 export default Object.assign(Tab, {

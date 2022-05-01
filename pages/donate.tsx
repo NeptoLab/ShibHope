@@ -1,14 +1,14 @@
-import { NextPage } from "next";
-import Head from "next/head";
+import { NextPage } from 'next';
+import Head from 'next/head';
 import { FormControl, Input, Modal, Text, View, Button, Link } from 'native-base';
 
-import React from "react";
-import Layout from "components/Layout";
-import Title from "components/Title";
-import { Controller, useForm } from "react-hook-form";
-import useModal from "hooks/useModal";
-import usePayment from "hooks/usePayment";
-import { useWeb3React } from "@web3-react/core";
+import React from 'react';
+import Layout from 'components/Layout';
+import Title from 'components/Title';
+import { Controller, useForm } from 'react-hook-form';
+import useModal from 'hooks/useModal';
+import usePayment from 'hooks/usePayment';
+import { useWeb3React } from '@web3-react/core';
 
 const CHARITY_WALLET_ADDRESS = '0x45a164217DA69B98f9cCa828cF0f22dDe0E95582';
 
@@ -22,7 +22,7 @@ const DonatePage: NextPage = () => {
     const result = await send(value, CHARITY_WALLET_ADDRESS);
     if (result) {
     }
-  }
+  };
 
   return (
     <Layout>
@@ -36,7 +36,7 @@ const DonatePage: NextPage = () => {
           {' '}<Link href="https://bscscan.com/address/0x45a164217DA69B98f9cCa828cF0f22dDe0E95582" isExternal>charity wallet</Link>!
           These funds will be spread among all campaigns.
         </Text>
-        <View mx="auto" mt={7} alignItems="center" w={["100%", "100%", "100%", "450px"]}>
+        <View mx="auto" mt={7} alignItems="center" w={['100%', '100%', '100%', '450px']}>
           <FormControl>
             <FormControl.Label>Amount</FormControl.Label>
             <Controller
@@ -55,7 +55,7 @@ const DonatePage: NextPage = () => {
             />
             {errors.value && <Text>This is required.</Text>}
           </FormControl>
-          <Button mt={4} mx="auto" w={["100%", "100%", "100%", "250px"]} variant="glow" onPress={handleSubmit(handleDonate)}>Donate</Button>
+          <Button mt={4} mx="auto" w={['100%', '100%', '100%', '250px']} variant="glow" onPress={handleSubmit(handleDonate)}>Donate</Button>
         </View>
         <Modal isOpen={donationModal.isOpen} onClose={donationModal.handleClose}>
           <Modal.Content>

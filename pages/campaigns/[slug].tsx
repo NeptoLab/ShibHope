@@ -1,18 +1,18 @@
-import { NextPage } from "next";
-import { gql, useQuery } from "@apollo/client";
-import { useIntl } from "react-intl";
-import { useRouter } from "next/router";
+import { NextPage } from 'next';
+import { gql, useQuery } from '@apollo/client';
+import { useIntl } from 'react-intl';
+import { useRouter } from 'next/router';
 import Error from 'next/error';
-import React from "react";
-import Layout from "components/Layout";
-import { View, Text, Heading, HStack, VStack, Button, useTheme, Alert, Box } from "native-base";
-import Comment from "components/Comment";
-import Stake from "components/Stake";
-import StakeModal from "components/StakeModal";
-import useModal from "hooks/useModal";
-import { Query_Root } from "types/models";
-import Gallery from "components/Gallery";
-import Loading from "components/Loading";
+import React from 'react';
+import Layout from 'components/Layout';
+import { View, Text, Heading, HStack, VStack, Button, useTheme, Alert, Box } from 'native-base';
+import Comment from 'components/Comment';
+import Stake from 'components/Stake';
+import StakeModal from 'components/StakeModal';
+import useModal from 'hooks/useModal';
+import { Query_Root } from 'types/models';
+import Gallery from 'components/Gallery';
+import Loading from 'components/Loading';
 
 const GetCampaignQuery = gql`
   query GetCampaign($id: bigint!) {
@@ -59,7 +59,7 @@ const CampaignViewPage: NextPage = () => {
   }
 
   if (!data?.campaign_by_pk) {
-    return <Error statusCode={404} />
+    return <Error statusCode={404} />;
   }
 
   return (
@@ -76,7 +76,7 @@ const CampaignViewPage: NextPage = () => {
             <Box
               pl="6"
               _text={{
-                color: "coolGray.600",
+                color: 'coolGray.600',
               }}
             >
               This campaign is just created and currently in a preview mode. Please give us 2-7 business days to verify your email and campaign details.

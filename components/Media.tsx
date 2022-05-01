@@ -1,8 +1,8 @@
 import React from 'react';
-import { IImageProps, View, IconButton } from "native-base";
+import { IImageProps, View, IconButton } from 'native-base';
 import Image from 'components/Image';
 import { MaterialIcons } from '@expo/vector-icons';
-import type { ImageInfo } from "expo-image-picker";
+import type { ImageInfo } from 'expo-image-picker';
 
 export type MediaInfo = { id: string } & Partial<ImageInfo>;
 

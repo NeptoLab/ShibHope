@@ -1,16 +1,16 @@
-import { NextPage } from "next";
+import { NextPage } from 'next';
 
 import { Button, Heading, HStack } from 'native-base';
-import React from "react";
-import Cover from "components/Cover";
-import Layout from "components/Layout";
-import Title from "components/Title";
-import Campaign from "components/Campaign";
-import Create from "components/Create";
-import { gql, useQuery } from "@apollo/client";
-import { Query_Root } from "types/models";
-import Link from "components/Link";
-import Loading from "components/Loading";
+import React from 'react';
+import Cover from 'components/Cover';
+import Layout from 'components/Layout';
+import Title from 'components/Title';
+import Campaign from 'components/Campaign';
+import Create from 'components/Create';
+import { gql, useQuery } from '@apollo/client';
+import { Query_Root } from 'types/models';
+import Link from 'components/Link';
+import Loading from 'components/Loading';
 
 const getIndexQuery = gql`
   query getIndex {
@@ -66,7 +66,7 @@ const IndexPage: NextPage = () => {
           <Title>
             Top Fundraisers
           </Title>
-          <HStack justifyContent={["center", "center", "center", "flex-start"]} m={-15} mb={0} flexWrap="wrap">
+          <HStack justifyContent={['center', 'center', 'center', 'flex-start']} m={-15} mb={0} flexWrap="wrap">
             {data?.campaign.map((campaign) => <Campaign key={campaign.id} item={campaign} />)}
           </HStack>
           {(data.campaign_aggregate.aggregate?.count || 0) >= 3 && (
@@ -79,7 +79,7 @@ const IndexPage: NextPage = () => {
       <Title>
         Start Your Campaign
       </Title>
-      <HStack justifyContent={["center", "center", "center", "flex-start"]} m={-15} flexWrap="wrap">
+      <HStack justifyContent={['center', 'center', 'center', 'flex-start']} m={-15} flexWrap="wrap">
         <Create category="charity" title="For Charity" />
         <Create category="donation" title="For People" />
         <Create category="crowdfunding" title="For Project" />

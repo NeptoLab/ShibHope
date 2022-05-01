@@ -1,4 +1,4 @@
-import React from "react"
+import React from 'react';
 import CharityImage from 'images/webp/charity.webp';
 import DonationImage from 'images/webp/donation.webp';
 import CrowdfundingImage from 'images/webp/crowdfunding.webp';
@@ -8,9 +8,9 @@ import {
   Image,
   Button,
   VStack,
-} from "native-base"
-import Block from "./Block";
-import Link from "./Link";
+} from 'native-base';
+import Block from './Block';
+import Link from './Link';
 
 export const imageMap = {
   charity: CharityImage,
@@ -38,7 +38,7 @@ const Create: React.FC<{ title: string, category: keyof typeof imageMap }> = ({ 
         </Link>
       </VStack>
     </Block>
-  )
-}
+  );
+};
 
 export default Create;

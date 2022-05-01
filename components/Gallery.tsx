@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { AspectRatio, Pressable } from 'native-base';
 import Image from 'components/Image';
-import type { MediaInfo } from "components/Media";
+import type { MediaInfo } from 'components/Media';
 
 const Gallery: React.FC<{ media: MediaInfo[] }> = ({ media }) => {
   const [index, setIndex] = useState(0);
@@ -34,7 +34,7 @@ const Gallery: React.FC<{ media: MediaInfo[] }> = ({ media }) => {
         </Pressable>
       ))}
     </>
-  )
+  );
 };
 
 Gallery.displayName = 'Gallery';

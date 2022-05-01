@@ -1,6 +1,6 @@
-import { View, Center } from "native-base";
-import { IViewProps } from "native-base/lib/typescript/components/basic/View/types";
-import * as React from "react"
+import { View, Center } from 'native-base';
+import { IViewProps } from 'native-base/lib/typescript/components/basic/View/types';
+import * as React from 'react';
 import Svg, {
   Mask,
   Rect,
@@ -10,7 +10,7 @@ import Svg, {
   LinearGradient,
   Stop,
   TMaskUnits,
-} from "react-native-svg"
+} from 'react-native-svg';
 
 const Cover: React.FC<IViewProps> = ({ children, ...props }) => (
   <View position="relative" {...props}>
@@ -28,7 +28,7 @@ const Cover: React.FC<IViewProps> = ({ children, ...props }) => (
     >
       <Mask
         id="a"
-        maskUnits={"userSpaceOnUse" as TMaskUnits}
+        maskUnits={'userSpaceOnUse' as TMaskUnits}
         x={0}
         y={0}
         width={1170}
@@ -59,6 +59,6 @@ const Cover: React.FC<IViewProps> = ({ children, ...props }) => (
       </Defs>
     </Svg>
   </View>
-)
+);
 
 export default Cover;

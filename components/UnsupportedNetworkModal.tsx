@@ -1,5 +1,5 @@
-import { AlertDialog, Button, IModalProps } from 'native-base'
-import React, { useRef } from 'react'
+import { AlertDialog, Button, IModalProps } from 'native-base';
+import React, { useRef } from 'react';
 
 const UnsupportedNetworkModal: React.FC<Pick<IModalProps, 'onClose' | 'isOpen'> & { onSwitchNetwork: () => void }> = ({ onClose, onSwitchNetwork, ...props }) => {
   const closeRef = useRef();
@@ -7,7 +7,7 @@ const UnsupportedNetworkModal: React.FC<Pick<IModalProps, 'onClose' | 'isOpen'> 
   const handleSwitchNetwork = async () => {
     await onSwitchNetwork();
     onClose();
-  }
+  };
 
   return (
     <AlertDialog leastDestructiveRef={closeRef} onClose={onClose} {...props}>
@@ -34,7 +34,7 @@ const UnsupportedNetworkModal: React.FC<Pick<IModalProps, 'onClose' | 'isOpen'> 
           </AlertDialog.Footer>
         </AlertDialog.Content>
       </AlertDialog>
-  )
-}
+  );
+};
 
-export default UnsupportedNetworkModal
+export default UnsupportedNetworkModal;

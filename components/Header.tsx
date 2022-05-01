@@ -37,10 +37,10 @@ const Header: React.FC = () => {
 
   const handleSwitchNetwork = async () => {  
     connector && await (await connector.getProvider()).request({
-      method: "wallet_switchEthereumChain",
-      params: [{ chainId: "0x38" }]
+      method: 'wallet_switchEthereumChain',
+      params: [{ chainId: '0x38' }]
     });
-  }
+  };
 
   useEffect(() => {
     if (cookie.get('provider')) {
@@ -74,16 +74,16 @@ const Header: React.FC = () => {
               height: '100%',
               bg: {
                 linearGradient: {
-                  colors: ["#9D50F1", "#6573FC"],
+                  colors: ['#9D50F1', '#6573FC'],
                   start: [0, 0],
                   end: [1, 0],
                 },
               }
             }}
             _text={{
-              fontSize: "md",
-              fontWeight: "bold",
-              color: "white",
+              fontSize: 'md',
+              fontWeight: 'bold',
+              color: 'white',
             }}
             onPress={web3Modal.handleOpen}
           >

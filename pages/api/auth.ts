@@ -1,4 +1,4 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextApiRequest, NextApiResponse } from 'next';
 import * as util from 'ethereumjs-util';
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -6,7 +6,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
   if (!req.headers.authorization) {
     return res.json({
-      "X-Hasura-Role": "user"
+      'X-Hasura-Role': 'user'
     });
   }
 
@@ -18,7 +18,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   console.log('user', address);
 
   return res.json({
-    "X-Hasura-User-Id": address,
-    "X-Hasura-Role": "user"
+    'X-Hasura-User-Id': address,
+    'X-Hasura-Role': 'user'
   });
 }

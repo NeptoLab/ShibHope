@@ -1,8 +1,8 @@
 import Web3 from 'web3';
 
-import fetch from "isomorphic-fetch";
+import fetch from 'isomorphic-fetch';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { Mutation_Root, Mutation_RootStake_CampaignArgs, Query_Root, StakeCampaignArgs } from "types/models";
+import { Mutation_Root, Mutation_RootStake_CampaignArgs, Query_Root, StakeCampaignArgs } from 'types/models';
 import { getTokenPrice } from 'services/token';
 
 const STAKE_CAMPAIGN_MUTATION = `
@@ -37,7 +37,7 @@ const GET_CAMPAIGN_QUERY = `
 
 const getCampaign = async (id: number) => {
   const response = await fetch(
-    "https://shibhope.hasura.app/v1/graphql",
+    'https://shibhope.hasura.app/v1/graphql',
     {
       method: 'POST',
       body: JSON.stringify({
@@ -63,7 +63,7 @@ const getCampaign = async (id: number) => {
 
 const stakeCampaign = async ({ text, ...variables }: StakeCampaignArgs & { amount: number, owner: string }, headers: any) => {
   const response = await fetch(
-    "https://shibhope.hasura.app/v1/graphql",
+    'https://shibhope.hasura.app/v1/graphql',
     {
       method: 'POST',
       body: JSON.stringify({

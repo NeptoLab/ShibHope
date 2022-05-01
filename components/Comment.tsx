@@ -1,5 +1,5 @@
 import { Avatar, HStack, View, Text } from 'native-base';
-import React from 'react'
+import React from 'react';
 import type { Comment as TComment } from 'types/models';
 import Block from './Block';
 
@@ -9,7 +9,7 @@ const Comment: React.FC<{ item: TComment }> = ({ item }) => {
       <HStack space={4}>
         <Avatar
           bg={{ linearGradient: {
-            colors: ["#9D50F1", "#6573FC"],
+            colors: ['#9D50F1', '#6573FC'],
             start: [0, 0],
             end: [0, 1],
             }
